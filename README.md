@@ -2,7 +2,7 @@
 
 ### Info about me:
 - I'm from Israel
-- I’m currently learning C++.
+- I’m currently learning C.
 - Ceo & Developer @ [Electro Development](http://electrodev.xyz/)
 - Owner & Developer of  [Arcade](https://discord.com/api/oauth2/authorize?client_id=932902125590151168&permissions=8&scope=bot)
 - Working on [Arcade's](https://discord.com/api/oauth2/authorize?client_id=932902125590151168&permissions=8&scope=bot) Dashboard & new systems.
