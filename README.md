@@ -2,8 +2,7 @@
 
 ### Info about me:
 - I'm from Israel
-- I’m currently learning C.
-- Ceo & Developer @ [Mortal Development](https://discord.gg/UXxC2F4rVx)
+- I’m currently learning JS.
 ---
 
 ### Social Media:
