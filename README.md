@@ -1,10 +1,5 @@
 ## Some Info About Me | ItsBlackZlol
 
-### Info about me:
-- I'm from Israel
-- I’m currently learning JS.
----
-
 ### Social Media:
 
 [<img align="left" alt="codeSTACKr | Steam" width="22px" src="https://cdn.jsdelivr.net/npm/simple-icons@v3/icons/steam.svg" />][steam]
