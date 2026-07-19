@@ -1,18 +1,51 @@
-## Some Info About Me | ItsBlackZlol
+# Hey, I'm Netanel 👋
 
-### Social Media:
+**Automating everything that shouldn't be done twice.**
 
-[<img align="left" alt="codeSTACKr | Steam" width="22px" src="https://cdn.jsdelivr.net/npm/simple-icons@v3/icons/steam.svg" />][steam]
-[<img align="left" alt="codeSTACKr | Discord" width="22px" src="https://cdn.jsdelivr.net/npm/simple-icons@v3/icons/discord.svg" />][discord]
+I'm a developer from Israel, currently in my **3rd year of [Magshimim](https://www.magshimim.cyber.org.il/)**, Israel's national cyber & programming excellence program, where I'm building an **operating system** as my final project. Outside the program, I build automation systems and tooling that run real e-commerce operations 24/7.
 
-<br/>
+## 🎓 Magshimim track
+
+Three years of deep-diving into how computers actually work:
+
+- **Python & networking** - sockets, protocols, and building real tools
+- **C & C++** - memory, pointers, and low-level programming ([gifMaker](https://github.com/netanelyan/gifMaker) built with raylib, [DebugWorkshop](https://github.com/netanelyan/DebugWorkshop))
+- **Networking & systems** - [magshimim-trivia](https://github.com/netanelyan/magshimim-trivia): a multiplayer trivia game with a **C++ server** and **C#/WPF client** communicating over a custom binary TCP protocol, backed by SQLite, with a Python test client for the protocol
+- **Assembly & OS internals** - final project: writing an **operating system from scratch** 🧠, from bootloader to kernel
+
+## 🔧 What I build on my own
+
+- 🤖 **Telegram bots & automation pipelines** - deal monitoring, affiliate link processing, AI-powered content, deployed on a VPS with pm2 (private repo, running in production)
+- 🛒 **E-commerce tooling** - order workflows, supplier automation, storefronts ([brickdeal-webpage](https://github.com/netanelyan/brickdeal-webpage), [clutch-webpage](https://github.com/netanelyan/clutch-webpage))
+- ⚙️ **Whatever saves me a click** - if I did it twice manually, it becomes a script
+
+## 📌 More projects
+
+| Project | What it is |
+|---|---|
+| [simple-browser](https://github.com/netanelyan/simple-browser) | A custom web browser built with C# Windows Forms |
+| [csgo-stattrak](https://github.com/netanelyan/csgo-stattrak) | Counter-Strike stats checker in Python |
+| [discord-rpc](https://github.com/netanelyan/discord-rpc) | Discord Rich Presence experiments in Python |
+
+## 📊 Stats
+
+<p align="center">
+  <img height="165" src="https://github-readme-stats.vercel.app/api?username=netanelyan&show_icons=true&theme=github_dark&hide_border=true&count_private=true" alt="GitHub stats" />
+  <img height="165" src="https://github-readme-stats.vercel.app/api/top-langs/?username=netanelyan&layout=compact&theme=github_dark&hide_border=true&langs_count=8" alt="Top languages" />
+</p>
+
+<p align="center">
+  <img src="https://streak-stats.demolab.com?user=netanelyan&theme=github-dark-blue&hide_border=true" alt="Contribution streak" />
+</p>
+
+## 🧰 Stack
+
+`Assembly` · `C/C++` · `Python` · `Node.js` · `JavaScript` · `C#` · `HTML/CSS` · REST APIs · Linux/VPS
+
+## 📫 Find me
+
+- Instagram: [@netanel.yan](https://www.instagram.com/netanel.yan/)
 
 ---
 
-### My github stats:
-
-<img align="left" alt="ItsBlackZlol's Github Stats" src="https://github-readme-stats.vercel.app/api?username=netanelyan&show_icons=true&hide_border=true&theme=synthwave" /> <br>
-<img width="350" src="https://github-readme-stats.vercel.app/api/top-langs/?username=netanelyan&layout=compact&theme=synthwave" />
-
-[steam]: https://steamcommunity.com/profiles/76561199132601388/
-[discord]: https://discord.gg/XvEpJZBsAy
+*"If it can be automated, it will be."*
