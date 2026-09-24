@@ -8,7 +8,7 @@ Developer from Israel, currently in my **3rd year of [Magshimim](https://www.mag
 
 ## 🚀 What I'm building
 
-### [manhattan-project](https://github.com/netanelyan/manhattan-project) - a chip layout viewer in the browser
+### [manhattan](https://github.com/netanelyan/manhattan) - a chip layout viewer in the browser
 Pan and zoom a chip die like a street map, from the whole design down to the rectangles inside a single cell. The layouts are far too large to hand to a GPU whole, so the data is a **tile pyramid in three representations** and the viewer picks a level from the zoom against a measured budget of **~2M rectangles at 60fps**. Tiles are binary and read as typed-array views straight over the bytes, so nothing is parsed at runtime. Block instancing turns a 349M-placement chip view into **one tile fetch and 70 draw calls**. Tested on a real ISPD 2015 design: 4,634 macros, 680,869 components.
 
 `C → WebAssembly` · `WebGL2` · `JavaScript` · no build step, no dependencies
@@ -24,8 +24,8 @@ Live at **[tiyulplus.com](https://www.tiyulplus.com)**. Tell it where, when and 
 `TypeScript` · `Next.js` · `Supabase` · `Claude API`
 
 <p align="center">
-  <a href="https://github.com/netanelyan/manhattan-project">
-    <img src="https://github-stats-extended.vercel.app/api/pin/?username=netanelyan&repo=manhattan-project&theme=github_dark&hide_border=true" alt="manhattan-project" />
+  <a href="https://github.com/netanelyan/manhattan">
+    <img src="https://github-stats-extended.vercel.app/api/pin/?username=netanelyan&repo=manhattan&theme=github_dark&hide_border=true" alt="manhattan" />
   </a>
   <a href="https://github.com/netanelyan/nyrf-os">
     <img src="https://github-stats-extended.vercel.app/api/pin/?username=netanelyan&repo=nyrf-os&theme=github_dark&hide_border=true" alt="nyrf-os" />
