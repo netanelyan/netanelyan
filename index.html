@@ -144,6 +144,16 @@ section > h2 {
 }
 .prose p { margin: 0 0 16px; max-width: 64ch; }
 .prose p:last-child { margin-bottom: 0; }
+.intro { display: grid; grid-template-columns: 120px 1fr; gap: 28px; align-items: start; }
+.intro:has(> div:only-child) { grid-template-columns: 1fr; }
+.avatar {
+  display: block;
+  width: 120px; height: 120px;
+  border: 1px solid var(--ink);
+  background: var(--panel);
+  box-shadow: 4px 4px 0 var(--m1);
+}
+.avatar img { display: block; width: 100%; height: 100%; object-fit: cover; }
 .facts {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -236,6 +246,8 @@ footer {
   .project .desc, .project .links { grid-column: 2; }
   .project .links { flex-direction: row; gap: 16px; align-items: center; margin-top: 4px; }
   .facts { grid-template-columns: 1fr; }
+  .intro { grid-template-columns: 1fr; gap: 20px; }
+  .avatar { width: 88px; height: 88px; }
   .stack dl { grid-template-columns: 1fr; gap: 2px; }
   .stack dd { margin-bottom: 10px; }
 }
@@ -269,8 +281,15 @@ footer {
   <section class="prose" aria-labelledby="about-h">
     <h2 id="about-h">About</h2>
     <div>
-      <p>I'm a developer from Israel in my third year of <a href="https://www.magshimim.cyber.org.il/">Magshimim</a>, the national cyber and programming excellence program. Most of my time goes into low-level systems: a renderer for chip layouts too big to fit on a GPU, and an operating system written from the bootloader up.</p>
-      <p>The rest goes into products and automation. I run a small group of web businesses, and anything I do twice by hand becomes a script that runs without me.</p>
+      <div class="intro">
+        <a class="avatar" href="https://github.com/netanelyan" aria-label="Netanel on GitHub">
+          <img src="https://github.com/netanelyan.png?size=240" alt="Netanel's GitHub profile picture" width="120" height="120" loading="lazy" onerror="this.parentElement.remove()">
+        </a>
+        <div>
+          <p>I'm a developer from Israel in my third year of <a href="https://www.magshimim.cyber.org.il/">Magshimim</a>, the national cyber and programming excellence program. Most of my time goes into low-level systems: a renderer for chip layouts too big to fit on a GPU, and an operating system written from the bootloader up.</p>
+          <p>The rest goes into products and automation. I run a small group of web businesses, and anything I do twice by hand becomes a script that runs without me.</p>
+        </div>
+      </div>
       <div class="facts">
         <div><h3>Magshimim, year 3</h3><p>Python and networking, C and C++, Assembly and OS internals.</p></div>
         <div><h3>Bar-Ilan University</h3><p>Academic courses since 2024, alongside high school.</p></div>
