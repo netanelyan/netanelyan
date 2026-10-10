@@ -37,8 +37,8 @@
 ## 📊 Stats
 
 <p align="center">
-  <a href="https://githubtrends.io"><img src="https://api.githubtrends.io/user/svg/netanelyan/langs?time_range=one_year&include_private=true&loc_metric=changed&theme=dark" alt="Top languages by lines of code"/></a>
-  <a href="https://githubtrends.io"><img src="https://api.githubtrends.io/user/svg/netanelyan/repos?time_range=one_year&include_private=true&group=private&loc_metric=changed&theme=dark" alt="Top repos by lines of code"/></a>
+  <img height="165" src="https://github-stats-extended.vercel.app/api?username=netanelyan&show_icons=true&theme=github_dark&hide_border=true&count_private=true&include_all_commits=true&rank_icon=github&show=prs_merged" alt="GitHub stats"/>
+  <img height="165" src="https://github-stats-extended.vercel.app/api/top-langs/?username=netanelyan&layout=compact&theme=github_dark&hide_border=true&langs_count=8&hide=html,css" alt="Top languages"/>
 </p>
 
 <p align="center">
