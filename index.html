@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Netanel Yan</title>
-<meta name="description" content="Netanel Yan, systems developer from Israel. Chip layout rendering, an OS from scratch, AI products and automation.">
+<title>Netanel Yanchevsky</title>
+<meta name="description" content="Netanel Yanchevsky (Netanel Yan), software developer from Israel. Chip layout rendering, an OS from scratch, AI products and automation.">
 <link rel="icon" type="image/png" href="https://github.com/netanelyan.png?size=64">
 <link rel="apple-touch-icon" href="https://github.com/netanelyan.png?size=180">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -166,6 +166,19 @@ section > h2 {
 .facts h3 { margin: 0 0 4px; font-size: 15px; font-weight: 600; }
 .facts p { margin: 0; font-size: 15px; color: var(--muted); line-height: 1.5; }
 
+.entry { padding: 0 0 26px; }
+.entry + .entry { border-top: 1px solid var(--rule); padding-top: 26px; }
+.entry:last-child { padding-bottom: 0; }
+.entry-head { display: flex; justify-content: space-between; align-items: baseline; gap: 4px 16px; flex-wrap: wrap; }
+.entry h3 { margin: 0; font-size: 20px; line-height: 1.3; font-weight: 650; letter-spacing: -0.01em; }
+.entry .when { font-size: 14px; color: var(--muted); white-space: nowrap; }
+.entry p { margin: 6px 0 0; max-width: 66ch; }
+.entry ul { margin: 12px 0 0; padding-left: 20px; max-width: 66ch; }
+.entry li + li { margin-top: 6px; }
+.entry ul.scores { display: flex; flex-wrap: wrap; gap: 8px; padding: 0; list-style: none; }
+.entry ul.scores li { margin: 0; background: var(--panel); border: 1px solid var(--rule); padding: 8px 12px; font-size: 14px; color: var(--muted); }
+.scores strong { display: block; font-size: 22px; line-height: 1.1; color: var(--ink); font-weight: 650; }
+
 /* Layers legend, doubles as a filter */
 .layers { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 20px; }
 .layer {
@@ -288,15 +301,25 @@ footer {
           <img src="https://github.com/netanelyan.png?size=240" alt="Netanel's GitHub profile picture" width="120" height="120" loading="lazy" onerror="this.parentElement.remove()">
         </a>
         <div>
-          <p>I'm a developer from Israel in my third year of <a href="https://www.magshimim.cyber.org.il/">Magshimim</a>, the national cyber and programming excellence program. Most of my time goes into low-level systems: a renderer for chip layouts too big to fit on a GPU, and an operating system written from the bootloader up.</p>
-          <p>The rest goes into products and automation. I run a small group of web businesses, and anything I do twice by hand becomes a script that runs without me.</p>
+          <p>I'm Netanel Yanchevsky, a software developer from Ashdod in my third year of <a href="https://www.magshimim.cyber.org.il/">Magshimim</a>, Israel's national cyber and programming excellence program. Most of my time goes into low-level systems: a renderer for chip layouts too big to fit on a GPU, an operating system written from the bootloader up, and multi-threaded C++ servers on protocols I design myself.</p>
+          <p>In parallel I founded and run a registered business with a portfolio of live e-commerce brands and web apps, where I own everything end to end, from Next.js AI platforms and Shopify storefronts to automation pipelines and paid acquisition.</p>
         </div>
       </div>
-      <div class="facts">
-        <div><h3>Magshimim, year 3</h3><p>Python and networking, C and C++, Assembly and OS internals.</p></div>
-        <div><h3>Bar-Ilan University</h3><p>Academic courses since 2024, alongside high school.</p></div>
-        <div><h3>Languages</h3><p>Hebrew, English and Russian.</p></div>
-      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="exp-h">
+    <h2 id="exp-h">Experience</h2>
+    <div>
+      <article class="entry">
+        <div class="entry-head"><h3>Founder and lead developer, BlackZ Ecommerce</h3><span class="when">2025 to now</span></div>
+        <p>A registered business (Osek Murshe) running several online ventures: <a href="https://hashofet.com">hashofet.com</a> (football kits), clutchstore.net (streetwear), <a href="https://brickdealil.com">brickdealil.com</a> (affiliate deals) and <a href="https://www.tiyulplus.com">tiyulplus.com</a> (AI travel planner).</p>
+        <ul>
+          <li>Built responsive, conversion-focused storefronts and deal hubs, from custom Shopify themes in Liquid to Next.js, on a shared library of UI components.</li>
+          <li>Wired platform webhooks into Azure Functions and the WhatsApp and Telegram APIs, so day-to-day operations across every venture run without manual work.</li>
+          <li>Run paid acquisition on Meta and TikTok with server-side tracking (Pixel, Conversions API), and own each product from architecture and deployment to performance analysis.</li>
+        </ul>
+      </article>
     </div>
   </section>
 
@@ -313,12 +336,43 @@ footer {
     </div>
   </section>
 
+  <section aria-labelledby="edu-h">
+    <h2 id="edu-h">Education</h2>
+    <div>
+      <article class="entry">
+        <div class="entry-head"><h3>Magshimim National Cyber Program</h3><span class="when">3rd year</span></div>
+        <p>Advanced coursework in C and C++, computer networks, network security and operating systems, ending in a self-built OS from bootloader to kernel.</p>
+      </article>
+      <article class="entry">
+        <div class="entry-head"><h3>Bar-Ilan University, academic courses</h3><span class="when">2024 to now</span></div>
+        <p>University courses in Statistics, Orientalism and Biotechnology, taken alongside high school, with a final average of 84.33. Linear Algebra is next semester.</p>
+      </article>
+      <article class="entry">
+        <div class="entry-head"><h3>High school, Ashdod</h3><span class="when">Graduating 2026</span></div>
+        <p>Bagrut with 5-unit Computer Science, Physics, Mathematics and English.</p>
+        <ul class="scores" aria-label="Scores">
+          <li><strong>99</strong> Computer Science</li>
+          <li><strong>97</strong> Physics</li>
+          <li><strong>96</strong> Mathematics</li>
+          <li><strong>100</strong> English</li>
+          <li><strong>682</strong> Psychometric</li>
+        </ul>
+      </article>
+      <article class="entry">
+        <div class="entry-head"><h3>IDF technology and intelligence units candidate</h3><span class="when">Enlisting 2027</span></div>
+        <p>Dapar 90 out of 90, the highest band, with preferences set to software development and cyber roles.</p>
+      </article>
+    </div>
+  </section>
+
   <section class="stack" aria-labelledby="stack-h">
     <h2 id="stack-h">Stack</h2>
     <dl>
-      <dt>Systems</dt><dd>C, C++, x86-64 Assembly, WebAssembly, WebGL2, UEFI, Linux and VPS deployment</dd>
-      <dt>Web and apps</dt><dd>TypeScript, JavaScript, Next.js, Node.js, C#, Python, Swift</dd>
-      <dt>Data and infra</dt><dd>SQLite, Supabase, REST APIs, Azure Functions, Git</dd>
+      <dt>Languages</dt><dd>C++, C, C#, Java, Python, TypeScript, JavaScript, Swift, Bash, SQL, Liquid, HTML and CSS</dd>
+      <dt>Systems</dt><dd>Linux, x86-64 Assembly, UEFI, custom TCP protocols, multi-threading, memory mapping, block device file systems, WinAPI, WebAssembly, WebGL2</dd>
+      <dt>Web and infra</dt><dd>Next.js, Node.js, Supabase, SQLite, Azure Functions, REST, webhooks, WhatsApp and Telegram APIs, Shopify</dd>
+      <dt>Growth and tools</dt><dd>Meta Ads (Pixel, Conversions API), TikTok Ads, Make.com, Git, Claude Code</dd>
+      <dt>Spoken</dt><dd>Hebrew (native), Russian (fluent), English (professional)</dd>
     </dl>
   </section>
 
@@ -330,6 +384,7 @@ footer {
         <a href="https://github.com/netanelyan">GitHub</a>
         <a href="https://www.linkedin.com/in/netanelyan">LinkedIn</a>
         <a href="https://www.instagram.com/netanel.yan/">Instagram</a>
+        <a href="mailto:natikyan153@gmail.com">Email</a>
         <a href="https://www.tiyulplus.com">tiyulplus.com</a>
       </div>
     </div>
@@ -338,7 +393,7 @@ footer {
 
 <footer>
   <span>If it can be automated, it will be.</span>
-  <span>Netanel Yan, <span id="year"></span></span>
+  <span>Netanel Yanchevsky, <span id="year"></span></span>
 </footer>
 
 <script>
@@ -355,13 +410,16 @@ footer {
 
   const PROJECTS = [
     { repo: "manhattan", name: "Manhattan", layer: "sys", featured: true,
-      desc: "Google Maps for a chip die. Pan from the whole design down to the rectangles inside a single cell. A tile pyramid holds it at about 2M rectangles and 60fps, and block instancing draws a 349M-placement view in 70 draw calls. Tested on a real ISPD 2015 design.",
+      desc: "Google Maps for a chip die. Pan from the whole design down to the rectangles inside a single cell. A tile pyramid holds it at about 2M rectangles and 60fps, and block instancing draws a 349M-placement view in 70 draw calls. Validated on a real ISPD 2015 design with 680,869 components.",
       tags: ["C to WebAssembly", "WebGL2", "JavaScript"] },
     { repo: "nyrf-os", name: "nyrf OS", layer: "sys", featured: true,
       desc: "An x86_64 operating system from the bootloader up. My own UEFI boot app hands the framebuffer and memory map to an ELF kernel. Timing consistency, not raw compute, drives every design decision. First proof of concept passes all eight criteria, 10 runs out of 10.",
       tags: ["C", "x86-64 Assembly", "UEFI", "QEMU"] },
+    { repo: "magshimim-trivia", name: "Trivia server", layer: "sys", featured: true,
+      desc: "Multi-threaded C++ game server, one thread per client, routed through a login, menu, room and game handler chain, with a C# WPF client. Custom binary TCP protocol (1-byte code, 4-byte length, JSON payload) and SQLite storage with an interchangeable MongoDB backend.",
+      tags: ["C++", "C#", "TCP", "SQLite"] },
     { repo: "tiyul-plus", name: "Tiyul+", layer: "web", featured: true, live: "https://www.tiyulplus.com",
-      desc: "A Hebrew AI travel agent. Tell it where, when and who's coming, and it plans a mapped day-by-day trip. A validated tool layer over a curated catalog means it can't invent a place, a price or a kashrut status. 166 destinations, full RTL, real local Shabbat times.",
+      desc: "A Hebrew AI travel agent. Tell it where, when and who's coming, and it plans a mapped day-by-day trip. A validated tool layer over a curated catalog means it can't invent a place, a price or a kashrut status. 166 destinations, full RTL, real local Shabbat times, and group planning by invite link.",
       tags: ["TypeScript", "Next.js", "Supabase", "Claude API"] },
     { repo: "outbound", name: "Outbound", layer: "web", featured: true, live: "https://netanelyan.github.io/outbound",
       desc: "A browser driving game with an endless procedural road and a manual gearbox, all of it three.js in a single HTML file.",
@@ -376,14 +434,11 @@ footer {
       desc: "A Telegram deal pipeline running 24/7: ingestion, dedupe, HMAC-signed AliExpress affiliate API, AI title polishing and a human approval gate. One VPS, pm2, one JSON file for storage.",
       tags: ["Node.js", "Telegram", "VPS"] },
     { repo: "tiyul-social", name: "Tiyul Social", layer: "auto",
-      desc: "Reads primary sources, drafts a Hebrew travel post, renders a card and publishes to Instagram, only after I tap approve on Telegram.",
-      tags: ["Instagram", "Telegram"] },
+      desc: "Ranks primary sources, drafts a Hebrew travel post, renders a card and publishes to Instagram, only after I approve it on Telegram. Every claim is backed by a source fetched at generation time from an allowlisted domain.",
+      tags: ["Node.js", "Telegram", "Instagram"] },
     { repo: "shopify-order-automation", name: "Order automation", layer: "auto",
       desc: "Turns raw store exports into translated, priced, supplier-ready order documents, so fulfillment runs on scripts.",
       tags: ["Shopify"] },
-    { repo: "magshimim-trivia", name: "Trivia server", layer: "sys",
-      desc: "Multiplayer trivia with a C++ server and a C# WPF client over a custom binary TCP protocol, backed by SQLite.",
-      tags: ["C++", "C#", "SQLite"] },
     { repo: "cpp-gallery", name: "cpp-gallery", layer: "sys", minor: true,
       desc: "SQLite-backed image gallery manager with WinAPI integration.", tags: ["C++", "WinAPI"] },
     { repo: "cpp-chess", name: "Chess", layer: "sys", minor: true,
