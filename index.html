@@ -10,6 +10,10 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script>
+document.documentElement.classList.add("js");
+try { const t = localStorage.getItem("theme"); if (t === "light" || t === "dark") document.documentElement.dataset.theme = t; } catch (e) {}
+</script>
 <style>
 :root {
   --bg: #E6E8EE;
@@ -17,6 +21,7 @@
   --ink: #161922;
   --muted: #555C6B;
   --rule: #C8CCD6;
+  --dot: #D1D4DC;
   --m1: #2F55D4;
   --m2: #B5307C;
   --via: #C98A10;
@@ -26,22 +31,26 @@
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --bg: #161A22; --panel: #1F2430; --ink: #E7E9EF; --muted: #9AA2B2; --rule: #343B4A;
+    --bg: #161A22; --panel: #1F2430; --ink: #E7E9EF; --muted: #9AA2B2; --rule: #343B4A; --dot: #242936;
     --m1: #7391FF; --m2: #E863A8; --via: #F0B43C; --diff: #4FB88E; --focus: #7391FF;
     color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
-  --bg: #161A22; --panel: #1F2430; --ink: #E7E9EF; --muted: #9AA2B2; --rule: #343B4A;
+  --bg: #161A22; --panel: #1F2430; --ink: #E7E9EF; --muted: #9AA2B2; --rule: #343B4A; --dot: #242936;
   --m1: #7391FF; --m2: #E863A8; --via: #F0B43C; --diff: #4FB88E; --focus: #7391FF;
   color-scheme: dark;
 }
 
 * { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; }
+@media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
 body {
   margin: 0;
-  background: var(--bg);
+  /* Placement grid, the same dots the die sits on */
+  background-color: var(--bg);
+  background-image: radial-gradient(circle, var(--dot) 1px, transparent 1.5px);
+  background-size: 24px 24px;
   color: var(--ink);
   font-family: "Bricolage Grotesque", system-ui, sans-serif;
   font-optical-sizing: auto;
@@ -73,19 +82,35 @@ a:hover { text-decoration-thickness: 2px; }
 .nameplate {
   position: absolute;
   left: 24px; bottom: 24px;
-  max-width: min(560px, calc(100% - 48px));
+  max-width: min(580px, calc(100% - 48px));
   background: var(--panel);
   border: 1px solid var(--ink);
   padding: 22px 26px 20px;
   box-shadow: 6px 6px 0 var(--m1);
 }
+.status {
+  display: flex; align-items: center; gap: 9px;
+  margin: 0 0 14px;
+  font: 500 12.5px/1 "IBM Plex Mono", monospace;
+  color: var(--muted);
+}
+.status .led { flex: none; width: 8px; height: 8px; background: var(--diff); }
+@media (prefers-reduced-motion: no-preference) {
+  .status .led { animation: ping 2.4s ease-out infinite; }
+}
+@keyframes ping {
+  0% { box-shadow: 0 0 0 0 var(--diff); }
+  70% { box-shadow: 0 0 0 7px transparent; }
+  100% { box-shadow: 0 0 0 0 transparent; }
+}
 .nameplate h1 {
   margin: 0;
-  font-size: clamp(44px, 7vw, 84px);
-  line-height: 0.95;
+  font-size: clamp(42px, 6.6vw, 80px);
+  line-height: 0.92;
   font-weight: 700;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.035em;
   font-variation-settings: "opsz" 96;
+  text-wrap: balance;
 }
 .nameplate .lede {
   margin: 14px 0 0;
@@ -93,12 +118,31 @@ a:hover { text-decoration-thickness: 2px; }
   line-height: 1.35;
   font-weight: 500;
 }
+.nameplate .cta { display: flex; flex-wrap: wrap; gap: 10px; margin: 18px 0 0; }
 .nameplate .note {
-  margin: 12px 0 0;
+  margin: 16px 0 0;
   font-size: 14px;
   line-height: 1.5;
   color: var(--muted);
 }
+
+/* Buttons: hard shadow, pressed in on click */
+.btn {
+  display: inline-flex; align-items: center;
+  padding: 11px 16px;
+  border: 1px solid var(--ink);
+  background: var(--panel);
+  color: var(--ink);
+  font-size: 15px; line-height: 1.2; font-weight: 600;
+  text-decoration: none;
+  box-shadow: 3px 3px 0 var(--ink);
+  transition: transform .12s ease, box-shadow .12s ease;
+}
+.btn:hover { transform: translate(-1px, -1px); box-shadow: 4px 4px 0 var(--ink); }
+.btn:active { transform: translate(3px, 3px); box-shadow: 0 0 0 var(--ink); }
+.btn.primary { background: var(--ink); color: var(--panel); box-shadow: 3px 3px 0 var(--m1); }
+.btn.primary:hover { box-shadow: 4px 4px 0 var(--m1); }
+.btn.primary:active { box-shadow: 0 0 0 var(--m1); }
 .hud {
   position: absolute;
   top: 16px; right: 16px;
@@ -119,12 +163,26 @@ a:hover { text-decoration-thickness: 2px; }
   cursor: pointer;
 }
 .hud button:hover { background: var(--bg); }
+.hud button svg { display: block; margin: 0 auto; }
 .hud .zoom {
   font: 400 13px/38px "IBM Plex Mono", monospace;
   padding: 0 12px;
   color: var(--muted);
   min-width: 64px;
   text-align: center;
+}
+/* Cursor readout, like a layout viewer's status bar */
+.readout {
+  position: absolute;
+  right: 16px; bottom: 16px;
+  margin: 0;
+  padding: 7px 10px;
+  background: var(--panel);
+  border: 1px solid var(--rule);
+  font-size: 12.5px; line-height: 1;
+  color: var(--muted);
+  white-space: pre;
+  pointer-events: none;
 }
 
 /* Page */
@@ -143,6 +201,20 @@ section > h2 {
   line-height: 1.15;
   font-weight: 650;
   letter-spacing: -0.015em;
+  scroll-margin-top: 32px;
+}
+section > h2 .idx {
+  display: flex; align-items: center; gap: 10px;
+  margin-bottom: 10px;
+  font: 500 12.5px/1 "IBM Plex Mono", monospace;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+}
+section > h2 .idx::before { content: ""; width: 8px; height: 8px; background: var(--m1); }
+section > h2 .idx::after { content: ""; width: 32px; height: 1px; background: var(--rule); }
+@media (prefers-reduced-motion: no-preference) {
+  .js main > section { opacity: 0; transform: translateY(18px); transition: opacity .7s ease, transform .7s cubic-bezier(.2, .7, .2, 1); }
+  .js main > section.in { opacity: 1; transform: none; }
 }
 .prose p { margin: 0 0 16px; max-width: 64ch; }
 .prose p:last-child { margin-bottom: 0; }
@@ -175,8 +247,8 @@ section > h2 {
 .entry p { margin: 6px 0 0; max-width: 66ch; }
 .entry ul { margin: 12px 0 0; padding-left: 20px; max-width: 66ch; }
 .entry li + li { margin-top: 6px; }
-.entry ul.scores { display: flex; flex-wrap: wrap; gap: 8px; padding: 0; list-style: none; }
-.entry ul.scores li { margin: 0; background: var(--panel); border: 1px solid var(--rule); padding: 8px 12px; font-size: 14px; color: var(--muted); }
+.entry ul.scores { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; padding: 0; list-style: none; }
+.entry ul.scores li { margin: 0; min-width: 96px; background: var(--panel); border: 1px solid var(--ink); box-shadow: 3px 3px 0 var(--rule); padding: 9px 13px; font-size: 14px; color: var(--muted); }
 .scores strong { display: block; font-size: 22px; line-height: 1.1; color: var(--ink); font-weight: 650; }
 
 /* Layers legend, doubles as a filter */
@@ -190,7 +262,9 @@ section > h2 {
   font: 500 15px/1 "Bricolage Grotesque", sans-serif;
   padding: 10px 14px 10px 12px;
   cursor: pointer;
+  transition: opacity .15s ease, border-color .15s ease;
 }
+.layer:hover { border-color: var(--ink); }
 .layer .sw { width: 14px; height: 14px; display: inline-block; }
 .layer .count { color: var(--muted); font-weight: 400; }
 .layer[aria-pressed="false"] { opacity: 0.45; }
@@ -201,9 +275,11 @@ section > h2 {
   display: grid;
   grid-template-columns: 6px 200px 1fr auto;
   gap: 0 22px;
-  padding: 22px 0;
+  padding: 22px 16px 22px 0;
   border-top: 1px solid var(--rule);
+  transition: background-color .15s ease;
 }
+.project:hover { background: var(--panel); }
 .project:last-child { border-bottom: 1px solid var(--rule); }
 .project[hidden] { display: none; }
 .project .bar { align-self: stretch; }
@@ -235,17 +311,7 @@ section > h2 {
 .stack dt { font-weight: 600; }
 .stack dd { margin: 0; color: var(--muted); }
 
-.contact .links-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
-.contact .links-row a {
-  display: inline-block;
-  padding: 12px 18px;
-  border: 1px solid var(--ink);
-  background: var(--panel);
-  color: var(--ink);
-  text-decoration: none;
-  font-weight: 600;
-}
-.contact .links-row a:hover { background: var(--ink); color: var(--panel); }
+.contact .links-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 22px; }
 
 footer {
   max-width: 1120px; margin: 0 auto;
@@ -254,6 +320,12 @@ footer {
   display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px;
 }
 
+@media (min-width: 861px) {
+  section > h2 { position: sticky; top: 32px; align-self: start; }
+}
+@media (max-width: 960px), (hover: none) {
+  .readout { display: none; }
+}
 @media (max-width: 860px) {
   section { grid-template-columns: 1fr; padding: 48px 0; }
   .project { grid-template-columns: 5px 1fr; gap: 6px 16px; }
@@ -270,8 +342,13 @@ footer {
   main, footer { padding-left: 16px; padding-right: 16px; }
   .hero { height: 82vh; min-height: 520px; }
   .nameplate { left: 16px; right: 16px; bottom: 16px; max-width: none; padding: 18px 18px 16px; box-shadow: 4px 4px 0 var(--m1); }
+  .nameplate .cta { gap: 8px; margin-top: 16px; }
+  .nameplate .btn { padding: 10px 13px; font-size: 14.5px; }
   .hud { top: 12px; right: 12px; }
   .hud .zoom { display: none; }
+}
+@media (max-width: 560px) and (max-height: 760px) {
+  .nameplate .note { display: none; }
 }
 </style>
 </head>
@@ -284,21 +361,29 @@ footer {
     <button type="button" id="zoomIn" aria-label="Zoom in">+</button>
     <button type="button" id="zoomOut" aria-label="Zoom out">−</button>
     <button type="button" id="zoomFit" aria-label="Fit the whole die">Fit</button>
+    <button type="button" id="theme" aria-label="Switch theme"><svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><circle cx="8" cy="8" r="6.25" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M8 1.75a6.25 6.25 0 0 1 0 12.5z" fill="currentColor"/></svg></button>
   </div>
+  <p class="readout mono" id="readout" aria-hidden="true" hidden></p>
   <div class="nameplate">
-    <h1>Netanel Yan</h1>
+    <p class="status"><span class="led" aria-hidden="true"></span>Open to internships · Ashdod, IL</p>
+    <h1>Netanel Yanchevsky</h1>
     <p class="lede">I like problems where the constraint is the interesting part.</p>
+    <div class="cta">
+      <a class="btn primary" href="#work-h">See the work</a>
+      <a class="btn" href="https://github.com/netanelyan">GitHub</a>
+      <a class="btn" href="mailto:natikyan153@gmail.com">Email</a>
+    </div>
     <p class="note">The die behind this card is generated in your browser and drawn the way my chip viewer, Manhattan, draws real ones. Drag to pan, pinch or ctrl + scroll to zoom.</p>
   </div>
 </header>
 
 <main>
   <section class="prose" aria-labelledby="about-h">
-    <h2 id="about-h">About</h2>
+    <h2 id="about-h"><span class="idx" aria-hidden="true">01</span>About</h2>
     <div>
       <div class="intro">
-        <a class="avatar" href="https://github.com/netanelyan" aria-label="Netanel on GitHub">
-          <img src="https://github.com/netanelyan.png?size=240" alt="Netanel's GitHub profile picture" width="120" height="120" loading="lazy" onerror="this.parentElement.remove()">
+        <a class="avatar" href="https://github.com/netanelyan" aria-label="Netanel Yanchevsky on GitHub">
+          <img src="https://github.com/netanelyan.png?size=240" alt="Netanel Yanchevsky's GitHub profile picture" width="120" height="120" loading="lazy" onerror="this.parentElement.remove()">
         </a>
         <div>
           <p>I'm Netanel Yanchevsky, a software developer from Ashdod in my third year of <a href="https://www.magshimim.cyber.org.il/">Magshimim</a>, Israel's national cyber and programming excellence program. Most of my time goes into low-level systems: a renderer for chip layouts too big to fit on a GPU, an operating system written from the bootloader up, and multi-threaded C++ servers on protocols I design myself.</p>
@@ -309,7 +394,7 @@ footer {
   </section>
 
   <section aria-labelledby="exp-h">
-    <h2 id="exp-h">Experience</h2>
+    <h2 id="exp-h"><span class="idx" aria-hidden="true">02</span>Experience</h2>
     <div>
       <article class="entry">
         <div class="entry-head"><h3>Founder and lead developer, BlackZ Ecommerce</h3><span class="when">2025 to now</span></div>
@@ -324,7 +409,7 @@ footer {
   </section>
 
   <section aria-labelledby="work-h">
-    <h2 id="work-h">Work</h2>
+    <h2 id="work-h"><span class="idx" aria-hidden="true">03</span>Work</h2>
     <div>
       <div class="layers" id="layers" role="group" aria-label="Filter projects by layer"></div>
       <p class="layer-hint">Like layers in a layout viewer, each color is a kind of work. Toggle them to filter.</p>
@@ -337,7 +422,7 @@ footer {
   </section>
 
   <section aria-labelledby="edu-h">
-    <h2 id="edu-h">Education</h2>
+    <h2 id="edu-h"><span class="idx" aria-hidden="true">04</span>Education</h2>
     <div>
       <article class="entry">
         <div class="entry-head"><h3>Magshimim National Cyber Program</h3><span class="when">3rd year</span></div>
@@ -366,7 +451,7 @@ footer {
   </section>
 
   <section class="stack" aria-labelledby="stack-h">
-    <h2 id="stack-h">Stack</h2>
+    <h2 id="stack-h"><span class="idx" aria-hidden="true">05</span>Stack</h2>
     <dl>
       <dt>Languages</dt><dd>C++, C, C#, Java, Python, TypeScript, JavaScript, Swift, Bash, SQL, Liquid, HTML and CSS</dd>
       <dt>Systems</dt><dd>Linux, x86-64 Assembly, UEFI, custom TCP protocols, multi-threading, memory mapping, block device file systems, WinAPI, WebAssembly, WebGL2</dd>
@@ -377,15 +462,15 @@ footer {
   </section>
 
   <section class="contact prose" aria-labelledby="contact-h">
-    <h2 id="contact-h">Contact</h2>
+    <h2 id="contact-h"><span class="idx" aria-hidden="true">06</span>Contact</h2>
     <div>
       <p>Open to internship and part-time roles in software, backend or full-stack development, in Israel, remote or hybrid.</p>
       <div class="links-row">
-        <a href="https://github.com/netanelyan">GitHub</a>
-        <a href="https://www.linkedin.com/in/netanelyan">LinkedIn</a>
-        <a href="https://www.instagram.com/netanel.yan/">Instagram</a>
-        <a href="mailto:natikyan153@gmail.com">Email</a>
-        <a href="https://www.tiyulplus.com">tiyulplus.com</a>
+        <a class="btn primary" href="mailto:natikyan153@gmail.com">Email</a>
+        <a class="btn" href="https://github.com/netanelyan">GitHub</a>
+        <a class="btn" href="https://www.linkedin.com/in/netanelyan">LinkedIn</a>
+        <a class="btn" href="https://www.instagram.com/netanel.yan/">Instagram</a>
+        <a class="btn" href="https://www.tiyulplus.com">tiyulplus.com</a>
       </div>
     </div>
   </section>
@@ -400,6 +485,15 @@ footer {
 (() => {
   "use strict";
   const GH = "netanelyan";
+
+  /* ---------- Sections fade in as they arrive ---------- */
+  const sections = document.querySelectorAll("main > section");
+  if ("IntersectionObserver" in window) {
+    const io = new IntersectionObserver((entries) => {
+      for (const e of entries) if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
+    }, { rootMargin: "0px 0px -8% 0px" });
+    sections.forEach(s => io.observe(s));
+  } else sections.forEach(s => s.classList.add("in"));
 
   /* ---------- Projects ---------- */
   const LAYERS = [
@@ -657,6 +751,15 @@ footer {
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       ctx.fillStyle = colors.bg;
       ctx.fillRect(0, 0, cwPx, chPx);
+      // Viewer grid behind the die: 1, 2, 5 steps, kept 24px or more apart
+      let g = 1;
+      while (g * s < 24) g *= String(g)[0] === "2" ? 2.5 : 2;
+      ctx.beginPath();
+      for (let gx = Math.ceil(x0 / g) * g; gx <= x1; gx += g)
+        for (let gy = Math.ceil(y0 / g) * g; gy <= y1; gy += g)
+          ctx.rect(Math.round((gx - x0) * s) - 1, Math.round((gy - y0) * s) - 1, 2, 2);
+      ctx.fillStyle = colors.rule;
+      ctx.fill();
       ctx.setTransform(dpr * s, 0, 0, dpr * s, -x0 * s * dpr, -y0 * s * dpr);
       if (s * dpr <= BS * 2) {
         if (bmpDirty) buildBitmap();
@@ -819,6 +922,27 @@ footer {
     const up = (e) => { pts.delete(e.pointerId); pinch = null; if (!pts.size) canvas.classList.remove("dragging"); };
     canvas.addEventListener("pointerup", up);
     canvas.addEventListener("pointercancel", up);
+
+    // Hover probe: what's under the cursor, in die coordinates
+    const readout = document.getElementById("readout");
+    const probe = (x, y) => {
+      if (x < 0 || y < 0 || x > W || y > H) return "";
+      for (const m of macros) if (x >= m.x && x < m.x + m.w && y >= m.y && y < m.y + m.h) return "memory macro";
+      const r = Math.floor((y - core.y) / ROWH);
+      if (x >= core.x && x < core.x + core.w && r >= 0 && r < rowY.length) {
+        let lo = rowStart[r], hi = rowStart[r + 1];
+        while (lo < hi) { const m = (lo + hi) >> 1; if (CX[m] + CW[m] <= x) lo = m + 1; else hi = m; }
+        return lo < rowStart[r + 1] && CX[lo] <= x ? `cell ${(lo + 1).toLocaleString("en")}, row ${r + 1}` : `row ${r + 1}`;
+      }
+      return x < PAD - 30 || y < PAD - 30 || x > W - PAD + 30 || y > H - PAD + 30 ? "IO ring" : "core margin";
+    };
+    canvas.addEventListener("pointermove", (e) => {
+      if (e.pointerType !== "mouse") return;
+      const p = local(e), wx = view.x + p.x / view.s, wy = view.y + p.y / view.s, what = probe(wx, wy);
+      readout.textContent = `x ${wx.toFixed(1)}  y ${wy.toFixed(1)}` + (what ? `  ·  ${what}` : "");
+      readout.hidden = false;
+    });
+    canvas.addEventListener("pointerleave", () => { readout.hidden = true; });
     canvas.addEventListener("dblclick", (e) => { stopIntro(); const p = local(e); zoomAt(p.x, p.y, e.shiftKey ? 0.5 : 2.2); });
     canvas.addEventListener("wheel", (e) => {
       if (!(e.ctrlKey || e.metaKey)) return;
@@ -831,15 +955,30 @@ footer {
     document.getElementById("zoomOut").addEventListener("click", () => { stopIntro(); zoomAt(cwPx / 2, chPx / 2, 1 / 1.8); });
     document.getElementById("zoomFit").addEventListener("click", () => { stopIntro(); fitView(); draw(); });
 
-    matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => { readColors(); bmpDirty = true; draw(); });
+    const refresh = () => { readColors(); bmpDirty = true; draw(); };
+    matchMedia("(prefers-color-scheme: dark)").addEventListener("change", refresh);
     new ResizeObserver(() => resize()).observe(canvas);
 
     readColors();
     resize();
     if (!reduce) playIntro();
 
-    return { setLayers(set) { show = new Set(set); bmpDirty = true; draw(); } };
+    return { setLayers(set) { show = new Set(set); bmpDirty = true; draw(); }, refresh };
   })();
+
+  /* ---------- Theme toggle, remembered per browser ---------- */
+  const root = document.documentElement, themeBtn = document.getElementById("theme");
+  const darkMQ = matchMedia("(prefers-color-scheme: dark)");
+  const isDark = () => (root.dataset.theme || (darkMQ.matches ? "dark" : "light")) === "dark";
+  const labelTheme = () => themeBtn.setAttribute("aria-label", isDark() ? "Switch to light theme" : "Switch to dark theme");
+  themeBtn.addEventListener("click", () => {
+    root.dataset.theme = isDark() ? "light" : "dark";
+    try { localStorage.setItem("theme", root.dataset.theme); } catch (e) {}
+    labelTheme();
+    die.refresh();
+  });
+  darkMQ.addEventListener("change", labelTheme);
+  labelTheme();
 })();
 </script>
 </body>
