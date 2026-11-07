@@ -142,7 +142,7 @@ h1 span:last-child { color: var(--accent); }
 .lamp.run { background: var(--term-acc); }
 .lamp.done { background: var(--term-ok); }
 .term-meta { margin-left: auto; white-space: nowrap; }
-.term-body { height: 424px; overflow-y: auto; padding: 12px 16px 4px; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: #3A3B36 transparent; cursor: text; }
+.term-body { height: 446px; overflow-y: auto; padding: 12px 16px 4px; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: #3A3B36 transparent; cursor: text; }
 .term-body .l { white-space: pre-wrap; overflow-wrap: anywhere; min-height: 1.62em; }
 .term .dim { color: var(--term-dim); }
 .term .warn { color: var(--term-warn); }
@@ -348,7 +348,7 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
         <div class="term-body" id="termBody" role="log" aria-label="Terminal">
           <div class="term-static">
             <div class="l"><span class="ps">ny@ate0:~$</span> ate run hire.tp</div>
-            <div class="l dim">9 tests · 8 passed · 1 warning · 0 failed</div>
+            <div class="l dim">10 tests · 9 passed · 1 warning · 0 failed</div>
             <div class="l kv"><span class="k">verdict</span><span class="v"><span class="hire">HIRE</span></span></div>
             <div class="l kv"><span class="k">confidence</span><span class="v">HIGH · 0.97</span></div>
           </div>
@@ -379,6 +379,7 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
         <img class="face" src="https://github.com/netanelyan.png?size=240" alt="Netanel Yanchevsky" width="112" height="112" loading="lazy" onerror="this.remove()">
         <p>I'm Netanel, in my third year of <a href="https://www.magshimim.cyber.org.il/">Magshimim</a>, Israel's national cyber and programming excellence program. I like low-level work: an OS from the bootloader up, a chip-layout viewer in Rust and WebGL2, multi-threaded C++ servers on protocols I design myself.</p>
         <p>I also ship real products. I founded BlackZ Ecommerce, a registered business, and I build Hebrew AI products under OpenFrequency. I own each one end to end, from the code to the deploy to the ad account.</p>
+        <p>Off the keyboard, I fight. I'm a former Israel national champion in Kyokushin karate, and I've trained Muay Thai and Brazilian jiu-jitsu, which is also why I built a <a href="https://netanelyan.github.io/ufc-game/">pixel-art MMA game</a>.</p>
       </div>
       <ol class="path" aria-label="Path">
         <li><span class="yr">2027</span><b>IDF enlistment</b><span>Dapar 90 · software and cyber roles</span></li>
@@ -873,7 +874,8 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
     { id: "06", name: "low-level systems", ev: "own OS · chip viewer · C++", res: "pass" },
     { id: "07", name: "ships to production", ev: "3 live sites", res: "pass" },
     { id: "08", name: "runs a business", ev: "founder · BlackZ Ecommerce", res: "pass" },
-    { id: "09", name: "tolerates manual work", ev: "3 times, then a script", res: "warn" },
+    { id: "09", name: "national champion", ev: "kyokushin karate · israel", res: "pass" },
+    { id: "10", name: "tolerates manual work", ev: "3 times, then a script", res: "warn" },
   ];
 
   (() => {
@@ -975,6 +977,7 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
         line("Founder of BlackZ Ecommerce, a registered business.");
         line("I build low-level systems, Hebrew AI products and automation.");
         line("Psychometric 682 · Dapar 90 · CS bagrut 99.");
+        line("Former Israel national champion, Kyokushin karate. Muay Thai and BJJ.");
         line("Open to internships and part-time roles until IDF enlistment, 2027.");
         more("scores", "sites", "projects", "skills");
       },
