@@ -248,10 +248,13 @@ html:not(.js) .panel + .panel { padding-top: 72px; }
 .row:hover .go { transform: translateX(3px); }
 
 /* About */
-.about { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr); gap: 28px 56px; align-items: start; }
+.about { display: grid; grid-template-columns: minmax(220px, 290px) minmax(0, 1.1fr) minmax(0, 0.85fr); gap: 28px 44px; align-items: start; }
+.portrait { margin: 0; border: 1px solid var(--ink); background: var(--sheet); }
+.portrait .bar { display: flex; align-items: center; gap: 9px; height: 34px; padding: 0 12px; border-bottom: 1px solid var(--ink); font: 500 12.5px/1 var(--mono); }
+.portrait .bar::before { content: ""; width: 7px; height: 7px; background: var(--ok); }
+.portrait img { display: block; width: 100%; height: auto; aspect-ratio: 3 / 4; object-fit: cover; background: var(--rule); }
 .bio p { margin: 0 0 14px; max-width: 60ch; font-size: 18px; line-height: 1.55; }
 .bio p:last-child { margin-bottom: 0; }
-.face { float: left; width: 172px; height: auto; aspect-ratio: 4 / 5; margin: 5px 26px 12px 0; object-fit: cover; border: 1px solid var(--ink); background: var(--rule); }
 .path { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--ink); }
 .path li { display: grid; grid-template-columns: 6.5ch minmax(0, 1fr); gap: 2px 16px; padding: 13px 0; border-bottom: 1px solid var(--rule); }
 .path .yr { grid-row: span 2; font: 500 12.5px/1.9 var(--mono); color: var(--accent-ink); }
@@ -301,7 +304,8 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
   .sites { grid-template-columns: 1fr 1fr; }
   .sites li:last-child { grid-column: 1 / -1; }
   .die-hint { display: none; }
-  .about { grid-template-columns: 1fr; }
+  .about { grid-template-columns: minmax(200px, 260px) minmax(0, 1fr); }
+  .about .path { grid-column: 1 / -1; }
   .stats { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .skills { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
@@ -327,7 +331,8 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
   .btn { padding: 0 13px; font-size: 13px; }
   footer { margin-top: 72px; }
   .bio p { font-size: 16.5px; }
-  .face { width: 116px; margin-right: 16px; }
+  .about { grid-template-columns: 1fr; }
+  .portrait { max-width: 300px; }
   .mark { display: none; }
   .stats > div { padding: 14px 12px 12px; }
 }
@@ -416,8 +421,11 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
       <h2 class="ph">About</h2>
       <p class="meta">Ashdod, Israel · Hebrew, Russian, English</p>
       <div class="about">
+        <figure class="portrait">
+          <span class="bar">me.jpg</span>
+          <img src="img/me.jpg" alt="Netanel Yanchevsky" width="750" height="1000" loading="lazy">
+        </figure>
         <div class="bio">
-          <img class="face" src="img/me.jpg" alt="Netanel Yanchevsky" width="640" height="800" loading="lazy">
           <p>I'm Netanel, in my third year of <a href="https://www.magshimim.cyber.org.il/">Magshimim</a>, Israel's national cyber and programming excellence program. I like low-level work: an OS from the bootloader up, a chip-layout viewer in Rust and WebGL2, multi-threaded C++ servers on protocols I design myself.</p>
           <p>I also ship real products. I founded BlackZ Ecommerce, a registered business, and I build Hebrew AI products under OpenFrequency. I own each one end to end, from the code to the deploy to the ad account.</p>
           <p>Off the keyboard, I fight. I'm a former Israel national champion in Kyokushin, and I've trained Muay Thai and Brazilian jiu-jitsu, which is also why I built a <a href="https://netanelyan.github.io/ufc-game/">pixel-art MMA game</a>.</p>
