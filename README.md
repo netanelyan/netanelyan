@@ -8,16 +8,17 @@
 ```text
 $ ate run hire.tp --dut netanelyan
 
-  01  renders at scale ......... manhattan · 3.5B placements   PASS
-  02  boots on bare metal ...... nyrf-os · own UEFI loader     PASS
-  03  won't invent facts ....... teder · fact = stored quote   PASS
-  04  ships to production ...... tiyulplus.com · live          PASS
-  05  runs unattended .......... brickdeal · 24/7              PASS
-  06  owns the outcome ......... runs a registered business    PASS
-  07  exams .................... cs 99 · math 96 · dapar 90    PASS
-  08  tolerates manual work .... 3 times, then a script        WARN
+  01  cyber program ............ magshimim · 3rd year          PASS
+  02  psychometric ............. 682                           PASS
+  03  bagrut, 5 units .......... cs 99 · physics 97 · math 96  PASS
+  04  dapar .................... 90 of 90                      PASS
+  05  university courses ....... bar-ilan · 84.33 avg          PASS
+  06  low-level systems ........ own OS · chip viewer · C++    PASS
+  07  ships to production ...... 3 live sites                  PASS
+  08  runs a business .......... founder · BlackZ Ecommerce    PASS
+  09  tolerates manual work .... 3 times, then a script        WARN
 
-  7 passed · 1 warning · 0 failed
+  8 passed · 1 warning · 0 failed
 
   VERDICT      HIRE
   CONFIDENCE   HIGH  ███████████████████░  0.97
@@ -41,7 +42,7 @@ $ ate run hire.tp --dut netanelyan
 |---|---|---|
 | **[manhattan](https://github.com/netanelyan/manhattan)** | A whole chip in a browser tab | Rust → WASM · WebGL2 |
 | **[nyrf-os](https://github.com/netanelyan/nyrf-os)** | An OS from the bootloader up | C · asm · UEFI |
-| **[teder](https://github.com/netanelyan/openfrequency-teder)** | Hebrew posts that can't invent a fact | Node.js · Playwright |
+| **[teder](https://github.com/netanelyan/openfrequency-teder)** | Hebrew slideshows for TikTok and Instagram | Node.js · Playwright |
 | **[toran](https://github.com/netanelyan/openfrequency-toran)** | WhatsApp sales agent for Israeli stores | TypeScript · Claude |
 | **[tiyul-plus](https://github.com/netanelyan/tiyul-plus)** | AI travel agent in Hebrew, [live](https://www.tiyulplus.com) | Next.js · Supabase |
 

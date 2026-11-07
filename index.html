@@ -142,7 +142,7 @@ h1 span:last-child { color: var(--accent); }
 .lamp.run { background: var(--term-acc); }
 .lamp.done { background: var(--term-ok); }
 .term-meta { margin-left: auto; white-space: nowrap; }
-.term-body { height: 398px; overflow-y: auto; padding: 12px 16px 4px; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: #3A3B36 transparent; cursor: text; }
+.term-body { height: 424px; overflow-y: auto; padding: 12px 16px 4px; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: #3A3B36 transparent; cursor: text; }
 .term-body .l { white-space: pre-wrap; overflow-wrap: anywhere; min-height: 1.62em; }
 .term .dim { color: var(--term-dim); }
 .term .warn { color: var(--term-warn); }
@@ -236,6 +236,26 @@ h1 span:last-child { color: var(--accent); }
 .row:hover .nm { color: var(--accent-ink); }
 .row:hover .go { transform: translateX(3px); }
 
+/* About */
+.about { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr); gap: 28px 56px; align-items: start; }
+.bio p { margin: 0 0 14px; max-width: 60ch; font-size: 18px; line-height: 1.55; }
+.bio p:last-child { margin-bottom: 0; }
+.face { float: left; width: 112px; height: 112px; margin: 4px 22px 10px 0; object-fit: cover; border: 1px solid var(--ink); filter: grayscale(1) contrast(1.05); transition: filter .3s ease; }
+.face:hover { filter: none; }
+.path { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--ink); }
+.path li { display: grid; grid-template-columns: 6.5ch minmax(0, 1fr); gap: 2px 16px; padding: 13px 0; border-bottom: 1px solid var(--rule); }
+.path .yr { grid-row: span 2; font: 500 12.5px/1.9 var(--mono); color: var(--accent-ink); }
+.path b { font-stretch: 74%; font-weight: 760; font-size: 21px; line-height: 1.15; }
+.path span:last-child { font-size: 15px; color: var(--muted); }
+.stats { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 1px; margin: 40px 0 0; background: var(--rule); border: 1px solid var(--ink); }
+.stats > div { display: flex; flex-direction: column-reverse; justify-content: flex-end; padding: 18px 18px 16px; background: var(--sheet); }
+.stats dd { margin: 0; font-stretch: 64%; font-weight: 820; font-size: clamp(46px, 5vw, 70px); line-height: 0.9; }
+.stats dd small { font-size: 0.42em; font-weight: 600; color: var(--muted); }
+.stats dt { margin-top: 10px; font: 500 11.5px/1.3 var(--mono); letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+.stats .hl dd { color: var(--accent); }
+.stats .hl dt { color: var(--accent-ink); }
+.about-fn { margin: 10px 0 0; font: 12.5px var(--mono); color: var(--muted); }
+
 /* Contact */
 .mail { display: inline-flex; align-items: baseline; gap: 0.25em; font-stretch: 64%; font-weight: 820; font-size: clamp(40px, 7.4vw, 104px); line-height: 1; letter-spacing: -0.01em; text-decoration: none; overflow-wrap: anywhere; }
 .mail .arr { color: var(--accent); transition: transform .2s ease; }
@@ -257,6 +277,8 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
   .sites { grid-template-columns: 1fr 1fr; }
   .sites li:last-child { grid-column: 1 / -1; }
   .die-hint { display: none; }
+  .about { grid-template-columns: 1fr; }
+  .stats { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
 @media (max-width: 680px) {
   body { font-size: 16px; }
@@ -275,8 +297,14 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
   .row .go { grid-row: 1; grid-column: 3; }
   .btn { padding: 0 13px; font-size: 13px; }
   footer { margin-top: 72px; }
+  .bio p { font-size: 16.5px; }
+  .face { width: 88px; height: 88px; margin-right: 16px; }
+  .stats > div { padding: 14px 12px 12px; }
 }
-@media (max-width: 380px) { .nav a[href="#work"] { display: none; } }
+@media (max-width: 420px) {
+  .nav a[href="#work"] { display: none; }
+  .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
 </style>
 </head>
 <body>
@@ -287,6 +315,7 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
     <div class="wrap">
       <a class="mark" href="#top" aria-label="Netanel Yanchevsky, top of page"><svg viewBox="0 0 32 32" width="22" height="22" aria-hidden="true"><g fill="currentColor"><rect x="8" y="3" width="16" height="26" rx="1.5"/><rect x="3" y="7" width="5" height="2.5"/><rect x="3" y="12.5" width="5" height="2.5"/><rect x="3" y="18" width="5" height="2.5"/><rect x="3" y="23.5" width="5" height="2.5"/><rect x="24" y="7" width="5" height="2.5"/><rect x="24" y="12.5" width="5" height="2.5"/><rect x="24" y="18" width="5" height="2.5"/><rect x="24" y="23.5" width="5" height="2.5"/></g><circle class="pin1" cx="12.5" cy="8" r="2"/></svg>NY</a>
       <nav class="nav" aria-label="Sections">
+        <a href="#about">about</a>
         <a href="#sites">sites</a>
         <a href="#work">work</a>
         <a href="#contact">contact</a>
@@ -319,7 +348,7 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
         <div class="term-body" id="termBody" role="log" aria-label="Terminal">
           <div class="term-static">
             <div class="l"><span class="ps">ny@ate0:~$</span> ate run hire.tp</div>
-            <div class="l dim">8 tests · 7 passed · 1 warning · 0 failed</div>
+            <div class="l dim">9 tests · 8 passed · 1 warning · 0 failed</div>
             <div class="l kv"><span class="k">verdict</span><span class="v"><span class="hire">HIRE</span></span></div>
             <div class="l kv"><span class="k">confidence</span><span class="v">HIGH · 0.97</span></div>
           </div>
@@ -343,6 +372,32 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
 </header>
 
 <main class="wrap">
+  <section class="sec" id="about" aria-labelledby="about-h">
+    <div class="sec-h"><h2 id="about-h">About</h2><p>Ashdod, Israel · Hebrew, Russian, English</p></div>
+    <div class="about">
+      <div class="bio">
+        <img class="face" src="https://github.com/netanelyan.png?size=240" alt="Netanel Yanchevsky" width="112" height="112" loading="lazy" onerror="this.remove()">
+        <p>I'm Netanel, in my third year of <a href="https://www.magshimim.cyber.org.il/">Magshimim</a>, Israel's national cyber and programming excellence program. I like low-level work: an OS from the bootloader up, a chip-layout viewer in Rust and WebGL2, multi-threaded C++ servers on protocols I design myself.</p>
+        <p>I also ship real products. I founded BlackZ Ecommerce, a registered business, and I build Hebrew AI products under OpenFrequency. I own each one end to end, from the code to the deploy to the ad account.</p>
+      </div>
+      <ol class="path" aria-label="Path">
+        <li><span class="yr">2027</span><b>IDF enlistment</b><span>Dapar 90 · software and cyber roles</span></li>
+        <li><span class="yr">Now</span><b>Magshimim, 3rd year</b><span>C, C++, networks, security, operating systems</span></li>
+        <li><span class="yr">2025</span><b>Founder, BlackZ Ecommerce</b><span>Storefronts, automation and paid ads</span></li>
+        <li><span class="yr">2024</span><b>Bar-Ilan University courses</b><span>Alongside high school · 84.33 average</span></li>
+      </ol>
+    </div>
+    <dl class="stats">
+      <div class="hl"><dt>Psychometric</dt><dd>682</dd></div>
+      <div><dt>Dapar</dt><dd>90<small>/90</small></dd></div>
+      <div><dt>Computer Science</dt><dd>99</dd></div>
+      <div><dt>Physics</dt><dd>97</dd></div>
+      <div><dt>Mathematics</dt><dd>96</dd></div>
+      <div><dt>English</dt><dd>100</dd></div>
+    </dl>
+    <p class="about-fn">Computer Science, Physics, Mathematics and English are bagrut scores, all at 5 units.</p>
+  </section>
+
   <section class="sec" id="sites" aria-labelledby="sites-h">
     <div class="sec-h"><h2 id="sites-h">Live sites</h2><p>3 in production, all mine end to end</p></div>
     <ul class="sites">
@@ -369,7 +424,7 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
     <ol class="rows">
       <li><a class="row" href="https://netanelyan.github.io/manhattan/"><span class="n">01</span><span class="nm">Manhattan</span><span class="ln">Opens a whole chip in a browser tab. Tested at 3.5 billion placements.</span><span class="stk">Rust → WASM · WebGL2</span><span class="go">live ↗</span></a></li>
       <li><a class="row" href="https://github.com/netanelyan/nyrf-os"><span class="n">02</span><span class="nm">nyrf OS</span><span class="ln">An operating system from the bootloader up.</span><span class="stk">C · x86-64 asm · UEFI</span><span class="go">code ↗</span></a></li>
-      <li><a class="row" href="https://openfrequency.co.il"><span class="n">03</span><span class="nm">Teder</span><span class="ln">Hebrew social posts that can't invent a fact.</span><span class="stk">Node.js · SQLite · Playwright</span><span class="go">live ↗</span></a></li>
+      <li><a class="row" href="https://openfrequency.co.il"><span class="n">03</span><span class="nm">Teder</span><span class="ln">Runs Hebrew social accounts: daily slideshows for TikTok and Instagram.</span><span class="stk">Node.js · SQLite · Playwright</span><span class="go">live ↗</span></a></li>
       <li><a class="row" href="https://github.com/netanelyan/openfrequency-toran"><span class="n">04</span><span class="nm">Toran</span><span class="ln">A WhatsApp sales agent for Israeli online stores.</span><span class="stk">TypeScript · Postgres · Claude</span><span class="go">code ↗</span></a></li>
       <li><a class="row" href="https://github.com/netanelyan/brickdeal-social"><span class="n">05</span><span class="nm">BrickDeal bots</span><span class="ln">Deal pipelines that find, write and post on their own, 24/7.</span><span class="stk">Node.js · Telegram · TikTok</span><span class="go">code ↗</span></a></li>
       <li><a class="row" href="https://netanelyan.github.io/lastember/"><span class="n">06</span><span class="nm">Last Ember</span><span class="ln">Pixel-art survival. Keep the fire burning till dawn.</span><span class="stk">JavaScript · Canvas</span><span class="go">play ↗</span></a></li>
@@ -435,11 +490,11 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
     { repo: "manhattan", name: "Manhattan", group: "sys", status: "active", live: "https://netanelyan.github.io/manhattan/", line: "Opens a whole chip in a browser tab, down to single cells. Tested at 3.5B placements.", stack: "Rust → WASM · WebGL2" },
     { repo: "nyrf-os", name: "nyrf OS", group: "sys", status: "preview", line: "An x86-64 OS from the bootloader up, built for timing consistency. POC 1 passes 10 of 10 runs.", stack: "C · x86-64 asm · UEFI" },
     { repo: "magshimim-trivia", name: "Trivia server", group: "sys", status: "released", line: "Multi-threaded C++ game server with a C# client, on a binary TCP protocol of my own.", stack: "C++ · C# · TCP · SQLite" },
-    { repo: "openfrequency-teder", name: "Teder", group: "ai", status: "active", live: "https://openfrequency.co.il", line: "Runs several Hebrew social accounts. Every fact on a slide must match a stored quote.", stack: "Node.js · SQLite · Playwright" },
+    { repo: "openfrequency-teder", name: "Teder", group: "ai", status: "active", live: "https://openfrequency.co.il", line: "Runs several Hebrew social accounts, from sources to finished TikTok and Instagram slideshows.", stack: "Node.js · SQLite · Playwright" },
     { repo: "openfrequency-toran", name: "Toran", group: "ai", status: "preview", line: "A Hebrew WhatsApp agent that answers, sells and follows up for online stores.", stack: "TypeScript · Postgres · Claude" },
     { repo: "openfrequency-accounts", name: "OpenFrequency accounts", group: "ai", status: "active", line: "One login for every OpenFrequency product. Google, email link or TOTP.", stack: "Node.js" },
     { repo: "openfrequency-web", name: "OpenFrequency web", group: "ai", status: "active", live: "https://openfrequency.co.il", line: "The company site. One build script, no dependencies.", stack: "Node.js · Caddy" },
-    { repo: "tiyul-plus", name: "Tiyul+", group: "ai", status: "active", live: "https://www.tiyulplus.com", line: "A Hebrew AI travel agent. Can't invent a place, a price or a kashrut status.", stack: "Next.js · Supabase · Claude API" },
+    { repo: "tiyul-plus", name: "Tiyul+", group: "ai", status: "active", live: "https://www.tiyulplus.com", line: "A Hebrew AI travel agent that plans real, mapped trips. 166 destinations.", stack: "Next.js · Supabase · Claude API" },
     { repo: "remind", name: "Remind", group: "web", status: "released", line: "An iPhone reminders app with a live widget, built without a Mac.", stack: "Swift · xtool" },
     { repo: "stash", name: "Stash", group: "web", status: "released", line: "A desktop editor for LLM prompts.", stack: "Electron · React" },
     { repo: "brickdeal-website", name: "BrickDeal", group: "web", status: "active", live: "https://brickdealil.com", line: "An affiliate deals site for brick sets.", stack: "JavaScript" },
@@ -810,14 +865,15 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
 
   /* ---------- The terminal ---------- */
   const TESTS = [
-    { id: "01", name: "renders at scale", ev: "manhattan · 3.5B placements", res: "pass" },
-    { id: "02", name: "boots on bare metal", ev: "nyrf-os · own UEFI loader", res: "pass" },
-    { id: "03", name: "won't invent facts", ev: "teder · fact = stored quote", res: "pass" },
-    { id: "04", name: "ships to production", ev: "3 live sites", res: "pass" },
-    { id: "05", name: "runs unattended", ev: "brickdeal · 24/7", res: "pass" },
-    { id: "06", name: "owns the outcome", ev: "runs a registered business", res: "pass" },
-    { id: "07", name: "exams", ev: "cs 99 · math 96 · dapar 90", res: "pass" },
-    { id: "08", name: "tolerates manual work", ev: "3 times, then a script", res: "warn" },
+    { id: "01", name: "cyber program", ev: "magshimim · 3rd year", res: "pass" },
+    { id: "02", name: "psychometric", ev: "682", res: "pass" },
+    { id: "03", name: "bagrut, 5 units", ev: "cs 99 · physics 97 · math 96", res: "pass" },
+    { id: "04", name: "dapar", ev: "90 of 90", res: "pass" },
+    { id: "05", name: "university courses", ev: "bar-ilan · 84.33 avg", res: "pass" },
+    { id: "06", name: "low-level systems", ev: "own OS · chip viewer · C++", res: "pass" },
+    { id: "07", name: "ships to production", ev: "3 live sites", res: "pass" },
+    { id: "08", name: "runs a business", ev: "founder · BlackZ Ecommerce", res: "pass" },
+    { id: "09", name: "tolerates manual work", ev: "3 times, then a script", res: "warn" },
   ];
 
   (() => {
@@ -916,10 +972,11 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
       about() {
         line([el("b", { text: "Netanel Yanchevsky" }), el("span", { class: "dim", text: " · Ashdod, Israel" })]);
         line("3rd year of Magshimim, Israel's national cyber program.");
+        line("Founder of BlackZ Ecommerce, a registered business.");
         line("I build low-level systems, Hebrew AI products and automation.");
-        line("I also run a registered business with live e-commerce brands.");
+        line("Psychometric 682 · Dapar 90 · CS bagrut 99.");
         line("Open to internships and part-time roles until IDF enlistment, 2027.");
-        more("sites", "projects", "skills", "scores");
+        more("scores", "sites", "projects", "skills");
       },
       sites() {
         for (const s of SITES) kv(link(s.url, s.domain), `${s.name} · ${s.line}`, "wide");
