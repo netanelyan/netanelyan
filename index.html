@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Netanel Yanchevsky</title>
-<meta name="description" content="Netanel Yanchevsky (Netanel Yan), developer from Ashdod, Israel. Low-level systems, Hebrew AI products and automation. Run the hiring test in your browser.">
+<meta name="description" content="Netanel Yanchevsky (Netanel Yan), developer from Ashdod, Israel. Low-level systems, Hebrew AI and automation. Builds tiyulplus.com, openfrequency.co.il and brickdealil.com.">
 <meta property="og:title" content="Netanel Yanchevsky · verdict: hire">
 <meta property="og:description" content="Developer from Israel. Systems, AI and automation. Run the test and see the verdict.">
 <meta property="og:image" content="https://github.com/netanelyan.png?size=400">
@@ -31,6 +31,7 @@ try { const t = localStorage.getItem("theme"); if (t === "light" || t === "dark"
   --accent-ink: #B13806;
   --on-accent: #160903;
   --ok: #1D7646;
+  --shadow: 0 1px 0 rgba(20, 20, 19, 0.04), 0 28px 56px -28px rgba(20, 20, 19, 0.5);
   --term-bg: #121311;
   --term-border: #141413;
   --term-ink: #E8E4D9;
@@ -49,6 +50,7 @@ try { const t = localStorage.getItem("theme"); if (t === "light" || t === "dark"
   :root:not([data-theme="light"]) {
     --paper: #131312; --sheet: #1B1B19; --ink: #EDE9E0; --ink-2: #CCC7BC; --muted: #9B968B; --rule: #35342F;
     --accent: #FF5A1F; --accent-ink: #FF8A55; --ok: #5FC58C;
+    --shadow: 0 28px 64px -24px rgba(0, 0, 0, 0.9);
     --term-bg: #0B0B0A; --term-border: #3A3934; --term-line: #262622;
     --m1: #7391FF; --m2: #E863A8; --via: #F0B43C; --diff: #4FB88E;
     color-scheme: dark;
@@ -57,6 +59,7 @@ try { const t = localStorage.getItem("theme"); if (t === "light" || t === "dark"
 :root[data-theme="dark"] {
   --paper: #131312; --sheet: #1B1B19; --ink: #EDE9E0; --ink-2: #CCC7BC; --muted: #9B968B; --rule: #35342F;
   --accent: #FF5A1F; --accent-ink: #FF8A55; --ok: #5FC58C;
+  --shadow: 0 28px 64px -24px rgba(0, 0, 0, 0.9);
   --term-bg: #0B0B0A; --term-border: #3A3934; --term-line: #262622;
   --m1: #7391FF; --m2: #E863A8; --via: #F0B43C; --diff: #4FB88E;
   color-scheme: dark;
@@ -70,56 +73,76 @@ a { color: inherit; text-decoration-color: var(--accent); text-decoration-thickn
 a:hover { color: var(--accent-ink); }
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
-kbd { font: 500 0.9em var(--mono); padding: 1px 5px; border: 1px solid var(--rule); background: var(--sheet); }
+kbd { font: 500 0.92em var(--mono); padding: 1px 5px; border: 1px solid var(--rule); background: var(--sheet); color: var(--ink); }
+.wrap { max-width: 1240px; margin: 0 auto; padding: 0 40px; }
 
 /* Buttons */
 .btn {
   display: inline-flex; align-items: center; gap: 8px;
-  height: 40px; padding: 0 14px;
+  height: 42px; padding: 0 16px;
   border: 1px solid var(--ink); background: var(--sheet); color: var(--ink);
   font: 500 13.5px/1 var(--mono); text-decoration: none; cursor: pointer;
+  transition: background-color .15s ease, color .15s ease, border-color .15s ease;
 }
 .btn:hover { background: var(--ink); color: var(--paper); }
 .btn.primary { background: var(--accent); border-color: var(--accent); color: var(--on-accent); font-weight: 600; }
 .btn.primary:hover { background: var(--ink); border-color: var(--ink); color: var(--paper); }
 
-/* Hero: the die behind, the nameplate and the console on top */
-.hero { position: relative; display: flex; align-items: center; min-height: min(100vh, 900px); padding: 76px 0 60px; overflow: hidden; border-bottom: 1px solid var(--ink); }
-#die { position: absolute; inset: 0; width: 100%; height: 100%; display: block; cursor: grab; touch-action: pan-y; }
-#die.dragging { cursor: grabbing; }
-.hero-in {
-  position: relative; width: 100%; max-width: 1240px; margin: 0 auto; padding: 0 40px;
-  display: grid; grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr); gap: 32px; align-items: center;
-  pointer-events: none;
-}
-.hero-in > * { pointer-events: auto; }
-.theme { position: absolute; top: 16px; right: 16px; z-index: 2; display: grid; place-items: center; width: 38px; height: 38px; padding: 0; }
-.die-hint { position: absolute; left: 16px; bottom: 14px; margin: 0; padding: 5px 8px; background: var(--sheet); border: 1px solid var(--rule); font: 11.5px/1 var(--mono); color: var(--muted); pointer-events: none; }
+/* Top bar */
+.top { position: absolute; inset: 0 0 auto; z-index: 3; }
+.top .wrap { display: flex; align-items: center; gap: 16px; height: 72px; }
+.mark { display: inline-flex; align-items: center; gap: 10px; font: 600 13px/1 var(--mono); letter-spacing: 0.08em; text-decoration: none; }
+.mark svg { display: block; }
+.mark .pin1 { fill: var(--accent); }
+.nav { margin-left: auto; display: flex; align-items: center; gap: 2px; }
+.nav a { padding: 8px 10px; font: 500 13px/1 var(--mono); color: var(--ink-2); text-decoration: none; }
+.nav a:hover { color: var(--accent-ink); }
+.theme { width: 38px; height: 38px; padding: 0; margin-left: 8px; justify-content: center; }
 
-.plate { background: var(--sheet); border: 1px solid var(--ink); padding: 0 28px 26px; }
-.plate::before { content: ""; display: block; height: 8px; margin: 0 -28px 22px; background: linear-gradient(90deg, var(--accent) 0 96px, var(--ink) 96px); }
-.status { display: flex; align-items: center; gap: 9px; margin: 0 0 16px; font: 500 12.5px/1 var(--mono); color: var(--muted); }
+/* Hero: name on clean paper, the die fades in behind the console */
+.hero { position: relative; display: flex; align-items: center; min-height: min(100vh, 940px); padding: 104px 0 72px; overflow: hidden; border-bottom: 1px solid var(--ink); }
+#die {
+  position: absolute; inset: 0; width: 100%; height: 100%; display: block;
+  cursor: grab; touch-action: pan-y; opacity: 0.6;
+  -webkit-mask-image: linear-gradient(90deg, transparent 22%, #000 64%);
+  mask-image: linear-gradient(90deg, transparent 22%, #000 64%);
+}
+#die.dragging { cursor: grabbing; }
+.hero-in { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.06fr); gap: 56px; align-items: center; width: 100%; pointer-events: none; }
+.hero-in > * { pointer-events: auto; }
+.die-hint { position: absolute; right: 16px; bottom: 14px; margin: 0; padding: 5px 8px; background: var(--sheet); border: 1px solid var(--rule); font: 11.5px/1 var(--mono); color: var(--muted); pointer-events: none; }
+
+.status { display: inline-flex; align-items: center; gap: 9px; margin: 0 0 22px; padding: 7px 11px 7px 9px; border: 1px solid var(--rule); background: var(--sheet); font: 500 12.5px/1 var(--mono); color: var(--ink-2); }
 .led { flex: none; width: 8px; height: 8px; background: var(--ok); }
 @media (prefers-reduced-motion: no-preference) { .led { animation: ping 2.4s ease-out infinite; } }
 @keyframes ping { 0% { box-shadow: 0 0 0 0 var(--ok); } 70% { box-shadow: 0 0 0 7px transparent; } 100% { box-shadow: 0 0 0 0 transparent; } }
-h1 { margin: 0; font-stretch: 62%; font-weight: 820; font-size: clamp(56px, 6.6vw, 98px); line-height: 0.86; letter-spacing: -0.01em; }
-.lede { margin: 16px 0 0; font-stretch: 90%; font-weight: 500; font-size: clamp(18px, 1.7vw, 21px); line-height: 1.3; }
-.cta { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 22px; }
+h1 { margin: 0; font-stretch: 62%; font-weight: 820; font-size: clamp(64px, 8.2vw, 124px); line-height: 0.84; letter-spacing: -0.012em; }
+h1 span { display: block; }
+h1 span:last-child { color: var(--accent); }
+.lede { margin: 22px 0 0; max-width: 24ch; font-stretch: 88%; font-weight: 600; font-size: clamp(20px, 2vw, 25px); line-height: 1.2; }
+.sub { margin: 10px 0 0; max-width: 38ch; color: var(--muted); }
+.cta { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 28px; }
+.live { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 16px; margin: 26px 0 0; padding: 14px 0 0; border-top: 1px solid var(--rule); font: 500 13px/1.4 var(--mono); }
+.live .k { color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; font-size: 11.5px; }
+.live a { display: inline-flex; align-items: center; gap: 7px; text-decoration: none; }
+.live a::before { content: ""; width: 6px; height: 6px; background: var(--ok); }
+.live a:hover { text-decoration: underline; text-decoration-color: var(--accent); }
 
 /* The console */
 .term {
   container: term / inline-size;
   background: var(--term-bg); color: var(--term-ink);
   border: 1px solid var(--term-border);
+  box-shadow: var(--shadow);
   font: 400 12.5px/1.62 var(--mono);
 }
 .term:has(input:focus) { border-color: var(--term-acc); }
-.term-bar { display: flex; align-items: center; gap: 10px; height: 34px; padding: 0 12px; border-bottom: 1px solid var(--term-line); color: var(--term-dim); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; }
+.term-bar { display: flex; align-items: center; gap: 10px; height: 36px; padding: 0 14px; border-bottom: 1px solid var(--term-line); color: var(--term-dim); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; }
 .lamp { flex: none; width: 8px; height: 8px; background: var(--term-dim); }
 .lamp.run { background: var(--term-acc); }
 .lamp.done { background: var(--term-ok); }
 .term-meta { margin-left: auto; white-space: nowrap; }
-.term-body { height: 430px; overflow-y: auto; padding: 12px 14px 4px; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: #3A3B36 transparent; cursor: text; }
+.term-body { height: 398px; overflow-y: auto; padding: 12px 16px 4px; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: #3A3B36 transparent; cursor: text; }
 .term-body .l { white-space: pre-wrap; overflow-wrap: anywhere; min-height: 1.62em; }
 .term .dim { color: var(--term-dim); }
 .term .warn { color: var(--term-warn); }
@@ -158,7 +181,7 @@ h1 { margin: 0; font-stretch: 62%; font-weight: 820; font-size: clamp(56px, 6.6v
 @keyframes blink { 50% { opacity: 0.25; } }
 .cmd { appearance: none; background: none; border: 0; padding: 0; margin: 0; color: var(--term-ink); font: inherit; text-decoration: underline dashed var(--term-dim); text-underline-offset: 3px; cursor: pointer; }
 .cmd:hover { color: var(--term-acc); text-decoration-color: currentColor; }
-.term-input { display: none; align-items: center; gap: 1ch; padding: 4px 14px 10px; }
+.term-input { display: none; align-items: center; gap: 1ch; padding: 4px 16px 12px; }
 .js .term-input { display: flex; }
 .js .term-static { display: none; }
 .term-input label { color: var(--term-acc); white-space: nowrap; }
@@ -167,76 +190,123 @@ h1 { margin: 0; font-stretch: 62%; font-weight: 820; font-size: clamp(56px, 6.6v
 @media (hover: none) { .term-input input { font-size: 16px; } }
 
 /* One-tap commands under the console */
-.chips { display: none; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+.chips { display: none; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
 .js .chips { display: flex; }
-.chip { appearance: none; height: 34px; padding: 0 11px; border: 1px solid var(--ink); background: var(--sheet); color: var(--ink); font: 500 13px/1 var(--mono); cursor: pointer; }
+.chip { appearance: none; flex: 1 1 auto; height: 34px; padding: 0 10px; border: 1px solid var(--ink); background: var(--sheet); color: var(--ink); font: 500 12.5px/1 var(--mono); cursor: pointer; transition: background-color .15s ease, color .15s ease; }
 .chip::before { content: "$ "; color: var(--accent-ink); }
 .chip:hover { background: var(--ink); color: var(--paper); }
 .chip:hover::before { color: var(--accent); }
 
 /* Sections */
-.sec { max-width: 1240px; margin: 0 auto; padding: 72px 40px 0; }
-.sec-h { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 6px 20px; margin-bottom: 22px; padding-top: 12px; border-top: 2px solid var(--ink); }
-.sec-h h2 { margin: 0; font-stretch: 72%; font-weight: 760; font-size: clamp(28px, 3vw, 36px); line-height: 1.05; }
+.sec { padding-top: 96px; scroll-margin-top: 8px; }
+.sec-h { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 6px 20px; margin-bottom: 26px; padding-top: 14px; border-top: 2px solid var(--ink); }
+.sec-h h2 { display: flex; align-items: center; gap: 12px; margin: 0; font-stretch: 70%; font-weight: 780; font-size: clamp(32px, 3.6vw, 46px); line-height: 1; }
+.sec-h h2::before { content: ""; flex: none; width: 12px; height: 12px; background: var(--accent); }
 .sec-h p { margin: 0; font: 13px var(--mono); color: var(--muted); }
 
-.cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin: 0; padding: 0; list-style: none; }
-.card a { display: flex; flex-direction: column; height: 100%; padding: 16px 18px 15px; border: 1px solid var(--ink); background: var(--sheet); text-decoration: none; transition: border-color .15s ease, box-shadow .15s ease; }
-.card a:hover { color: inherit; border-color: var(--accent); box-shadow: inset 0 0 0 1px var(--accent); }
-.card .top { display: flex; justify-content: space-between; font: 500 11.5px/1 var(--mono); letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
-.card .go { color: var(--accent-ink); }
-.card h3 { margin: 18px 0 4px; font-stretch: 72%; font-weight: 760; font-size: 27px; line-height: 1.05; }
-.card a:hover h3 { color: var(--accent-ink); }
-.card p { margin: 0 0 16px; font-size: 15.5px; line-height: 1.4; color: var(--ink-2); }
-.card .stack { margin-top: auto; font: 12px/1.4 var(--mono); color: var(--muted); }
+/* Live sites */
+.sites { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; margin: 0; padding: 0; list-style: none; }
+.site { display: flex; flex-direction: column; height: 100%; border: 1px solid var(--ink); background: var(--sheet); text-decoration: none; transition: border-color .2s ease, box-shadow .2s ease; }
+.site:hover { color: inherit; border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
+.site .bar { display: flex; align-items: center; gap: 9px; height: 38px; padding: 0 14px; border-bottom: 1px solid var(--ink); font: 500 13px/1 var(--mono); transition: background-color .2s ease, color .2s ease; }
+.site .bar::before { content: ""; flex: none; width: 7px; height: 7px; background: var(--ok); }
+.site .bar .go { margin-left: auto; color: var(--accent-ink); transition: transform .2s ease; }
+.site:hover .bar { background: var(--ink); color: var(--paper); }
+.site:hover .bar .go { color: var(--accent); transform: translate(2px, -2px); }
+.site .shot { display: block; aspect-ratio: 16 / 10; overflow: hidden; background: var(--rule); }
+.site img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top; transition: transform .6s cubic-bezier(.2, .7, .2, 1); }
+.site:hover img { transform: scale(1.04); }
+.site .cap { display: block; padding: 16px 16px 18px; border-top: 1px solid var(--ink); }
+.site .cap b { display: block; font-stretch: 70%; font-weight: 780; font-size: 28px; line-height: 1.05; }
+.site .cap span { display: block; margin-top: 6px; font-size: 15.5px; line-height: 1.4; color: var(--ink-2); }
 
-.contact { padding-bottom: 8px; }
-.mail { display: inline-block; font-stretch: 66%; font-weight: 820; font-size: clamp(36px, 6.4vw, 80px); line-height: 1; text-decoration: none; overflow-wrap: anywhere; }
-.mail:hover { color: var(--accent-ink); }
-.contact p { margin: 14px 0 20px; color: var(--ink-2); }
-.contact .cta { margin: 0; }
-
-footer { max-width: 1240px; margin: 0 auto; padding: 56px 40px 40px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px 24px; font: 12px/1.4 var(--mono); letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); }
-
-@media (max-width: 1000px) {
-  .hero { min-height: 0; padding: 64px 0 40px; }
-  .hero-in { grid-template-columns: 1fr; gap: 18px; }
-  .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+/* Selected work, as an index */
+.rows { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--ink); }
+.row {
+  display: grid; grid-template-columns: 4ch minmax(170px, 230px) minmax(0, 1fr) 240px 72px; gap: 0 20px; align-items: baseline;
+  padding: 19px 10px; border-bottom: 1px solid var(--rule); text-decoration: none;
+  transition: background-color .15s ease;
 }
-@media (max-width: 960px), (hover: none) { .die-hint .drag { display: none; } }
-@media (max-width: 640px) {
-  body { font-size: 16px; }
-  .hero-in, .sec, footer { padding-left: 16px; padding-right: 16px; }
-  .hero { padding-top: 60px; }
-  .theme { top: 12px; right: 12px; }
+.row:hover { color: inherit; background: var(--sheet); }
+.row .n { font: 500 12.5px var(--mono); color: var(--muted); }
+.row .nm { font-stretch: 70%; font-weight: 780; font-size: 26px; line-height: 1.1; transition: color .15s ease; }
+.row .ln { color: var(--ink-2); }
+.row .stk { font: 12.5px/1.4 var(--mono); color: var(--muted); }
+.row .go { font: 500 12px/1 var(--mono); letter-spacing: 0.06em; text-transform: uppercase; color: var(--accent-ink); text-align: right; transition: transform .15s ease; }
+.row:hover .nm { color: var(--accent-ink); }
+.row:hover .go { transform: translateX(3px); }
+
+/* Contact */
+.mail { display: inline-flex; align-items: baseline; gap: 0.25em; font-stretch: 64%; font-weight: 820; font-size: clamp(40px, 7.4vw, 104px); line-height: 1; letter-spacing: -0.01em; text-decoration: none; overflow-wrap: anywhere; }
+.mail .arr { color: var(--accent); transition: transform .2s ease; }
+.mail:hover { color: var(--accent-ink); }
+.mail:hover .arr { transform: translateX(8px); }
+.contact .cta { margin-top: 26px; }
+
+footer { margin-top: 96px; border-top: 1px solid var(--ink); }
+footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px 24px; padding-top: 22px; padding-bottom: 36px; font: 12px/1.4 var(--mono); letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); }
+
+@media (max-width: 1080px) {
+  .row { grid-template-columns: 4ch minmax(150px, 200px) minmax(0, 1fr) 72px; }
+  .row .stk { display: none; }
+}
+@media (max-width: 1000px) {
+  .hero { min-height: 0; padding: 96px 0 48px; }
+  .hero-in { grid-template-columns: 1fr; gap: 36px; }
+  #die { opacity: 0.45; -webkit-mask-image: linear-gradient(180deg, transparent 30%, #000 70%); mask-image: linear-gradient(180deg, transparent 30%, #000 70%); }
+  .sites { grid-template-columns: 1fr 1fr; }
+  .sites li:last-child { grid-column: 1 / -1; }
   .die-hint { display: none; }
-  .plate { padding: 0 18px 18px; }
-  .plate::before { margin: 0 -18px 18px; }
+}
+@media (max-width: 680px) {
+  body { font-size: 16px; }
+  .wrap { padding: 0 16px; }
+  .top .wrap { height: 60px; }
+  .nav a { padding: 8px 7px; }
+  .hero { padding-top: 80px; }
+  .status { margin-bottom: 18px; }
   .term-body { height: 420px; padding: 10px 12px 4px; }
   .term-input { padding: 4px 12px 10px; }
-  .cards { grid-template-columns: 1fr; }
-  .sec { padding-top: 56px; }
-  .btn { padding: 0 12px; font-size: 13px; }
+  .sec { padding-top: 72px; }
+  .sites { grid-template-columns: 1fr; }
+  .row { grid-template-columns: 3.4ch minmax(0, 1fr) auto; gap: 2px 12px; padding: 16px 4px; }
+  .row .ln, .row .stk { grid-column: 2 / -1; }
+  .row .stk { display: block; }
+  .row .go { grid-row: 1; grid-column: 3; }
+  .btn { padding: 0 13px; font-size: 13px; }
+  footer { margin-top: 72px; }
 }
+@media (max-width: 380px) { .nav a[href="#work"] { display: none; } }
 </style>
 </head>
 <body>
 
-<header class="hero">
+<header class="hero" id="top">
   <canvas id="die" aria-hidden="true"></canvas>
-  <button type="button" class="btn theme" id="theme" aria-label="Switch theme"><svg viewBox="0 0 16 16" width="15" height="15" aria-hidden="true"><circle cx="8" cy="8" r="6.25" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M8 1.75a6.25 6.25 0 0 1 0 12.5z" fill="currentColor"/></svg></button>
-  <p class="die-hint" aria-hidden="true">a chip die, generated in your browser<span class="drag"> · drag it</span></p>
+  <div class="top">
+    <div class="wrap">
+      <a class="mark" href="#top" aria-label="Netanel Yanchevsky, top of page"><svg viewBox="0 0 32 32" width="22" height="22" aria-hidden="true"><g fill="currentColor"><rect x="8" y="3" width="16" height="26" rx="1.5"/><rect x="3" y="7" width="5" height="2.5"/><rect x="3" y="12.5" width="5" height="2.5"/><rect x="3" y="18" width="5" height="2.5"/><rect x="3" y="23.5" width="5" height="2.5"/><rect x="24" y="7" width="5" height="2.5"/><rect x="24" y="12.5" width="5" height="2.5"/><rect x="24" y="18" width="5" height="2.5"/><rect x="24" y="23.5" width="5" height="2.5"/></g><circle class="pin1" cx="12.5" cy="8" r="2"/></svg>NY</a>
+      <nav class="nav" aria-label="Sections">
+        <a href="#sites">sites</a>
+        <a href="#work">work</a>
+        <a href="#contact">contact</a>
+        <button type="button" class="btn theme" id="theme" aria-label="Switch theme"><svg viewBox="0 0 16 16" width="15" height="15" aria-hidden="true"><circle cx="8" cy="8" r="6.25" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M8 1.75a6.25 6.25 0 0 1 0 12.5z" fill="currentColor"/></svg></button>
+      </nav>
+    </div>
+  </div>
 
-  <div class="hero-in">
-    <div class="plate">
+  <div class="wrap hero-in">
+    <div class="intro">
       <p class="status"><span class="led" aria-hidden="true"></span>Open to internships · Ashdod, IL</p>
-      <h1>Netanel Yanchevsky</h1>
-      <p class="lede">Low-level systems, Hebrew AI and automation. I like problems where the constraint is the interesting part.</p>
+      <h1><span>Netanel</span><span>Yanchevsky</span></h1>
+      <p class="lede">Low-level systems, Hebrew AI and automation.</p>
+      <p class="sub">I like problems where the constraint is the interesting part.</p>
       <div class="cta">
         <a class="btn primary" href="mailto:natikyan153@gmail.com">Email me</a>
         <a class="btn" href="https://github.com/netanelyan">GitHub ↗</a>
         <a class="btn" href="https://www.linkedin.com/in/netanelyan">LinkedIn ↗</a>
       </div>
+      <p class="live"><span class="k">Live</span><a href="https://www.tiyulplus.com">tiyulplus.com</a><a href="https://openfrequency.co.il">openfrequency.co.il</a><a href="https://brickdealil.com">brickdealil.com</a></p>
     </div>
 
     <div class="console">
@@ -261,39 +331,56 @@ footer { max-width: 1240px; margin: 0 auto; padding: 56px 40px 40px; display: fl
       </div>
       <div class="chips" role="group" aria-label="Run a command">
         <button type="button" class="chip" data-cmd="about">about</button>
+        <button type="button" class="chip" data-cmd="sites">sites</button>
         <button type="button" class="chip" data-cmd="projects">projects</button>
         <button type="button" class="chip" data-cmd="skills">skills</button>
-        <button type="button" class="chip" data-cmd="scores">scores</button>
         <button type="button" class="chip" data-cmd="contact">contact</button>
         <button type="button" class="chip" data-cmd="rerun">rerun</button>
       </div>
     </div>
   </div>
+  <p class="die-hint" aria-hidden="true">a chip die, generated in your browser · drag it</p>
 </header>
 
-<main>
-  <section class="sec" aria-labelledby="work-h">
-    <div class="sec-h">
-      <h2 id="work-h">Selected work</h2>
-      <p><span id="moreNote">23 more</span> in the terminal: type <kbd>projects</kbd></p>
-    </div>
-    <ul class="cards">
-      <li class="card"><a href="https://netanelyan.github.io/manhattan/"><span class="top"><span>01 · systems</span><span class="go">live ↗</span></span><h3>Manhattan</h3><p>Opens a whole chip in a browser tab. Tested at 3.5 billion placements.</p><span class="stack">Rust → WASM · WebGL2</span></a></li>
-      <li class="card"><a href="https://github.com/netanelyan/nyrf-os"><span class="top"><span>02 · systems</span><span class="go">code ↗</span></span><h3>nyrf OS</h3><p>An operating system from the bootloader up.</p><span class="stack">C · x86-64 asm · UEFI</span></a></li>
-      <li class="card"><a href="https://openfrequency.co.il"><span class="top"><span>03 · ai</span><span class="go">live ↗</span></span><h3>Teder</h3><p>Hebrew social posts that can't invent a fact.</p><span class="stack">Node.js · SQLite · Playwright</span></a></li>
-      <li class="card"><a href="https://github.com/netanelyan/openfrequency-toran"><span class="top"><span>04 · ai</span><span class="go">code ↗</span></span><h3>Toran</h3><p>A WhatsApp sales agent for Israeli online stores.</p><span class="stack">TypeScript · Postgres · Claude</span></a></li>
-      <li class="card"><a href="https://www.tiyulplus.com"><span class="top"><span>05 · ai</span><span class="go">live ↗</span></span><h3>Tiyul+</h3><p>An AI travel agent in Hebrew. 166 destinations.</p><span class="stack">Next.js · Supabase · Claude API</span></a></li>
-      <li class="card"><a href="https://github.com/netanelyan/brickdeal-social"><span class="top"><span>06 · automation</span><span class="go">code ↗</span></span><h3>BrickDeal bots</h3><p>Deal pipelines that find, write and post on their own, 24/7.</p><span class="stack">Node.js · Telegram · TikTok</span></a></li>
-      <li class="card"><a href="https://netanelyan.github.io/lastember/"><span class="top"><span>07 · game</span><span class="go">play ↗</span></span><h3>Last Ember</h3><p>Pixel-art survival. Keep the fire burning till dawn.</p><span class="stack">JavaScript · Canvas</span></a></li>
-      <li class="card"><a href="https://netanelyan.github.io/ufc-game/"><span class="top"><span>08 · game</span><span class="go">play ↗</span></span><h3>Pixel Fight Night</h3><p>Pixel-art MMA in one HTML file.</p><span class="stack">JavaScript · Canvas</span></a></li>
-      <li class="card"><a href="https://github.com/netanelyan/vaelmoor"><span class="top"><span>09 · game</span><span class="go">code ↗</span></span><h3>Vaelmoor</h3><p>A first-person fantasy RPG in the browser.</p><span class="stack">three.js · no build step</span></a></li>
+<main class="wrap">
+  <section class="sec" id="sites" aria-labelledby="sites-h">
+    <div class="sec-h"><h2 id="sites-h">Live sites</h2><p>3 in production, all mine end to end</p></div>
+    <ul class="sites">
+      <li><a class="site" href="https://www.tiyulplus.com">
+        <span class="bar">tiyulplus.com<span class="go">↗</span></span>
+        <span class="shot"><img src="img/tiyulplus.webp" alt="The Tiyul+ home page, a Hebrew trip planner" width="800" height="500" loading="lazy"></span>
+        <span class="cap"><b>Tiyul+</b><span>An AI travel agent in Hebrew. Plans real, mapped trips.</span></span>
+      </a></li>
+      <li><a class="site" href="https://openfrequency.co.il">
+        <span class="bar">openfrequency.co.il<span class="go">↗</span></span>
+        <span class="shot"><img src="img/openfrequency.webp" alt="The OpenFrequency home page, showing Teder and Toran" width="800" height="500" loading="lazy"></span>
+        <span class="cap"><b>OpenFrequency</b><span>Hebrew AI for online stores: TikTok slideshows and a WhatsApp agent.</span></span>
+      </a></li>
+      <li><a class="site" href="https://brickdealil.com">
+        <span class="bar">brickdealil.com<span class="go">↗</span></span>
+        <span class="shot"><img src="img/brickdeal.webp" alt="The BrickDeal home page, a grid of brick-set deals" width="800" height="500" loading="lazy"></span>
+        <span class="cap"><b>BrickDeal</b><span>Brick-set deals, found, priced and posted by bots.</span></span>
+      </a></li>
     </ul>
   </section>
 
-  <section class="sec contact" aria-labelledby="contact-h">
-    <div class="sec-h"><h2 id="contact-h">Say hi</h2></div>
-    <a class="mail" href="mailto:natikyan153@gmail.com">natikyan153@gmail.com</a>
-    <p>Internships and part-time roles. Israel, remote or hybrid, until IDF enlistment in 2027.</p>
+  <section class="sec" id="work" aria-labelledby="work-h">
+    <div class="sec-h"><h2 id="work-h">Selected work</h2><p><span id="moreNote">+24 more</span> in the terminal: <kbd>projects</kbd></p></div>
+    <ol class="rows">
+      <li><a class="row" href="https://netanelyan.github.io/manhattan/"><span class="n">01</span><span class="nm">Manhattan</span><span class="ln">Opens a whole chip in a browser tab. Tested at 3.5 billion placements.</span><span class="stk">Rust → WASM · WebGL2</span><span class="go">live ↗</span></a></li>
+      <li><a class="row" href="https://github.com/netanelyan/nyrf-os"><span class="n">02</span><span class="nm">nyrf OS</span><span class="ln">An operating system from the bootloader up.</span><span class="stk">C · x86-64 asm · UEFI</span><span class="go">code ↗</span></a></li>
+      <li><a class="row" href="https://openfrequency.co.il"><span class="n">03</span><span class="nm">Teder</span><span class="ln">Hebrew social posts that can't invent a fact.</span><span class="stk">Node.js · SQLite · Playwright</span><span class="go">live ↗</span></a></li>
+      <li><a class="row" href="https://github.com/netanelyan/openfrequency-toran"><span class="n">04</span><span class="nm">Toran</span><span class="ln">A WhatsApp sales agent for Israeli online stores.</span><span class="stk">TypeScript · Postgres · Claude</span><span class="go">code ↗</span></a></li>
+      <li><a class="row" href="https://github.com/netanelyan/brickdeal-social"><span class="n">05</span><span class="nm">BrickDeal bots</span><span class="ln">Deal pipelines that find, write and post on their own, 24/7.</span><span class="stk">Node.js · Telegram · TikTok</span><span class="go">code ↗</span></a></li>
+      <li><a class="row" href="https://netanelyan.github.io/lastember/"><span class="n">06</span><span class="nm">Last Ember</span><span class="ln">Pixel-art survival. Keep the fire burning till dawn.</span><span class="stk">JavaScript · Canvas</span><span class="go">play ↗</span></a></li>
+      <li><a class="row" href="https://netanelyan.github.io/ufc-game/"><span class="n">07</span><span class="nm">Pixel Fight Night</span><span class="ln">Pixel-art MMA in one HTML file.</span><span class="stk">JavaScript · Canvas</span><span class="go">play ↗</span></a></li>
+      <li><a class="row" href="https://github.com/netanelyan/vaelmoor"><span class="n">08</span><span class="nm">Vaelmoor</span><span class="ln">A first-person fantasy RPG in the browser.</span><span class="stk">three.js · no build step</span><span class="go">code ↗</span></a></li>
+    </ol>
+  </section>
+
+  <section class="sec contact" id="contact" aria-labelledby="contact-h">
+    <div class="sec-h"><h2 id="contact-h">Say hi</h2><p>Internships and part-time · Israel, remote or hybrid</p></div>
+    <a class="mail" href="mailto:natikyan153@gmail.com">natikyan153@gmail.com<span class="arr" aria-hidden="true">→</span></a>
     <div class="cta">
       <a class="btn" href="https://github.com/netanelyan">GitHub ↗</a>
       <a class="btn" href="https://www.linkedin.com/in/netanelyan">LinkedIn ↗</a>
@@ -303,8 +390,10 @@ footer { max-width: 1240px; margin: 0 auto; padding: 56px 40px 40px; display: fl
 </main>
 
 <footer>
-  <span>If it can be automated, it will be.</span>
-  <span>© <span id="year">2026</span> Netanel Yanchevsky</span>
+  <div class="wrap">
+    <span>If it can be automated, it will be.</span>
+    <span>© <span id="year">2026</span> Netanel Yanchevsky</span>
+  </div>
 </footer>
 
 <script>
@@ -327,6 +416,11 @@ footer { max-width: 1240px; margin: 0 auto; padding: 56px 40px 40px; display: fl
   };
 
   /* ---------- Everything else lives in the terminal ---------- */
+  const SITES = [
+    { domain: "tiyulplus.com", url: "https://www.tiyulplus.com", name: "Tiyul+", line: "AI travel agent in Hebrew" },
+    { domain: "openfrequency.co.il", url: "https://openfrequency.co.il", name: "OpenFrequency", line: "Hebrew AI for online stores" },
+    { domain: "brickdealil.com", url: "https://brickdealil.com", name: "BrickDeal", line: "brick-set deals, run by bots" },
+  ];
   const GROUPS = [
     { id: "sys", label: "systems" },
     { id: "ai", label: "ai products" },
@@ -384,7 +478,8 @@ footer { max-width: 1240px; margin: 0 auto; padding: 56px 40px 40px; display: fl
     const pre = PROJECTS.filter(p => norm(p.repo).startsWith(n) || norm(p.name).startsWith(n));
     return pre.length === 1 ? pre[0] : null;
   };
-  $("#moreNote").textContent = `${PROJECTS.length - 9} more`;
+  const findSite = (q) => SITES.find(s => norm(s.domain) === norm(q || "") || norm("www" + s.domain) === norm(q || ""));
+  $("#moreNote").textContent = `+${PROJECTS.length - 8} more`;
 
   const ago = (iso) => {
     const d = (Date.now() - Date.parse(iso)) / 864e5;
@@ -467,9 +562,9 @@ footer { max-width: 1240px; margin: 0 auto; padding: 56px 40px 40px; display: fl
     let cwPx = 0, chPx = 0, dpr = 1, fitS = 1, containS = 1, colors = {};
     const readColors = () => { colors = { bg: css("--paper"), panel: css("--sheet"), ink: css("--ink"), rule: css("--rule"), m1: css("--m1"), m2: css("--m2"), via: css("--via"), diff: css("--diff") }; };
 
-    // The die covers the hero
+    // The die covers the hero, zoomed past its pad ring so only the logic shows
     const fitView = () => {
-      fitS = Math.max(cwPx / W, chPx / H) || 1;
+      fitS = Math.max(cwPx / W, chPx / H) * 1.3 || 1;
       containS = Math.min(cwPx / W, chPx / H) || 1;
       view.s = fitS;
       view.x = W / 2 - cwPx / 2 / fitS;
@@ -630,7 +725,7 @@ footer { max-width: 1240px; margin: 0 auto; padding: 56px 40px 40px; display: fl
 
     // Intro: start deep inside the logic and pull back until the die fills the hero
     let intro = 0;
-    const focus = { x: W * 0.43, y: H * 0.56 };
+    const focus = { x: W * 0.62, y: H * 0.5 };
     const pivotAt = (s) => {
       const endX = W / 2 - cwPx / 2 / fitS, endY = H / 2 - chPx / 2 / fitS;
       const px = (focus.x - endX) * fitS, py = (focus.y - endY) * fitS;
@@ -718,7 +813,7 @@ footer { max-width: 1240px; margin: 0 auto; padding: 56px 40px 40px; display: fl
     { id: "01", name: "renders at scale", ev: "manhattan · 3.5B placements", res: "pass" },
     { id: "02", name: "boots on bare metal", ev: "nyrf-os · own UEFI loader", res: "pass" },
     { id: "03", name: "won't invent facts", ev: "teder · fact = stored quote", res: "pass" },
-    { id: "04", name: "ships to production", ev: "tiyulplus.com · live", res: "pass" },
+    { id: "04", name: "ships to production", ev: "3 live sites", res: "pass" },
     { id: "05", name: "runs unattended", ev: "brickdeal · 24/7", res: "pass" },
     { id: "06", name: "owns the outcome", ev: "runs a registered business", res: "pass" },
     { id: "07", name: "exams", ev: "cs 99 · math 96 · dapar 90", res: "pass" },
@@ -815,7 +910,7 @@ footer { max-width: 1240px; margin: 0 auto; padding: 56px 40px 40px; display: fl
 
     const COMMANDS = {
       help() {
-        for (const [c, d] of [["about", "who I am"], ["projects", "everything I've built"], ["cat <name>", "one project, up close"], ["open <name>", "open it"], ["skills", "languages and tools"], ["scores", "exams and grades"], ["contact", "how to reach me"], ["verdict", "the verdict again"], ["rerun", "run the test again"], ["clear", "clear the screen"]])
+        for (const [c, d] of [["about", "who I am"], ["sites", "my live sites"], ["projects", "everything I've built"], ["cat <name>", "one project, up close"], ["open <name>", "open it"], ["skills", "languages and tools"], ["scores", "exams and grades"], ["contact", "how to reach me"], ["verdict", "the verdict again"], ["rerun", "run the test again"], ["clear", "clear the screen"]])
           kv(c.includes("<") ? c : cmd(c), d, "wide");
       },
       about() {
@@ -824,7 +919,10 @@ footer { max-width: 1240px; margin: 0 auto; padding: 56px 40px 40px; display: fl
         line("I build low-level systems, Hebrew AI products and automation.");
         line("I also run a registered business with live e-commerce brands.");
         line("Open to internships and part-time roles until IDF enlistment, 2027.");
-        more("projects", "skills", "contact");
+        more("sites", "projects", "skills", "scores");
+      },
+      sites() {
+        for (const s of SITES) kv(link(s.url, s.domain), `${s.name} · ${s.line}`, "wide");
       },
       projects(arg) {
         const all = /(^|\s)-\w*a/.test(arg);
@@ -848,7 +946,7 @@ footer { max-width: 1240px; margin: 0 auto; padding: 56px 40px 40px; display: fl
       },
       open(arg) {
         if (!arg) return line(["usage: open <name>. names are in ", cmd("projects")], "dim");
-        const special = LINKS[norm(arg)];
+        const special = LINKS[norm(arg)] || findSite(arg)?.url;
         if (special) return openUrl(special);
         const p = find(arg);
         if (!p) return notFound("open", arg);
@@ -891,7 +989,7 @@ footer { max-width: 1240px; margin: 0 auto; padding: 56px 40px 40px; display: fl
     };
     Object.assign(COMMANDS, { ls: COMMANDS.projects, run: COMMANDS.rerun, mail: COMMANDS.email, cls: COMMANDS.clear, quit: COMMANDS.exit, man: COMMANDS.cat,
       github: () => openUrl(LINKS.github), linkedin: () => openUrl(LINKS.linkedin) });
-    const VISIBLE = ["help", "about", "projects", "cat", "open", "skills", "scores", "contact", "verdict", "rerun", "clear", "email", "sudo"];
+    const VISIBLE = ["help", "about", "sites", "projects", "cat", "open", "skills", "scores", "contact", "verdict", "rerun", "clear", "email", "sudo"];
 
     const hist = [];
     let hi = 0;

@@ -30,6 +30,13 @@ $ ate run hire.tp --dut netanelyan
   <a href="https://netanelyan.github.io/netanelyan/">Website</a>
 </p>
 
+<p align="center">
+  <b>Live:</b>
+  <a href="https://www.tiyulplus.com">tiyulplus.com</a> ·
+  <a href="https://openfrequency.co.il">openfrequency.co.il</a> ·
+  <a href="https://brickdealil.com">brickdealil.com</a>
+</p>
+
 | | | |
 |---|---|---|
 | **[manhattan](https://github.com/netanelyan/manhattan)** | A whole chip in a browser tab | Rust → WASM · WebGL2 |
