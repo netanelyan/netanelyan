@@ -1,52 +1,49 @@
-<h1 align="center">Hey, I'm Netanel 👋</h1>
+<h1 align="center">Netanel Yanchevsky</h1>
 
 <p align="center">
-  <b>I like problems where the constraint is the interesting part.</b><br>
-  Developer from Israel · 3rd year of <a href="https://www.magshimim.cyber.org.il/">Magshimim</a> · low-level systems, web platforms, and automation
+  Low-level systems, Hebrew AI and automation · Ashdod, Israel<br>
+  <a href="https://netanelyan.github.io/netanelyan/"><b>Run the test live, then type <code>help</code> →</b></a>
 </p>
+
+```text
+$ ate run hire.tp --dut netanelyan
+
+  01  renders at scale ......... manhattan · 3.5B placements   PASS
+  02  boots on bare metal ...... nyrf-os · own UEFI loader     PASS
+  03  won't invent facts ....... teder · fact = stored quote   PASS
+  04  ships to production ...... tiyulplus.com · live          PASS
+  05  runs unattended .......... brickdeal · 24/7              PASS
+  06  owns the outcome ......... runs a registered business    PASS
+  07  exams .................... cs 99 · math 96 · dapar 90    PASS
+  08  tolerates manual work .... 3 times, then a script        WARN
+
+  7 passed · 1 warning · 0 failed
+
+  VERDICT      HIRE
+  CONFIDENCE   HIGH  ███████████████████░  0.97
+  NEXT STEP    natikyan153@gmail.com
+```
 
 <p align="center">
-  <a href="https://www.linkedin.com/in/netanelyan"><img src="https://img.shields.io/badge/LinkedIn-0A66C2?style=flat&logo=linkedin&logoColor=white" alt="LinkedIn"/></a>
-  <a href="https://www.instagram.com/netanel.yan/"><img src="https://img.shields.io/badge/Instagram-E4405F?style=flat&logo=instagram&logoColor=white" alt="Instagram"/></a>
-  <a href="https://www.tiyulplus.com"><img src="https://img.shields.io/badge/tiyulplus.com-111?style=flat&logo=googlemaps&logoColor=white" alt="Tiyul+"/></a>
+  <a href="mailto:natikyan153@gmail.com">Email</a> ·
+  <a href="https://www.linkedin.com/in/netanelyan">LinkedIn</a> ·
+  <a href="https://netanelyan.github.io/netanelyan/">Website</a>
 </p>
 
----
+| | | |
+|---|---|---|
+| **[manhattan](https://github.com/netanelyan/manhattan)** | A whole chip in a browser tab | Rust → WASM · WebGL2 |
+| **[nyrf-os](https://github.com/netanelyan/nyrf-os)** | An OS from the bootloader up | C · asm · UEFI |
+| **[teder](https://github.com/netanelyan/openfrequency-teder)** | Hebrew posts that can't invent a fact | Node.js · Playwright |
+| **[toran](https://github.com/netanelyan/openfrequency-toran)** | WhatsApp sales agent for Israeli stores | TypeScript · Claude |
+| **[tiyul-plus](https://github.com/netanelyan/tiyul-plus)** | AI travel agent in Hebrew, [live](https://www.tiyulplus.com) | Next.js · Supabase |
 
-## 🚀 Building
+**Runs itself** · [brickdeal-automation](https://github.com/netanelyan/brickdeal-automation) · [brickdeal-social](https://github.com/netanelyan/brickdeal-social) · [tiyul-social](https://github.com/netanelyan/tiyul-social) · [shopify-order-automation](https://github.com/netanelyan/shopify-order-automation) · [leantv](https://github.com/netanelyan/leantv)
 
-| | |
-|---|---|
-| 🗺️ **[manhattan](https://github.com/netanelyan/manhattan)** | Google Maps for a chip die. C→Wasm + WebGL2 tile pyramid, ~2M rects at 60fps, a 349M-placement view in 70 draw calls |
-| 🖥️ **[nyrf-os](https://github.com/netanelyan/nyrf-os)** | x86_64 OS from the bootloader up. Own UEFI loader, ELF kernel, designed around timing consistency over raw compute |
-| ✈️ **[tiyul-plus](https://github.com/netanelyan/tiyul-plus)** | Hebrew AI travel agent, live at [tiyulplus.com](https://www.tiyulplus.com). A validated tool layer means it can't invent a place or a price |
-| 🏎️ **[outbound](https://github.com/netanelyan/outbound)** | Browser driving game: endless procedural road, manual gearbox, three.js in one HTML file. [Play it →](https://netanelyan.github.io/outbound) |
-| 📱 **[remind](https://github.com/netanelyan/remind)** | Apple Reminders with a better UI and a better widget. Built and signed without a Mac (xtool on WSL) |
+**Games** · [last ember](https://netanelyan.github.io/lastember/) · [pixel fight night](https://netanelyan.github.io/ufc-game/) · [outbound](https://netanelyan.github.io/outbound/) · [vaelmoor](https://github.com/netanelyan/vaelmoor)
 
-## 🤖 Things that run themselves
+**Tools** · [humanizer](https://github.com/netanelyan/humanizer) · [hebrew-voice](https://github.com/netanelyan/hebrew-voice) · [stash](https://github.com/netanelyan/stash) · [remind](https://github.com/netanelyan/remind)
 
-[brickdeal-automation](https://github.com/netanelyan/brickdeal-automation) · [tiyul-social](https://github.com/netanelyan/tiyul-social) · [shopify-order-automation](https://github.com/netanelyan/shopify-order-automation)<br>
-24/7 pipelines for deals, content and orders. Nothing ships until a human taps approve on Telegram.
+**Magshimim** · [trivia](https://github.com/netanelyan/magshimim-trivia) · [cpp-gallery](https://github.com/netanelyan/cpp-gallery) · [cpp-chess](https://github.com/netanelyan/cpp-chess) · [gifMaker](https://github.com/netanelyan/gifMaker)
 
-## 🎓 Magshimim
-
-[magshimim-trivia](https://github.com/netanelyan/magshimim-trivia) (C++ server, C# client, custom binary TCP) · [cpp-gallery](https://github.com/netanelyan/cpp-gallery) · [chess](https://github.com/netanelyan/chess) · [gifMaker](https://github.com/netanelyan/gifMaker) · [simple-browser](https://github.com/netanelyan/simple-browser)
-
----
-
-## 📊 Stats
-
-<p align="center">
-  <img height="165" src="https://github-stats-extended.vercel.app/api?username=netanelyan&show_icons=true&theme=github_dark&hide_border=true&count_private=true&include_all_commits=true&rank_icon=github&show=prs_merged" alt="GitHub stats"/>
-  <img height="165" src="https://github-stats-extended.vercel.app/api/top-langs/?username=netanelyan&layout=compact&theme=github_dark&hide_border=true&langs_count=8&hide=html,css" alt="Top languages"/>
-</p>
-
-<p align="center">
-  <img src="https://streak-stats.demolab.com?user=netanelyan&theme=github-dark-blue&hide_border=true" alt="Contribution streak"/>
-</p>
-
-## 🧰 Stack
-
-`C` · `C++` · `x86-64 Asm` · `WebAssembly` · `WebGL2` · `TypeScript` · `Next.js` · `Node.js` · `C#` · `Python` · `Swift` · `SQLite` · `Supabase` · `Linux`
-
-<p align="center"><i>"If it can be automated, it will be."</i></p>
+<p align="center"><i>If it can be automated, it will be.</i></p>

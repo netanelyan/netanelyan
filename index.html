@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Netanel Yanchevsky</title>
-<meta name="description" content="Netanel Yanchevsky (Netanel Yan), developer from Ashdod, Israel, written up as a component data sheet: a chip-layout viewer, an OS from the bootloader up, Hebrew AI products and automation that runs itself.">
-<meta property="og:title" content="Netanel Yanchevsky · NY-2026 data sheet">
-<meta property="og:description" content="Verdict: hire. Confidence: high. A developer from Israel, written up as a component data sheet.">
+<meta name="description" content="Netanel Yanchevsky (Netanel Yan), developer from Ashdod, Israel. Low-level systems, Hebrew AI products and automation. Run the hiring test in your browser.">
+<meta property="og:title" content="Netanel Yanchevsky · verdict: hire">
+<meta property="og:description" content="Developer from Israel. Systems, AI and automation. Run the test and see the verdict.">
 <meta property="og:image" content="https://github.com/netanelyan.png?size=400">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary">
@@ -27,7 +27,6 @@ try { const t = localStorage.getItem("theme"); if (t === "light" || t === "dark"
   --ink-2: #3D3B36;
   --muted: #6B685F;
   --rule: #D3CEC2;
-  --shade: #E6E1D5;
   --accent: #F0480F;
   --accent-ink: #B13806;
   --on-accent: #160903;
@@ -42,150 +41,72 @@ try { const t = localStorage.getItem("theme"); if (t === "light" || t === "dark"
   --term-acc: #FF7038;
   /* Layer colors for the die, as a layout viewer draws them */
   --m1: #2F55D4; --m2: #B5307C; --via: #C98A10; --diff: #2C8A66;
-  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .07 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   --sans: "Archivo", "Helvetica Neue", Arial, sans-serif;
   color-scheme: light;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --paper: #131312; --sheet: #1B1B19; --ink: #EDE9E0; --ink-2: #CCC7BC; --muted: #9B968B; --rule: #35342F; --shade: #24231F;
+    --paper: #131312; --sheet: #1B1B19; --ink: #EDE9E0; --ink-2: #CCC7BC; --muted: #9B968B; --rule: #35342F;
     --accent: #FF5A1F; --accent-ink: #FF8A55; --ok: #5FC58C;
     --term-bg: #0B0B0A; --term-border: #3A3934; --term-line: #262622;
     --m1: #7391FF; --m2: #E863A8; --via: #F0B43C; --diff: #4FB88E;
-    --grain: none;
     color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
-  --paper: #131312; --sheet: #1B1B19; --ink: #EDE9E0; --ink-2: #CCC7BC; --muted: #9B968B; --rule: #35342F; --shade: #24231F;
+  --paper: #131312; --sheet: #1B1B19; --ink: #EDE9E0; --ink-2: #CCC7BC; --muted: #9B968B; --rule: #35342F;
   --accent: #FF5A1F; --accent-ink: #FF8A55; --ok: #5FC58C;
   --term-bg: #0B0B0A; --term-border: #3A3934; --term-line: #262622;
   --m1: #7391FF; --m2: #E863A8; --via: #F0B43C; --diff: #4FB88E;
-  --grain: none;
   color-scheme: dark;
 }
 
 * { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; }
 @media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
-body {
-  margin: 0;
-  background-color: var(--paper);
-  background-image: var(--grain);
-  color: var(--ink);
-  font-family: var(--sans);
-  font-size: 16.5px;
-  line-height: 1.55;
-}
+body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--sans); font-size: 16.5px; line-height: 1.55; }
 a { color: inherit; text-decoration-color: var(--accent); text-decoration-thickness: 1.5px; text-underline-offset: 3px; }
 a:hover { color: var(--accent-ink); }
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-.mono { font-family: var(--mono); }
-.nw { white-space: nowrap; }
 .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
-kbd { font: 500 0.88em var(--mono); padding: 1px 5px; border: 1px solid var(--rule); background: var(--sheet); }
-.sheet { max-width: 1240px; margin: 0 auto; padding: 0 40px; }
+kbd { font: 500 0.9em var(--mono); padding: 1px 5px; border: 1px solid var(--rule); background: var(--sheet); }
 
-/* Running header: the strip at the top of every data sheet page */
-.runhead { position: sticky; top: 0; z-index: 20; background: var(--paper); border-bottom: 1px solid var(--ink); }
-.runhead-in { display: flex; align-items: center; gap: 18px; height: 42px; font: 500 12px/1 var(--mono); letter-spacing: 0.05em; text-transform: uppercase; }
-.rh-part { font-weight: 600; text-decoration: none; }
-.rh-doc { color: var(--muted); white-space: nowrap; }
-.rh-sec { margin-left: auto; color: var(--ink-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
-.rh-tools { flex: none; display: flex; border: 1px solid var(--ink); }
-.rh-tools button { appearance: none; border: 0; background: transparent; color: var(--ink); font: inherit; letter-spacing: inherit; text-transform: inherit; height: 28px; padding: 0 10px; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; }
-.rh-tools button + button { border-left: 1px solid var(--ink); }
-.rh-tools button:hover { background: var(--ink); color: var(--paper); }
-.rh-tools svg { display: block; }
-.progress { position: absolute; left: 0; bottom: -1px; height: 2px; width: 100%; background: var(--accent); transform-origin: 0 50%; transform: scaleX(var(--p, 0)); }
-
-/* Title block */
-.title { position: relative; padding: 30px 0 34px; }
-.title .sheet { position: relative; }
-.topbar { height: 10px; margin-bottom: 26px; background: linear-gradient(90deg, var(--accent) 0 132px, var(--ink) 132px); }
-.kicker { display: flex; flex-wrap: wrap; gap: 6px 22px; margin: 0 0 16px; font: 500 12.5px/1.2 var(--mono); letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
-.kicker span:first-child { color: var(--ink); font-weight: 600; }
-h1 {
-  margin: 0;
-  font-stretch: 62%;
-  font-weight: 820;
-  font-size: clamp(60px, 10.4vw, 140px);
-  line-height: 0.86;
-  letter-spacing: -0.01em;
-}
-.subtitle { margin: 18px 0 0; max-width: 32ch; font-stretch: 88%; font-weight: 520; font-size: clamp(20px, 2.3vw, 27px); line-height: 1.2; }
-.quick { display: flex; flex-wrap: wrap; gap: 8px; margin: 26px 0 0; padding: 0; list-style: none; }
-.quick a, .quick button {
+/* Buttons */
+.btn {
   display: inline-flex; align-items: center; gap: 8px;
   height: 40px; padding: 0 14px;
   border: 1px solid var(--ink); background: var(--sheet); color: var(--ink);
   font: 500 13.5px/1 var(--mono); text-decoration: none; cursor: pointer;
 }
-.quick a:hover, .quick button:hover { background: var(--ink); color: var(--paper); }
-.quick .primary { background: var(--accent); border-color: var(--accent); color: var(--on-accent); font-weight: 600; }
-.quick .primary:hover { background: var(--ink); border-color: var(--ink); color: var(--paper); }
-.stamp {
-  position: absolute; right: 40px; bottom: 4px;
-  transform: rotate(-7deg);
-  padding: 10px 16px 9px;
-  border: 3px solid var(--accent);
-  box-shadow: inset 0 0 0 2px var(--paper), inset 0 0 0 3.5px var(--accent);
-  color: var(--accent);
-  text-align: center;
-  font-stretch: 68%; font-weight: 820; font-size: 27px; line-height: 1; letter-spacing: 0.07em; text-transform: uppercase;
-  mix-blend-mode: multiply;
-  user-select: none;
-}
-.stamp small { display: block; margin-top: 7px; font: 600 10.5px/1 var(--mono); letter-spacing: 0.16em; }
-:root[data-theme="dark"] .stamp { mix-blend-mode: normal; }
-@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .stamp { mix-blend-mode: normal; } }
+.btn:hover { background: var(--ink); color: var(--paper); }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: var(--on-accent); font-weight: 600; }
+.btn.primary:hover { background: var(--ink); border-color: var(--ink); color: var(--paper); }
 
-/* Section headings, numbered like a data sheet */
-.sec { padding-top: 72px; }
-.sec, .blk, .dd { scroll-margin-top: 58px; }
-.sec > h2, .blk > h2 {
-  display: flex; align-items: baseline; gap: 14px;
-  margin: 0 0 22px; padding-top: 12px;
-  border-top: 2px solid var(--ink);
-  font-stretch: 72%; font-weight: 760; font-size: clamp(27px, 3vw, 34px); line-height: 1.05;
+/* Hero: the die behind, the nameplate and the console on top */
+.hero { position: relative; display: flex; align-items: center; min-height: min(100vh, 900px); padding: 76px 0 60px; overflow: hidden; border-bottom: 1px solid var(--ink); }
+#die { position: absolute; inset: 0; width: 100%; height: 100%; display: block; cursor: grab; touch-action: pan-y; }
+#die.dragging { cursor: grabbing; }
+.hero-in {
+  position: relative; width: 100%; max-width: 1240px; margin: 0 auto; padding: 0 40px;
+  display: grid; grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr); gap: 32px; align-items: center;
+  pointer-events: none;
 }
-h2 .n, .sub .n { flex: none; font: 600 14px/1 var(--mono); color: var(--accent-ink); min-width: 2.4ch; }
-.sub {
-  display: flex; align-items: baseline; gap: 12px;
-  margin: 44px 0 16px; padding-top: 10px;
-  border-top: 1px solid var(--rule);
-  font-stretch: 80%; font-weight: 720; font-size: 22px; line-height: 1.2;
-}
-.sub .n { color: var(--muted); font-weight: 500; }
-.lead { max-width: 72ch; margin: 0 0 18px; color: var(--ink-2); }
-.prose p { margin: 0 0 14px; max-width: 66ch; }
-.prose p:last-child { margin-bottom: 0; }
-.fn { margin: 8px 0 0; font-size: 13px; color: var(--muted); }
+.hero-in > * { pointer-events: auto; }
+.theme { position: absolute; top: 16px; right: 16px; z-index: 2; display: grid; place-items: center; width: 38px; height: 38px; padding: 0; }
+.die-hint { position: absolute; left: 16px; bottom: 14px; margin: 0; padding: 5px 8px; background: var(--sheet); border: 1px solid var(--rule); font: 11.5px/1 var(--mono); color: var(--muted); pointer-events: none; }
 
-/* Page one: two columns, like the front page of a data sheet */
-.p1 { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.12fr); gap: 0 56px; padding-top: 6px; }
-.p1-l > .blk + .blk { margin-top: 44px; }
-.feat, .apps { list-style: none; margin: 0; padding: 0; }
-.feat li, .apps li { position: relative; padding: 9px 0 9px 22px; border-bottom: 1px solid var(--rule); transition: background-color .15s ease; }
-.feat li::before, .apps li::before { content: ""; position: absolute; left: 2px; top: 18px; width: 8px; height: 8px; background: var(--ink); }
-.feat li:hover::before { background: var(--accent); }
-.cite {
-  display: inline-block; margin-left: 6px; padding: 2px 5px;
-  border: 1px solid currentColor; color: var(--accent-ink);
-  font: 500 11px/1 var(--mono); text-decoration: none; white-space: nowrap; vertical-align: 1px;
-}
-.cite:hover { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
-.photo { float: right; width: 136px; margin: 4px 0 12px 22px; }
-.photo img { display: block; width: 136px; height: 136px; object-fit: cover; border: 1px solid var(--ink); filter: grayscale(1) contrast(1.05); transition: filter .3s ease; }
-.photo:hover img { filter: none; }
-.photo figcaption { margin-top: 6px; font-size: 12px; line-height: 1.35; color: var(--muted); }
+.plate { background: var(--sheet); border: 1px solid var(--ink); padding: 0 28px 26px; }
+.plate::before { content: ""; display: block; height: 8px; margin: 0 -28px 22px; background: linear-gradient(90deg, var(--accent) 0 96px, var(--ink) 96px); }
+.status { display: flex; align-items: center; gap: 9px; margin: 0 0 16px; font: 500 12.5px/1 var(--mono); color: var(--muted); }
+.led { flex: none; width: 8px; height: 8px; background: var(--ok); }
+@media (prefers-reduced-motion: no-preference) { .led { animation: ping 2.4s ease-out infinite; } }
+@keyframes ping { 0% { box-shadow: 0 0 0 0 var(--ok); } 70% { box-shadow: 0 0 0 7px transparent; } 100% { box-shadow: 0 0 0 0 transparent; } }
+h1 { margin: 0; font-stretch: 62%; font-weight: 820; font-size: clamp(56px, 6.6vw, 98px); line-height: 0.86; letter-spacing: -0.01em; }
+.lede { margin: 16px 0 0; font-stretch: 90%; font-weight: 500; font-size: clamp(18px, 1.7vw, 21px); line-height: 1.3; }
+.cta { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 22px; }
 
-.fig { margin: 0; }
-.fig > figcaption { margin-top: 10px; font-size: 13.5px; line-height: 1.45; color: var(--ink-2); text-align: center; }
-.fig > figcaption b { color: var(--ink); }
-
-/* Figure 1: the production test console */
+/* The console */
 .term {
   container: term / inline-size;
   background: var(--term-bg); color: var(--term-ink);
@@ -198,7 +119,7 @@ h2 .n, .sub .n { flex: none; font: 600 14px/1 var(--mono); color: var(--accent-i
 .lamp.run { background: var(--term-acc); }
 .lamp.done { background: var(--term-ok); }
 .term-meta { margin-left: auto; white-space: nowrap; }
-.term-body { height: 506px; overflow-y: auto; padding: 12px 14px 4px; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: #3A3B36 transparent; cursor: text; }
+.term-body { height: 430px; overflow-y: auto; padding: 12px 14px 4px; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: #3A3B36 transparent; cursor: text; }
 .term-body .l { white-space: pre-wrap; overflow-wrap: anywhere; min-height: 1.62em; }
 .term .dim { color: var(--term-dim); }
 .term .warn { color: var(--term-warn); }
@@ -206,38 +127,34 @@ h2 .n, .sub .n { flex: none; font: 600 14px/1 var(--mono); color: var(--accent-i
 .term a { color: var(--term-acc); text-decoration-color: currentColor; }
 .term a:hover { color: var(--term-ink); }
 .term b { color: #fff; font-weight: 600; }
-.t { display: grid; grid-template-columns: 3ch minmax(0, 1fr) 29ch 4ch; column-gap: 1ch; align-items: baseline; }
+.t { display: grid; grid-template-columns: 3ch minmax(0, 1fr) 28ch 4ch; column-gap: 1ch; align-items: baseline; }
 .t .name { display: flex; min-width: 0; }
 .t .name > span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .t .name::after { content: ""; flex: 1 0 1ch; margin: 0 0 0.35em 0.8ch; border-bottom: 1px dotted #55554F; }
-.t.th .name::after { display: none; }
-.t.th { color: var(--term-dim); }
-.t .id { color: var(--term-dim); }
-.t .ev { color: var(--term-dim); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.t .id, .t .ev { color: var(--term-dim); }
+.t .ev { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .t .res { text-align: right; font-weight: 600; }
 .res.pass { color: var(--term-ok); }
 .res.warn { color: var(--term-warn); }
 .res.run { color: var(--term-dim); }
-.t.hl { background: rgba(255, 112, 56, 0.16); box-shadow: -14px 0 0 rgba(255, 112, 56, 0.16), 14px 0 0 rgba(255, 112, 56, 0.16); }
 @container term (max-width: 540px) {
   .t { grid-template-columns: 3ch minmax(0, 1fr) 4ch; }
   .t .ev { grid-column: 2 / -1; grid-row: 2; white-space: normal; }
-  .t.th .ev { display: none; }
 }
 .kv { display: grid; grid-template-columns: 13ch minmax(0, 1fr); column-gap: 1ch; }
-.kv.wide { grid-template-columns: 26ch minmax(0, 1fr); }
-@container term (max-width: 420px) { .kv.wide { grid-template-columns: minmax(0, 1fr) auto; } }
 .kv .k { color: var(--term-dim); text-transform: uppercase; letter-spacing: 0.05em; }
+.kv.wide { grid-template-columns: 24ch minmax(0, 1fr); }
 .kv.wide .k { color: var(--term-ink); text-transform: none; letter-spacing: 0; }
+.kv.wide .v { color: var(--term-dim); }
+@container term (max-width: 480px) {
+  .kv.wide { grid-template-columns: minmax(0, 1fr); }
+  .kv.wide .v { padding-left: 2ch; }
+}
 .hire { background: var(--term-acc); color: #140803; font-weight: 700; padding: 0 0.7ch; letter-spacing: 0.14em; }
 .bin { color: var(--term-ok); font-weight: 600; }
 .meter { display: inline-block; position: relative; width: 16ch; height: 10px; margin: 0 1ch; vertical-align: -1px; border: 1px solid #4A4A44; }
 .meter i { position: absolute; left: 1px; top: 1px; bottom: 1px; width: 0; max-width: calc(100% - 2px); background: repeating-linear-gradient(90deg, var(--term-acc) 0 5px, transparent 5px 7px); transition: width 1.1s cubic-bezier(.2, .7, .2, 1); }
-.s-active { color: var(--term-ok); }
-.s-preview { color: var(--term-acc); }
-.s-released, .s-obsolete { color: var(--term-dim); }
-.wait { animation: blink 1s steps(2) infinite; }
-.lamp.run, .res.run { animation: blink .8s steps(2) infinite; }
+.wait, .lamp.run, .res.run { animation: blink .8s steps(2) infinite; }
 @keyframes blink { 50% { opacity: 0.25; } }
 .cmd { appearance: none; background: none; border: 0; padding: 0; margin: 0; color: var(--term-ink); font: inherit; text-decoration: underline dashed var(--term-dim); text-underline-offset: 3px; cursor: pointer; }
 .cmd:hover { color: var(--term-acc); text-decoration-color: currentColor; }
@@ -249,659 +166,146 @@ h2 .n, .sub .n { flex: none; font: 600 14px/1 var(--mono); color: var(--accent-i
 .term-input input::placeholder { color: var(--term-dim); opacity: 1; }
 @media (hover: none) { .term-input input { font-size: 16px; } }
 
-/* Table of contents */
-.toc { margin-top: 40px; }
-.toc-h { margin: 0 0 6px; padding-top: 10px; border-top: 2px solid var(--ink); font-stretch: 72%; font-weight: 760; font-size: 22px; }
-.toc ol { list-style: none; margin: 0; padding: 0; }
-.toc a { display: flex; align-items: baseline; gap: 10px; padding: 6px 0; text-decoration: none; }
-.toc .n { flex: none; min-width: 2.6ch; font: 500 12.5px var(--mono); color: var(--accent-ink); }
-.toc .dots { flex: 1; border-bottom: 1px dotted var(--muted); transform: translateY(-4px); }
-.toc .go { font: 500 12px var(--mono); color: var(--muted); }
-.toc a:hover .go { color: var(--accent-ink); }
+/* One-tap commands under the console */
+.chips { display: none; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+.js .chips { display: flex; }
+.chip { appearance: none; height: 34px; padding: 0 11px; border: 1px solid var(--ink); background: var(--sheet); color: var(--ink); font: 500 13px/1 var(--mono); cursor: pointer; }
+.chip::before { content: "$ "; color: var(--accent-ink); }
+.chip:hover { background: var(--ink); color: var(--paper); }
+.chip:hover::before { color: var(--accent); }
 
-/* Data sheet tables */
-.tw { overflow-x: auto; }
-.dt { width: 100%; border-collapse: collapse; background: var(--sheet); font-size: 15px; line-height: 1.45; }
-.dt caption { caption-side: top; text-align: left; padding: 0 0 8px; font-weight: 700; font-size: 13.5px; }
-.dt th, .dt td { padding: 9px 12px; border: 1px solid var(--rule); text-align: left; vertical-align: top; }
-.dt thead th { background: var(--shade); font-stretch: 80%; font-weight: 700; font-size: 12.5px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--ink-2); white-space: nowrap; }
-.dt .num { text-align: right; font-family: var(--mono); font-size: 14px; font-variant-numeric: tabular-nums; white-space: nowrap; }
-.dt .b { font-weight: 600; }
-.dt sup { font: 500 10px var(--mono); color: var(--muted); }
+/* Sections */
+.sec { max-width: 1240px; margin: 0 auto; padding: 72px 40px 0; }
+.sec-h { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 6px 20px; margin-bottom: 22px; padding-top: 12px; border-top: 2px solid var(--ink); }
+.sec-h h2 { margin: 0; font-stretch: 72%; font-weight: 760; font-size: clamp(28px, 3vw, 36px); line-height: 1.05; }
+.sec-h p { margin: 0; font: 13px var(--mono); color: var(--muted); }
 
-.legend { display: flex; flex-wrap: wrap; gap: 8px 22px; margin: 0 0 18px; padding: 0; list-style: none; font-size: 14px; color: var(--ink-2); }
-.legend li { display: flex; align-items: center; gap: 8px; }
-.st { display: inline-flex; align-items: center; gap: 6px; padding: 4px 7px 4px 6px; border: 1px solid currentColor; font: 500 11px/1 var(--mono); letter-spacing: 0.06em; text-transform: uppercase; white-space: nowrap; }
-.st::before { content: ""; width: 6px; height: 6px; background: currentColor; }
-.st.active { color: var(--ok); }
-.st.preview { color: var(--accent-ink); }
-.st.preview::before { background: transparent; box-shadow: inset 0 0 0 1.5px currentColor; }
-.st.released { color: var(--ink-2); }
-.st.obsolete { color: var(--muted); }
-.st.obsolete::before { background: transparent; box-shadow: inset 0 0 0 1px currentColor; }
+.cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin: 0; padding: 0; list-style: none; }
+.card a { display: flex; flex-direction: column; height: 100%; padding: 16px 18px 15px; border: 1px solid var(--ink); background: var(--sheet); text-decoration: none; transition: border-color .15s ease, box-shadow .15s ease; }
+.card a:hover { color: inherit; border-color: var(--accent); box-shadow: inset 0 0 0 1px var(--accent); }
+.card .top { display: flex; justify-content: space-between; font: 500 11.5px/1 var(--mono); letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+.card .go { color: var(--accent-ink); }
+.card h3 { margin: 18px 0 4px; font-stretch: 72%; font-weight: 760; font-size: 27px; line-height: 1.05; }
+.card a:hover h3 { color: var(--accent-ink); }
+.card p { margin: 0 0 16px; font-size: 15.5px; line-height: 1.4; color: var(--ink-2); }
+.card .stack { margin-top: auto; font: 12px/1.4 var(--mono); color: var(--muted); }
 
-.family td { font-size: 14.5px; }
-.family tr.grp th { background: var(--paper); border-left: 0; border-right: 0; padding: 22px 0 8px; font-stretch: 78%; font-weight: 760; font-size: 14px; letter-spacing: 0.08em; text-transform: uppercase; }
-.family tr.grp:first-child th { padding-top: 6px; }
-.family tr.grp .c { margin-left: 8px; font: 500 12px var(--mono); color: var(--muted); letter-spacing: 0; }
-.family .nm { font-weight: 700; font-size: 16.5px; text-decoration: none; }
-.family .nm:hover { text-decoration: underline; text-decoration-color: var(--accent); }
-.family .he { margin-left: 6px; color: var(--muted); font-weight: 500; }
-.family .lk { display: flex; flex-wrap: wrap; gap: 4px 12px; margin-top: 4px; font: 12px/1.4 var(--mono); }
-.family .lk a { color: var(--muted); }
-.family .lk a:hover { color: var(--accent-ink); }
-.family .proc { font: 12.5px/1.5 var(--mono); color: var(--ink-2); }
-.family .rev { font: 12.5px/1.5 var(--mono); color: var(--muted); white-space: nowrap; }
-#revHead.live::after { content: ""; display: inline-block; width: 6px; height: 6px; margin-left: 7px; background: var(--ok); vertical-align: 1px; }
-.more { margin-top: 18px; }
-.more summary { cursor: pointer; display: inline-flex; align-items: center; gap: 10px; padding: 10px 14px; border: 1px solid var(--ink); background: var(--sheet); font: 500 13.5px/1 var(--mono); list-style: none; }
-.more summary::-webkit-details-marker { display: none; }
-.more summary::before { content: "+"; font-weight: 600; color: var(--accent-ink); }
-.more[open] summary::before { content: "−"; }
-.more summary:hover { background: var(--ink); color: var(--paper); }
-.more[open] summary { margin-bottom: 14px; }
-.more summary span { color: var(--muted); }
-.also { margin-top: 26px; }
-.also h3 { margin: 0 0 8px; font-stretch: 80%; font-size: 17px; font-weight: 720; }
-.also ul { margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 6px 18px; font: 13.5px var(--mono); }
+.contact { padding-bottom: 8px; }
+.mail { display: inline-block; font-stretch: 66%; font-weight: 820; font-size: clamp(36px, 6.4vw, 80px); line-height: 1; text-decoration: none; overflow-wrap: anywhere; }
+.mail:hover { color: var(--accent-ink); }
+.contact p { margin: 14px 0 20px; color: var(--ink-2); }
+.contact .cta { margin: 0; }
 
-/* Pinout */
-.pin-grid { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: 40px; align-items: start; }
-.pin-fig { padding: 18px 10px 14px; background: var(--sheet); border: 1px solid var(--rule); }
-.pin-fig svg { display: block; width: 100%; height: auto; font-family: var(--mono); }
-.pkg { fill: var(--paper); stroke: var(--ink); stroke-width: 1.5; }
-.notch { fill: none; stroke: var(--ink); stroke-width: 1.5; }
-.dot1 { fill: var(--accent); }
-.pkg-name { fill: var(--ink); font-family: var(--sans); font-stretch: 66%; font-weight: 800; font-size: 34px; letter-spacing: 0.04em; }
-.pkg-sub { fill: var(--muted); font-size: 11px; letter-spacing: 0.12em; }
-.pin rect { fill: var(--sheet); stroke: var(--ink); stroke-width: 1.2; transition: fill .15s ease; }
-.pin .lb { fill: var(--ink); font-size: 15px; font-weight: 600; }
-.pin .no { fill: var(--muted); font-size: 11px; }
-.pin.on rect { fill: var(--accent); stroke: var(--accent); }
-.pin.on .lb { fill: var(--accent-ink); }
-a.pin { cursor: pointer; }
-.pins tr.on td { background: color-mix(in srgb, var(--accent) 12%, var(--sheet)); }
-.pins td:nth-child(2) { font-family: var(--mono); font-weight: 600; font-size: 14px; }
-.pins td:nth-child(3) { font-family: var(--mono); font-size: 13.5px; color: var(--ink-2); white-space: nowrap; }
+footer { max-width: 1240px; margin: 0 auto; padding: 56px 40px 40px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px 24px; font: 12px/1.4 var(--mono); letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); }
 
-/* Detailed description */
-.dd-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 24px 44px; align-items: start; }
-.dd .fig { margin-top: 28px; }
-.inline-links { display: flex; flex-wrap: wrap; gap: 6px 18px; margin: 16px 0 0; padding: 0; list-style: none; font: 500 13.5px var(--mono); }
-.rules { margin: 0; padding: 0; list-style: none; counter-reset: r; }
-.rules li { counter-increment: r; display: grid; grid-template-columns: 4ch 1fr; padding: 9px 0; border-bottom: 1px solid var(--rule); }
-.rules li::before { content: "R" counter(r); font: 600 12.5px/1.9 var(--mono); color: var(--accent-ink); }
-.rules-h { margin: 0 0 4px; font-stretch: 80%; font-weight: 720; font-size: 15px; letter-spacing: 0.04em; text-transform: uppercase; }
-
-/* Functional block diagrams */
-.flow { display: flex; margin: 0; padding: 22px; list-style: none; background: var(--sheet); border: 1px solid var(--rule); }
-.flow li { flex: 1 1 0; min-width: 0; position: relative; margin-right: 26px; padding: 10px 10px 11px; background: var(--paper); border: 1.5px solid var(--ink); }
-.flow li:last-child { margin-right: 0; }
-.flow li::after {
-  content: ""; position: absolute; top: 50%; right: -26px; width: 26px; height: 10px; transform: translateY(-50%);
-  background: var(--ink);
-  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 26 10'%3E%3Cpath d='M2 5h17' stroke='%23000' stroke-width='1.5'/%3E%3Cpath d='M18 1.5l6 3.5-6 3.5z'/%3E%3C/svg%3E") center / 100% 100% no-repeat;
-  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 26 10'%3E%3Cpath d='M2 5h17' stroke='%23000' stroke-width='1.5'/%3E%3Cpath d='M18 1.5l6 3.5-6 3.5z'/%3E%3C/svg%3E") center / 100% 100% no-repeat;
+@media (max-width: 1000px) {
+  .hero { min-height: 0; padding: 64px 0 40px; }
+  .hero-in { grid-template-columns: 1fr; gap: 18px; }
+  .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
-.flow li:last-child::after { display: none; }
-.flow .k { display: block; font: 600 11px/1 var(--mono); color: var(--muted); letter-spacing: 0.06em; }
-.flow b { display: block; margin: 6px 0 5px; font-stretch: 72%; font-weight: 780; font-size: 16.5px; line-height: 1.05; letter-spacing: 0.02em; text-transform: uppercase; overflow-wrap: anywhere; }
-.flow .d { display: block; font-size: 12.5px; line-height: 1.38; color: var(--ink-2); }
-.flow li.key { border-color: var(--accent); box-shadow: inset 0 0 0 1.5px var(--accent); }
-.flow li.key b { color: var(--accent-ink); }
-
-/* Figure: the die */
-.die-wrap { position: relative; aspect-ratio: 16 / 9.4; border: 1px solid var(--ink); background: var(--paper); overflow: hidden; }
-#die { position: absolute; inset: 0; width: 100%; height: 100%; display: block; cursor: grab; touch-action: pan-y; }
-#die.dragging { cursor: grabbing; }
-.hud { position: absolute; top: 12px; right: 12px; display: flex; align-items: stretch; background: var(--sheet); border: 1px solid var(--ink); }
-.hud button { appearance: none; border: 0; border-left: 1px solid var(--rule); background: transparent; color: var(--ink); font: 500 14px/1 var(--mono); min-width: 38px; height: 34px; padding: 0 11px; cursor: pointer; }
-.hud button:hover { background: var(--ink); color: var(--paper); }
-.hud .zoom { font: 400 12.5px/34px var(--mono); padding: 0 11px; color: var(--muted); min-width: 60px; text-align: center; }
-.readout { position: absolute; left: 12px; bottom: 12px; margin: 0; padding: 6px 9px; background: var(--sheet); border: 1px solid var(--rule); font: 12px/1 var(--mono); color: var(--muted); white-space: pre; pointer-events: none; }
-
-/* Ordering */
-.order { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 18px 32px; align-items: end; margin-top: 28px; padding: 24px 26px; border: 2px solid var(--ink); background: var(--sheet); }
-.order .label { margin: 0 0 6px; font: 600 12px/1 var(--mono); letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent-ink); }
-.order .mail { font-stretch: 68%; font-weight: 800; font-size: clamp(30px, 5vw, 58px); line-height: 1; text-decoration: none; overflow-wrap: anywhere; }
-.order .mail:hover { color: var(--accent-ink); }
-.order .quick { margin: 0; justify-content: flex-end; }
-
-/* Notice and footer */
-.notice { margin-top: 80px; padding: 14px 0 0; border-top: 2px solid var(--ink); }
-.notice h2 { margin: 0 0 6px; font-stretch: 78%; font-weight: 760; font-size: 14px; letter-spacing: 0.08em; text-transform: uppercase; }
-.notice p { margin: 0; max-width: 90ch; font-size: 13.5px; color: var(--ink-2); }
-footer { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px 24px; padding: 22px 0 46px; font: 12px/1.4 var(--mono); letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); }
-
-@media (max-width: 1080px) {
-  .p1 { gap: 0 36px; }
-  .flow { padding: 16px; }
-  .flow li { margin-right: 20px; padding: 9px 8px; }
-  .flow li::after { right: -20px; width: 20px; }
-}
-@media (max-width: 980px) {
-  .p1 { display: flex; flex-direction: column; }
-  .p1-l, .p1-r { display: contents; }
-  .term-fig { order: -1; margin: 6px 0 52px; }
-  .p1-l > .blk + .blk, .p1 > .blk + .blk { margin-top: 44px; }
-  .toc { order: 5; margin-top: 44px; }
-  .pin-grid, .dd-grid { grid-template-columns: 1fr; }
-  .pin-fig { max-width: 560px; }
-  .stamp { position: relative; right: auto; bottom: auto; display: inline-block; margin-top: 30px; transform: rotate(-4deg); font-size: 23px; }
-  .order { grid-template-columns: 1fr; }
-  .order .quick { justify-content: flex-start; }
-}
-@media (max-width: 900px) {
-  .flow { flex-direction: column; padding: 14px; }
-  .flow li { margin: 0 0 22px; display: grid; grid-template-columns: 3.4ch 9.5ch minmax(0, 1fr); column-gap: 10px; align-items: baseline; }
-  .flow li:last-child { margin-bottom: 0; }
-  .flow b { margin: 0; font-size: 15px; }
-  .flow li::after { top: 100%; right: auto; left: 50%; width: 22px; height: 10px; transform: translate(-50%, 6px) rotate(90deg); }
-}
-@media (max-width: 820px) {
-  .family { background: var(--sheet); border: 1px solid var(--rule); }
-  .family colgroup, .family thead { display: none; }
-  .family, .family tbody { display: block; }
-  .family caption { display: block; padding: 10px 12px 0; }
-  .family tr { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 7px 12px; padding: 14px 12px; border-top: 1px solid var(--rule); }
-  .family td { display: block; padding: 0; border: 0; }
-  .family td.dev { grid-column: 1; grid-row: 1; }
-  .family td.stat { grid-column: 2; grid-row: 1; }
-  .family td.desc { grid-column: 1 / -1; }
-  .family td.proc { grid-column: 1; }
-  .family td.rev { grid-column: 2; align-self: end; text-align: right; }
-  .family tr.grp { display: block; padding: 0; border: 0; }
-  .family tr.grp th { display: block; padding: 22px 12px 6px; background: var(--paper); border-top: 1px solid var(--rule); }
-  .family tr.grp:first-child th { padding-top: 12px; border-top: 0; }
-  .dt.wide { min-width: 600px; }
-}
-@media (max-width: 720px) {
-  .rh-doc { display: none; }
-  .rh-tools .lbl { display: none; }
-}
-@media (max-width: 600px) {
-  .sheet { padding: 0 16px; }
+@media (max-width: 960px), (hover: none) { .die-hint .drag { display: none; } }
+@media (max-width: 640px) {
   body { font-size: 16px; }
-  .title { padding: 22px 0 28px; }
-  .topbar { margin-bottom: 20px; background: linear-gradient(90deg, var(--accent) 0 72px, var(--ink) 72px); }
-  .sec { padding-top: 60px; }
-  .term-body { height: 460px; padding: 10px 12px 4px; }
+  .hero-in, .sec, footer { padding-left: 16px; padding-right: 16px; }
+  .hero { padding-top: 60px; }
+  .theme { top: 12px; right: 12px; }
+  .die-hint { display: none; }
+  .plate { padding: 0 18px 18px; }
+  .plate::before { margin: 0 -18px 18px; }
+  .term-body { height: 420px; padding: 10px 12px 4px; }
   .term-input { padding: 4px 12px 10px; }
-  .term-bar .term-title { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  .photo { width: 104px; margin-left: 16px; }
-  .photo img { width: 104px; height: 104px; }
-  .die-wrap { aspect-ratio: 4 / 3.4; }
-  .hud .zoom { display: none; }
-  .dt th, .dt td { padding: 8px 10px; }
-  .pins td:last-child { overflow-wrap: anywhere; }
-  .dt thead th { white-space: normal; }
-  .pins th, .pins td { padding-left: 8px; padding-right: 8px; }
-  .order { padding: 18px; }
-  .quick a, .quick button { padding: 0 12px; font-size: 13px; }
-}
-@media (max-width: 960px), (hover: none) { .readout { display: none; } }
-
-@media print {
-  :root:not(#print) {
-    --paper: #fff; --sheet: #fff; --ink: #000; --ink-2: #222; --muted: #555; --rule: #bbb; --shade: #eee;
-    --accent: #E0420C; --accent-ink: #A83405; --ok: #1D7646;
-    --term-bg: #fff; --term-border: #000; --term-ink: #000; --term-dim: #555; --term-line: #bbb; --term-ok: #1D7646; --term-warn: #8A5A00; --term-acc: #A83405;
-    --grain: none;
-  }
-  body { font-size: 11pt; }
-  .runhead, .term-input, .hud, .readout, .quick button, .toc, .more summary, .cite { display: none !important; }
-  .term-body { height: auto; overflow: visible; }
-  .term b { color: #000; }
-  .hire { color: #fff; }
-  .sec { padding-top: 28px; }
-  .sec > h2, .blk > h2, .sub { break-after: avoid; }
-  tr, .flow li, .fig { break-inside: avoid; }
-  a { text-decoration: none; }
-  .stamp { mix-blend-mode: normal; }
+  .cards { grid-template-columns: 1fr; }
+  .sec { padding-top: 56px; }
+  .btn { padding: 0 12px; font-size: 13px; }
 }
 </style>
 </head>
 <body>
 
-<div class="runhead">
-  <div class="sheet runhead-in">
-    <a class="rh-part" href="#top">NY-2026</a>
-    <span class="rh-doc">DS-NY2026 · Rev F · November 2026</span>
-    <span class="rh-sec" id="rhSec"></span>
-    <span class="rh-tools">
-      <button type="button" data-print aria-label="Print or save the data sheet as a PDF"><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M4 6V1.5h8V6M4 11.5H2V6h12v5.5h-2M4 9h8v5.5H4z" fill="none" stroke="currentColor" stroke-width="1.3"/></svg><span class="lbl">PDF</span></button>
-      <button type="button" id="theme" aria-label="Switch theme"><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><circle cx="8" cy="8" r="6.25" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M8 1.75a6.25 6.25 0 0 1 0 12.5z" fill="currentColor"/></svg></button>
-    </span>
-  </div>
-  <span class="progress" id="progress" aria-hidden="true"></span>
-</div>
+<header class="hero">
+  <canvas id="die" aria-hidden="true"></canvas>
+  <button type="button" class="btn theme" id="theme" aria-label="Switch theme"><svg viewBox="0 0 16 16" width="15" height="15" aria-hidden="true"><circle cx="8" cy="8" r="6.25" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M8 1.75a6.25 6.25 0 0 1 0 12.5z" fill="currentColor"/></svg></button>
+  <p class="die-hint" aria-hidden="true">a chip die, generated in your browser<span class="drag"> · drag it</span></p>
 
-<header class="title" id="top">
-  <div class="sheet">
-    <div class="topbar" aria-hidden="true"></div>
-    <p class="kicker"><span>NY-2026</span><span>Data sheet DS-NY2026</span><span>Ashdod, Israel</span></p>
-    <h1>Netanel Yanchevsky</h1>
-    <p class="subtitle">Low-Level Systems Developer With Integrated Automation and <span class="nw">Hebrew-Native</span> AI</p>
-    <ul class="quick">
-      <li><a class="primary" href="mailto:natikyan153@gmail.com">Email me</a></li>
-      <li><a href="https://github.com/netanelyan">GitHub ↗</a></li>
-      <li><a href="https://www.linkedin.com/in/netanelyan">LinkedIn ↗</a></li>
-      <li><button type="button" data-print>Print the data sheet</button></li>
-    </ul>
-    <div class="stamp" aria-hidden="true">Engineering sample<small>Available now · Ashdod, IL</small></div>
+  <div class="hero-in">
+    <div class="plate">
+      <p class="status"><span class="led" aria-hidden="true"></span>Open to internships · Ashdod, IL</p>
+      <h1>Netanel Yanchevsky</h1>
+      <p class="lede">Low-level systems, Hebrew AI and automation. I like problems where the constraint is the interesting part.</p>
+      <div class="cta">
+        <a class="btn primary" href="mailto:natikyan153@gmail.com">Email me</a>
+        <a class="btn" href="https://github.com/netanelyan">GitHub ↗</a>
+        <a class="btn" href="https://www.linkedin.com/in/netanelyan">LinkedIn ↗</a>
+      </div>
+    </div>
+
+    <div class="console">
+      <div class="term" id="term">
+        <div class="term-bar">
+          <span class="lamp" id="lamp" aria-hidden="true"></span>
+          <span>hire.tp · netanel</span>
+          <span class="term-meta" id="termMeta">idle</span>
+        </div>
+        <div class="term-body" id="termBody" role="log" aria-label="Terminal">
+          <div class="term-static">
+            <div class="l"><span class="ps">ny@ate0:~$</span> ate run hire.tp</div>
+            <div class="l dim">8 tests · 7 passed · 1 warning · 0 failed</div>
+            <div class="l kv"><span class="k">verdict</span><span class="v"><span class="hire">HIRE</span></span></div>
+            <div class="l kv"><span class="k">confidence</span><span class="v">HIGH · 0.97</span></div>
+          </div>
+        </div>
+        <form class="term-input" id="termForm" autocomplete="off">
+          <label for="termIn">ny@ate0:~$</label>
+          <input id="termIn" type="text" spellcheck="false" autocapitalize="off" autocorrect="off" enterkeyhint="send" placeholder="type help">
+        </form>
+      </div>
+      <div class="chips" role="group" aria-label="Run a command">
+        <button type="button" class="chip" data-cmd="about">about</button>
+        <button type="button" class="chip" data-cmd="projects">projects</button>
+        <button type="button" class="chip" data-cmd="skills">skills</button>
+        <button type="button" class="chip" data-cmd="scores">scores</button>
+        <button type="button" class="chip" data-cmd="contact">contact</button>
+        <button type="button" class="chip" data-cmd="rerun">rerun</button>
+      </div>
+    </div>
   </div>
 </header>
 
-<main class="sheet">
-  <div class="p1">
-    <div class="p1-l">
-      <section id="features" class="blk" data-sec="1 Features" aria-labelledby="features-h">
-        <h2 id="features-h"><span class="n">1</span>Features</h2>
-        <ul class="feat">
-          <li data-t="01">Opens a 3.5-billion-placement chip layout in a single browser tab <a class="cite" href="#s7-1">7.1</a></li>
-          <li data-t="02">Boots x86-64 hardware through a UEFI loader written from scratch <a class="cite" href="#s7-2">7.2</a></li>
-          <li data-t="03">Hebrew AI that has to quote a stored source before it states a fact <a class="cite" href="#s7-3">7.3</a></li>
-          <li data-t="04">Ships to production: a live AI travel agent over 166 curated destinations <a class="cite" href="#s7-4">7.4</a></li>
-          <li data-t="05">Multi-threaded C++ servers on custom binary TCP protocols <a class="cite" href="#family">4</a></li>
-          <li data-t="06">Automation that runs 24/7, with an approval gate wherever a person should decide <a class="cite" href="#family">4</a></li>
-          <li data-t="07">Runs a registered business, from storefront code to paid acquisition <a class="cite" href="#s8-1">8.1</a></li>
-          <li data-t="08">Browser games on the side: a three.js RPG, pixel-art survival, an MMA fighter <a class="cite" href="#family">4</a></li>
-          <li>Hebrew, Russian and English I/O <a class="cite" href="#pinout">5</a></li>
-        </ul>
-      </section>
-
-      <section id="applications" class="blk" data-sec="2 Applications" aria-labelledby="applications-h">
-        <h2 id="applications-h"><span class="n">2</span>Applications</h2>
-        <ul class="apps">
-          <li>Software engineering internships</li>
-          <li>Part-time backend or full-stack roles</li>
-          <li>Teams with a hard constraint and a real deadline</li>
-          <li>Israel: remote, hybrid or on-site</li>
-        </ul>
-      </section>
-
-      <section id="description" class="blk prose" data-sec="3 Description" aria-labelledby="description-h">
-        <h2 id="description-h"><span class="n">3</span>Description</h2>
-        <figure class="photo">
-          <img src="https://github.com/netanelyan.png?size=280" alt="Netanel Yanchevsky in a rowboat on a mountain lake" width="136" height="136" loading="lazy" onerror="this.parentElement.remove()">
-          <figcaption><b>Figure 2.</b> The device, in field conditions.</figcaption>
-        </figure>
-        <p>I'm Netanel Yanchevsky, a developer from Ashdod in my third year of <a href="https://www.magshimim.cyber.org.il/">Magshimim</a>, Israel's national cyber and programming excellence program. Most of my time goes into low-level systems: a viewer that opens a whole chip in a browser tab, an operating system written from the bootloader up, and multi-threaded C++ servers on protocols I design myself.</p>
-        <p>In parallel I run a registered business with live e-commerce brands, and <a href="https://openfrequency.co.il">OpenFrequency</a>, where I build Hebrew AI products that have to be right: a slideshow engine that won't state a fact it can't quote, and a WhatsApp agent that sells for Israeli online stores. I own each one end to end, from the architecture to the deploy to the ad account.</p>
-        <p>This page is written as a component data sheet, because that's how I'd want a part described: what it does, what it was tested against, and where every number came from.</p>
-      </section>
+<main>
+  <section class="sec" aria-labelledby="work-h">
+    <div class="sec-h">
+      <h2 id="work-h">Selected work</h2>
+      <p><span id="moreNote">23 more</span> in the terminal: type <kbd>projects</kbd></p>
     </div>
-
-    <div class="p1-r">
-      <figure class="fig term-fig">
-        <div class="term" id="term">
-          <div class="term-bar">
-            <span class="lamp" id="lamp" aria-hidden="true"></span>
-            <span class="term-title">ate0 · hire.tp · NY-2026</span>
-            <span class="term-meta" id="termMeta">site 0 · idle</span>
-          </div>
-          <div class="term-body" id="termBody" role="log" aria-label="Production test console">
-            <div class="term-static">
-              <div class="l"><span class="ps">ny@ate0:~$</span> ate run hire.tp --dut NY-2026</div>
-              <div class="l dim">11 tests · 10 passed · 1 warning · 0 failed</div>
-              <div class="l kv"><span class="k">verdict</span><span class="v"><span class="hire">HIRE</span></span></div>
-              <div class="l kv"><span class="k">confidence</span><span class="v">HIGH · 0.97</span></div>
-            </div>
-          </div>
-          <form class="term-input" id="termForm" autocomplete="off">
-            <label for="termIn">ny@ate0:~$</label>
-            <input id="termIn" type="text" spellcheck="false" autocapitalize="off" autocorrect="off" enterkeyhint="send" placeholder="type help">
-          </form>
-        </div>
-        <figcaption><b>Figure 1.</b> Production test, run live in your browser. Click to skip, then type <kbd>help</kbd>.</figcaption>
-      </figure>
-
-      <nav class="toc" aria-label="Table of contents">
-        <p class="toc-h">Table of Contents</p>
-        <ol>
-          <li><a href="#features"><span class="n">1</span>Features<span class="dots"></span><span class="go">↓</span></a></li>
-          <li><a href="#applications"><span class="n">2</span>Applications<span class="dots"></span><span class="go">↓</span></a></li>
-          <li><a href="#description"><span class="n">3</span>Description<span class="dots"></span><span class="go">↓</span></a></li>
-          <li><a href="#family"><span class="n">4</span>Device Family<span class="dots"></span><span class="go">↓</span></a></li>
-          <li><a href="#pinout"><span class="n">5</span>Pin Configuration and Functions<span class="dots"></span><span class="go">↓</span></a></li>
-          <li><a href="#specs"><span class="n">6</span>Specifications<span class="dots"></span><span class="go">↓</span></a></li>
-          <li><a href="#detail"><span class="n">7</span>Detailed Description<span class="dots"></span><span class="go">↓</span></a></li>
-          <li><a href="#application"><span class="n">8</span>Application and Implementation<span class="dots"></span><span class="go">↓</span></a></li>
-          <li><a href="#process"><span class="n">9</span>Process Technology<span class="dots"></span><span class="go">↓</span></a></li>
-          <li><a href="#ordering"><span class="n">10</span>Ordering Information<span class="dots"></span><span class="go">↓</span></a></li>
-          <li><a href="#revisions"><span class="n">11</span>Revision History<span class="dots"></span><span class="go">↓</span></a></li>
-        </ol>
-      </nav>
-    </div>
-  </div>
-
-  <section id="family" class="sec" data-sec="4 Device Family" aria-labelledby="family-h">
-    <h2 id="family-h"><span class="n">4</span>Device Family</h2>
-    <p class="lead">Everything I've shipped or am shipping, grouped like a part family. The last revision of each one is read live from GitHub.</p>
-    <ul class="legend" aria-label="Status legend">
-      <li><span class="st active">Active</span>live or running</li>
-      <li><span class="st preview">Preview</span>in development</li>
-      <li><span class="st released">Released</span>done</li>
-      <li><span class="st obsolete">Obsolete</span>early work, kept for the record</li>
+    <ul class="cards">
+      <li class="card"><a href="https://netanelyan.github.io/manhattan/"><span class="top"><span>01 · systems</span><span class="go">live ↗</span></span><h3>Manhattan</h3><p>Opens a whole chip in a browser tab. Tested at 3.5 billion placements.</p><span class="stack">Rust → WASM · WebGL2</span></a></li>
+      <li class="card"><a href="https://github.com/netanelyan/nyrf-os"><span class="top"><span>02 · systems</span><span class="go">code ↗</span></span><h3>nyrf OS</h3><p>An operating system from the bootloader up.</p><span class="stack">C · x86-64 asm · UEFI</span></a></li>
+      <li class="card"><a href="https://openfrequency.co.il"><span class="top"><span>03 · ai</span><span class="go">live ↗</span></span><h3>Teder</h3><p>Hebrew social posts that can't invent a fact.</p><span class="stack">Node.js · SQLite · Playwright</span></a></li>
+      <li class="card"><a href="https://github.com/netanelyan/openfrequency-toran"><span class="top"><span>04 · ai</span><span class="go">code ↗</span></span><h3>Toran</h3><p>A WhatsApp sales agent for Israeli online stores.</p><span class="stack">TypeScript · Postgres · Claude</span></a></li>
+      <li class="card"><a href="https://www.tiyulplus.com"><span class="top"><span>05 · ai</span><span class="go">live ↗</span></span><h3>Tiyul+</h3><p>An AI travel agent in Hebrew. 166 destinations.</p><span class="stack">Next.js · Supabase · Claude API</span></a></li>
+      <li class="card"><a href="https://github.com/netanelyan/brickdeal-social"><span class="top"><span>06 · automation</span><span class="go">code ↗</span></span><h3>BrickDeal bots</h3><p>Deal pipelines that find, write and post on their own, 24/7.</p><span class="stack">Node.js · Telegram · TikTok</span></a></li>
+      <li class="card"><a href="https://netanelyan.github.io/lastember/"><span class="top"><span>07 · game</span><span class="go">play ↗</span></span><h3>Last Ember</h3><p>Pixel-art survival. Keep the fire burning till dawn.</p><span class="stack">JavaScript · Canvas</span></a></li>
+      <li class="card"><a href="https://netanelyan.github.io/ufc-game/"><span class="top"><span>08 · game</span><span class="go">play ↗</span></span><h3>Pixel Fight Night</h3><p>Pixel-art MMA in one HTML file.</p><span class="stack">JavaScript · Canvas</span></a></li>
+      <li class="card"><a href="https://github.com/netanelyan/vaelmoor"><span class="top"><span>09 · game</span><span class="go">code ↗</span></span><h3>Vaelmoor</h3><p>A first-person fantasy RPG in the browser.</p><span class="stack">three.js · no build step</span></a></li>
     </ul>
-    <table class="dt family">
-      <caption>Table 1. Device family</caption>
-      <colgroup><col style="width: 220px"><col><col style="width: 190px"><col style="width: 118px"><col style="width: 116px"></colgroup>
-      <thead><tr><th scope="col">Device</th><th scope="col">Function</th><th scope="col">Process</th><th scope="col">Status</th><th scope="col" id="revHead">Last rev.</th></tr></thead>
-      <tbody id="famMain"></tbody>
-    </table>
-    <details class="more">
-      <summary>Coursework and early work <span id="moreCount"></span></summary>
-      <table class="dt family">
-        <caption class="sr">Table 1, continued. Coursework and early work</caption>
-        <colgroup><col style="width: 220px"><col><col style="width: 190px"><col style="width: 118px"><col style="width: 116px"></colgroup>
-        <thead><tr><th scope="col">Device</th><th scope="col">Function</th><th scope="col">Process</th><th scope="col">Status</th><th scope="col">Last rev.</th></tr></thead>
-        <tbody id="famMore"></tbody>
-      </table>
-    </details>
-    <noscript><p class="lead">The table needs JavaScript. Every project is at <a href="https://github.com/netanelyan">github.com/netanelyan</a>.</p></noscript>
-    <div class="also" id="also" hidden>
-      <h3>Also on GitHub</h3>
-      <ul id="alsoList"></ul>
-    </div>
   </section>
 
-  <section id="pinout" class="sec" data-sec="5 Pin Configuration" aria-labelledby="pinout-h">
-    <h2 id="pinout-h"><span class="n">5</span>Pin Configuration and Functions</h2>
-    <div class="pin-grid">
-      <figure class="fig pin-fig">
-        <svg id="pinSvg" viewBox="0 0 520 340" aria-hidden="true"></svg>
-        <figcaption><b>Figure 3.</b> DIP-12 package, top view</figcaption>
-      </figure>
-      <div class="tw">
-        <table class="dt pins" id="pinTable">
-          <caption>Table 2. Pin functions</caption>
-          <thead><tr><th scope="col" class="num">Pin</th><th scope="col">Name</th><th scope="col">Type<sup>(1)</sup></th><th scope="col">Description</th></tr></thead>
-          <tbody>
-            <tr data-pin="1" data-name="MAIL" data-href="mailto:natikyan153@gmail.com"><td class="num">1</td><td>MAIL</td><td>I/O</td><td>Email, <a href="mailto:natikyan153@gmail.com">natikyan153@gmail.com</a>. The fastest way in.</td></tr>
-            <tr data-pin="2" data-name="GH" data-href="https://github.com/netanelyan"><td class="num">2</td><td>GH</td><td>O</td><td>GitHub, <a href="https://github.com/netanelyan">github.com/netanelyan</a></td></tr>
-            <tr data-pin="3" data-name="LI" data-href="https://www.linkedin.com/in/netanelyan"><td class="num">3</td><td>LI</td><td>O</td><td>LinkedIn, <a href="https://www.linkedin.com/in/netanelyan">in/netanelyan</a></td></tr>
-            <tr data-pin="4" data-name="IG" data-href="https://www.instagram.com/netanel.yan/"><td class="num">4</td><td>IG</td><td>O</td><td>Instagram, <a href="https://www.instagram.com/netanel.yan/">@netanel.yan</a></td></tr>
-            <tr data-pin="5" data-name="NC"><td class="num">5</td><td>NC</td><td>—</td><td>No internal connection. Reserved for whatever ships next.</td></tr>
-            <tr data-pin="6" data-name="GND"><td class="num">6</td><td>GND</td><td>—</td><td>Ground reference: Ashdod, Israel.</td></tr>
-            <tr data-pin="7" data-name="EN"><td class="num">7</td><td>EN</td><td>I/O</td><td>English, professional.</td></tr>
-            <tr data-pin="8" data-name="RU"><td class="num">8</td><td>RU</td><td>I/O</td><td>Russian, fluent.</td></tr>
-            <tr data-pin="9" data-name="HE"><td class="num">9</td><td>HE</td><td>I/O</td><td>Hebrew, native.</td></tr>
-            <tr data-pin="10" data-name="OF" data-href="https://openfrequency.co.il"><td class="num">10</td><td>OF</td><td>O</td><td><a href="https://openfrequency.co.il">openfrequency.co.il</a>, Hebrew AI products.</td></tr>
-            <tr data-pin="11" data-name="TIY" data-href="https://www.tiyulplus.com"><td class="num">11</td><td>TIY</td><td>O</td><td><a href="https://www.tiyulplus.com">tiyulplus.com</a>, a live AI travel agent.</td></tr>
-            <tr data-pin="12" data-name="VDD"><td class="num">12</td><td>VDD</td><td>P</td><td>Supply: problems where the constraint is the interesting part.</td></tr>
-          </tbody>
-        </table>
-        <p class="fn">(1) I = input, O = output, I/O = both, P = power, — = no signal.</p>
-      </div>
+  <section class="sec contact" aria-labelledby="contact-h">
+    <div class="sec-h"><h2 id="contact-h">Say hi</h2></div>
+    <a class="mail" href="mailto:natikyan153@gmail.com">natikyan153@gmail.com</a>
+    <p>Internships and part-time roles. Israel, remote or hybrid, until IDF enlistment in 2027.</p>
+    <div class="cta">
+      <a class="btn" href="https://github.com/netanelyan">GitHub ↗</a>
+      <a class="btn" href="https://www.linkedin.com/in/netanelyan">LinkedIn ↗</a>
+      <a class="btn" href="https://www.instagram.com/netanel.yan/">Instagram ↗</a>
     </div>
   </section>
-
-  <section id="specs" class="sec" data-sec="6 Specifications" aria-labelledby="specs-h">
-    <h2 id="specs-h"><span class="n">6</span>Specifications</h2>
-
-    <h3 class="sub" id="s6-1"><span class="n">6.1</span>Absolute Maximum Ratings</h3>
-    <div class="tw">
-      <table class="dt">
-        <caption>Table 3. Absolute maximum ratings<sup>(1)</sup></caption>
-        <thead><tr><th scope="col">Parameter</th><th scope="col">Where it's enforced</th><th scope="col" class="num">Max</th><th scope="col">Unit</th></tr></thead>
-        <tbody>
-          <tr><td>Times a manual task is repeated before it becomes a script</td><td>Everywhere</td><td class="num">3</td><td>repetitions</td></tr>
-          <tr><td>Facts published without a stored, quoted source</td><td>Teder, Tiyul+, Tiyul Social</td><td class="num">0</td><td>facts</td></tr>
-          <tr><td>Posts sent before an account has earned autonomy, without the owner's tap</td><td>Teder</td><td class="num">0</td><td>posts</td></tr>
-          <tr><td>Packages uninstalled while debloating a TV box</td><td>LeanTV</td><td class="num">0</td><td>packages</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <p class="fn">(1) Stresses beyond those listed may cause a pipeline to be written.</p>
-
-    <h3 class="sub" id="s6-2"><span class="n">6.2</span>Recommended Operating Conditions</h3>
-    <div class="tw">
-      <table class="dt">
-        <caption>Table 4. Recommended operating conditions</caption>
-        <thead><tr><th scope="col">Parameter</th><th scope="col">Condition</th></tr></thead>
-        <tbody>
-          <tr><td class="b">Role</td><td>Internship or part-time, in software, backend or full-stack development</td></tr>
-          <tr><td class="b">Location</td><td>Israel: remote, hybrid or on-site. Based in Ashdod</td></tr>
-          <tr><td class="b">Availability</td><td>Now, until IDF enlistment in 2027, with preferences set to software development and cyber roles</td></tr>
-          <tr><td class="b">Supply</td><td>Problems where the constraint is the interesting part</td></tr>
-          <tr><td class="b">Languages</td><td>Hebrew (native), Russian (fluent), English (professional)</td></tr>
-        </tbody>
-      </table>
-    </div>
-
-    <h3 class="sub" id="s6-3"><span class="n">6.3</span>Electrical Characteristics</h3>
-    <div class="tw">
-      <table class="dt wide">
-        <caption>Table 5. Electrical characteristics<sup>(1)</sup></caption>
-        <thead><tr><th scope="col">Parameter</th><th scope="col">Test conditions</th><th scope="col" class="num">Min</th><th scope="col" class="num">Typ</th><th scope="col" class="num">Max</th></tr></thead>
-        <tbody>
-          <tr><td>Computer Science</td><td>Bagrut, 5 units</td><td class="num">—</td><td class="num b">99</td><td class="num">100</td></tr>
-          <tr><td>Physics</td><td>Bagrut, 5 units</td><td class="num">—</td><td class="num b">97</td><td class="num">100</td></tr>
-          <tr><td>Mathematics</td><td>Bagrut, 5 units</td><td class="num">—</td><td class="num b">96</td><td class="num">100</td></tr>
-          <tr><td>English</td><td>Bagrut, 5 units</td><td class="num">—</td><td class="num b">100</td><td class="num">100</td></tr>
-          <tr><td>Psychometric</td><td>Total score</td><td class="num">200</td><td class="num b">682</td><td class="num">800</td></tr>
-          <tr><td>Dapar</td><td>IDF screening, highest band</td><td class="num">10</td><td class="num b">90</td><td class="num">90</td></tr>
-          <tr><td>University average</td><td>Bar-Ilan: Statistics, Orientalism, Biotechnology, alongside high school</td><td class="num">—</td><td class="num b">84.33</td><td class="num">100</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <p class="fn">(1) Typ is the measured value. Min and Max are the ends of each scale.</p>
-  </section>
-
-  <section id="detail" class="sec" data-sec="7 Detailed Description" aria-labelledby="detail-h">
-    <h2 id="detail-h"><span class="n">7</span>Detailed Description</h2>
-
-    <article class="dd" id="s7-1" data-sec="7.1 Manhattan">
-      <h3 class="sub"><span class="n">7.1</span>Manhattan, a chip-layout viewer</h3>
-      <div class="dd-grid">
-        <div class="prose">
-          <p>A GPU draws about two million rectangles at 60 fps. A real chip has tens of millions of placements per block, and places each block dozens of times, so the design can never be handed to the renderer whole.</p>
-          <p>Manhattan streams it as a tile pyramid instead: merged density blocks when you're far, one outline per cell in the middle, full cell internals up close. Tiles are binary and laid out so the viewer reads typed arrays straight over the bytes. Nothing is parsed at runtime. You pan from the whole die down to the rectangles inside one cell, click a cell to identify it, and paste the URL so a reviewer lands on the same rectangle.</p>
-          <ul class="inline-links">
-            <li><a href="https://netanelyan.github.io/manhattan/">Project site ↗</a></li>
-            <li><a href="https://github.com/netanelyan/manhattan">Showcase repo</a></li>
-            <li><a href="https://github.com/netanelyan/manhattan/issues/new?title=Code%20access%20request">Request source access</a></li>
-          </ul>
-        </div>
-        <div class="tw">
-          <table class="dt">
-            <caption>Table 6. Measured performance<sup>(1)</sup></caption>
-            <thead><tr><th scope="col">Parameter</th><th scope="col">Conditions</th><th scope="col" class="num">Value</th></tr></thead>
-            <tbody>
-              <tr><td>Placements</td><td>50M-placement block × 70 instances</td><td class="num b">3.5 B</td></tr>
-              <tr><td>Worst frame</td><td>Across the zoom range, 2M-rect budget</td><td class="num">1,531,094</td></tr>
-              <tr><td>Draw calls in a block</td><td>4,634-master cell library</td><td class="num">8</td></tr>
-              <tr><td>Block instancing</td><td>349M placements, vs 8.2 GB flattened</td><td class="num">117 MB</td></tr>
-              <tr><td>Real LEF/DEF</td><td>ISPD 2015 superblue16_a, 80.3 MB</td><td class="num">2.4 s</td></tr>
-              <tr><td>Rust/WASM core</td><td>no_std, 0 dependencies, gzipped</td><td class="num">19.9 KB</td></tr>
-            </tbody>
-          </table>
-          <p class="fn">(1) RTX 4060 at 3440 × 1440. The core replaced a C version and produces byte-identical tiles, 4,072 of 4,072.</p>
-        </div>
-      </div>
-      <figure class="fig">
-        <div class="die-wrap">
-          <canvas id="die" aria-label="A procedurally generated chip layout you can pan and zoom"></canvas>
-          <div class="hud" role="group" aria-label="Layout view controls">
-            <span class="zoom" id="zoomReadout" aria-live="polite">1.0×</span>
-            <button type="button" id="zoomIn" aria-label="Zoom in">+</button>
-            <button type="button" id="zoomOut" aria-label="Zoom out">−</button>
-            <button type="button" id="zoomFit" aria-label="Fit the whole die">Fit</button>
-          </div>
-          <p class="readout" id="readout" aria-hidden="true" hidden></p>
-        </div>
-        <figcaption><b>Figure 4.</b> A die generated in your browser and drawn the way Manhattan draws real ones. Drag to pan, pinch or ctrl + scroll to zoom.</figcaption>
-      </figure>
-    </article>
-
-    <article class="dd" id="s7-2" data-sec="7.2 nyrf OS">
-      <h3 class="sub"><span class="n">7.2</span>nyrf OS, from the bootloader up</h3>
-      <div class="dd-grid">
-        <div class="prose">
-          <p>An x86-64 operating system built from scratch, booted through UEFI and written in C and assembly, as the Magshimim year project. A general-purpose kernel that runs processes is like any other hobby OS. This one is organised around timing consistency instead of raw compute: deterministic scheduling and direct I/O access drive every other decision.</p>
-          <p>The first proof of concept went after the riskiest part, not the largest. A memory manager is complex but predictable; the UEFI handoff depends on firmware behaviour nobody on the project controls. It passes all eight success criteria on QEMU with OVMF, 10 runs out of 10.</p>
-          <ul class="inline-links"><li><a href="https://github.com/netanelyan/nyrf-os">Code and POC report</a></li></ul>
-        </div>
-        <div>
-          <p class="rules-h">Roadmap</p>
-          <ol class="rules">
-            <li><span>Its own GDT and IDT, the precondition for handling any interrupt</span></li>
-            <li><span>A physical memory manager over the memory map POC 1 already collects</span></li>
-            <li><span>The Local APIC timer and its calibration, where timing consistency can first be measured</span></li>
-            <li><span>Then a framebuffer driver, USB HID input for keyboard and gamepad, and the deterministic scheduler</span></li>
-          </ol>
-        </div>
-      </div>
-      <figure class="fig">
-        <ol class="flow">
-          <li><span class="k">01</span><b>Firmware</b><span class="d">UEFI, OVMF on QEMU</span></li>
-          <li class="key"><span class="k">02</span><b>BOOTX64.EFI</b><span class="d">Our own UEFI application</span></li>
-          <li><span class="k">03</span><b>Collect</b><span class="d">GOP framebuffer and the memory map</span></li>
-          <li><span class="k">04</span><b>Exit</b><span class="d">ExitBootServices, firmware out of the way</span></li>
-          <li><span class="k">05</span><b>Kernel</b><span class="d">kernel.elf loaded, control handed over</span></li>
-          <li><span class="k">06</span><b>Draw</b><span class="d">A test pattern straight into the framebuffer</span></li>
-        </ol>
-        <figcaption><b>Figure 5.</b> Boot path, POC 1. Passing 8 of 8 criteria, 10 runs of 10.</figcaption>
-      </figure>
-    </article>
-
-    <article class="dd" id="s7-3" data-sec="7.3 OpenFrequency">
-      <h3 class="sub"><span class="n">7.3</span>OpenFrequency: Teder and Toran</h3>
-      <div class="dd-grid">
-        <div class="prose">
-          <p><a href="https://openfrequency.co.il">OpenFrequency</a> is where I build Hebrew AI products. <b>Teder</b> (<span lang="he" dir="rtl">תדר</span>) runs several Hebrew social accounts at once, each in its own niche and with its own brand. Every day it reads approved sources, plans slideshow posts, writes them in the account's voice, checks them in code, renders them and sends them to TikTok and Instagram. The owner works in one screen for the day: one tap to approve, every slide traceable to its source.</p>
-          <p><b>Toran</b> (<span lang="he" dir="rtl">תורן</span>) is a Hebrew-first agent that answers, sells and follows up on an Israeli online store's own WhatsApp number. Phase 1 finds stores and builds each one a pitch page with a working demo of the agent answering as that store, graded on 30 questions from the store's own data. A shared accounts service signs a person in once for both products.</p>
-        </div>
-        <div>
-          <p class="rules-h">Hard rules, enforced in code</p>
-          <ol class="rules">
-            <li><span>A fact is a claim plus a quote copied word for word from a stored document of an approved source</span></li>
-            <li><span>Every number on a slide must appear in its quotes</span></li>
-            <li><span>Each source carries why it is trusted and what its terms allow</span></li>
-            <li><span>Nothing posts without the owner's tap until the account is trusted to post on its own</span></li>
-          </ol>
-        </div>
-      </div>
-      <figure class="fig">
-        <ol class="flow">
-          <li><span class="k">01</span><b>Read</b><span class="d">Approved sources only</span></li>
-          <li><span class="k">02</span><b>Plan</b><span class="d">Slideshow posts per account</span></li>
-          <li class="key"><span class="k">03</span><b>Prove</b><span class="d">Every fact matched to a stored quote</span></li>
-          <li><span class="k">04</span><b>Write</b><span class="d">In the account's own voice</span></li>
-          <li><span class="k">05</span><b>Check</b><span class="d">Rules enforced in code</span></li>
-          <li><span class="k">06</span><b>Render</b><span class="d">Slides, in headless Chromium</span></li>
-          <li><span class="k">07</span><b>Approve</b><span class="d">One tap, or none once trusted</span></li>
-          <li><span class="k">08</span><b>Publish</b><span class="d">TikTok and Instagram</span></li>
-        </ol>
-        <figcaption><b>Figure 6.</b> Teder functional block diagram. The prove stage is why it can't make things up.</figcaption>
-      </figure>
-    </article>
-
-    <article class="dd" id="s7-4" data-sec="7.4 Tiyul+">
-      <h3 class="sub"><span class="n">7.4</span>Tiyul+, a Hebrew AI travel agent</h3>
-      <div class="dd-grid">
-        <div class="prose">
-          <p>Tell it where, when and who's coming, and it plans a real, mapped, day-by-day trip in conversation. The model never answers from memory: a validated tool layer over a curated catalog means it can't invent a place, a price or a kashrut status. It's live, in full RTL, with real local Shabbat times and group planning by invite link.</p>
-          <ul class="inline-links"><li><a href="https://www.tiyulplus.com">tiyulplus.com ↗</a></li><li><a href="https://github.com/netanelyan/tiyul-plus">Code</a></li></ul>
-        </div>
-        <div class="tw">
-          <table class="dt">
-            <caption>Table 7. Tiyul+ at a glance</caption>
-            <tbody>
-              <tr><th scope="row">Destinations</th><td class="mono b">166</td></tr>
-              <tr><th scope="row">Language</th><td>Hebrew, full RTL</td></tr>
-              <tr><th scope="row">Kosher and Shabbat</th><td>Kashrut from the catalog, local Shabbat times</td></tr>
-              <tr><th scope="row">Groups</th><td>Plan together by invite link</td></tr>
-              <tr><th scope="row">Process</th><td class="mono">Next.js · TypeScript · Supabase · Claude API</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </article>
-  </section>
-
-  <section id="application" class="sec" data-sec="8 Application" aria-labelledby="application-h">
-    <h2 id="application-h"><span class="n">8</span>Application and Implementation</h2>
-    <article class="dd prose" id="s8-1" data-sec="8.1 BlackZ Ecommerce">
-      <h3 class="sub"><span class="n">8.1</span>Typical Application: BlackZ Ecommerce, founder and lead developer, 2025 to now</h3>
-      <p>A registered business (Osek Murshe) running several online ventures: <a href="https://hashofet.com">hashofet.com</a> (football kits), clutchstore.net (streetwear, since archived), <a href="https://brickdealil.com">brickdealil.com</a> (affiliate deals) and <a href="https://www.tiyulplus.com">tiyulplus.com</a> (AI travel planner).</p>
-      <ol class="rules">
-        <li><span>Built responsive, conversion-focused storefronts and deal hubs, from custom Shopify themes in Liquid to Next.js, on a shared library of UI components.</span></li>
-        <li><span>Wired platform webhooks into Azure Functions and the WhatsApp and Telegram APIs, so day-to-day operations across every venture run without manual work.</span></li>
-        <li><span>Run paid acquisition on Meta and TikTok with server-side tracking (Pixel, Conversions API), and own each product from architecture and deployment to performance analysis.</span></li>
-      </ol>
-    </article>
-  </section>
-
-  <section id="process" class="sec" data-sec="9 Process Technology" aria-labelledby="process-h">
-    <h2 id="process-h"><span class="n">9</span>Process Technology</h2>
-    <div class="tw">
-      <table class="dt">
-        <caption>Table 8. Process technology</caption>
-        <tbody>
-          <tr><th scope="row">Languages</th><td>C, C++, Rust, x86-64 assembly, TypeScript, JavaScript, Python, C#, Java, Swift, Bash, SQL</td></tr>
-          <tr><th scope="row">Systems</th><td>UEFI, ELF loading, Linux, multi-threading, memory mapping, custom TCP protocols, block-device file systems, WinAPI, WebAssembly, WebGL2</td></tr>
-          <tr><th scope="row">Web and data</th><td>Next.js, React, Node.js, three.js, Electron, Supabase, Postgres, SQLite, Playwright, Caddy, Azure Functions, Shopify and Liquid</td></tr>
-          <tr><th scope="row">AI</th><td>Claude API, validated tool layers, evals graded in code, Claude Code and skills</td></tr>
-          <tr><th scope="row">Integrations</th><td>WhatsApp, Telegram, Instagram Graph API, TikTok, Meta Pixel and Conversions API, AliExpress affiliate API, Make.com</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
-
-  <section id="ordering" class="sec" data-sec="10 Ordering Information" aria-labelledby="ordering-h">
-    <h2 id="ordering-h"><span class="n">10</span>Ordering Information</h2>
-    <div class="tw">
-      <table class="dt wide">
-        <caption>Table 9. Orderable devices</caption>
-        <thead><tr><th scope="col">Orderable part</th><th scope="col">Role</th><th scope="col">Location</th><th scope="col">Lead time</th><th scope="col">Status</th></tr></thead>
-        <tbody>
-          <tr><td class="mono b">NY-2026-INT</td><td>Software engineering internship</td><td>Israel: remote, hybrid or on-site</td><td>One email</td><td><span class="st active">Active</span></td></tr>
-          <tr><td class="mono b">NY-2026-PT</td><td>Part-time, backend or full-stack</td><td>Israel: remote, hybrid or on-site</td><td>One email</td><td><span class="st active">Active</span></td></tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="order">
-      <div>
-        <p class="label">Request samples</p>
-        <a class="mail" href="mailto:natikyan153@gmail.com">natikyan153@gmail.com</a>
-      </div>
-      <ul class="quick">
-        <li><a href="https://github.com/netanelyan">GitHub ↗</a></li>
-        <li><a href="https://www.linkedin.com/in/netanelyan">LinkedIn ↗</a></li>
-        <li><a href="https://www.instagram.com/netanel.yan/">Instagram ↗</a></li>
-      </ul>
-    </div>
-  </section>
-
-  <section id="revisions" class="sec" data-sec="11 Revision History" aria-labelledby="revisions-h">
-    <h2 id="revisions-h"><span class="n">11</span>Revision History</h2>
-    <div class="tw">
-      <table class="dt">
-        <caption>Table 10. Revision history</caption>
-        <thead><tr><th scope="col">Rev</th><th scope="col">Date</th><th scope="col">Changes</th></tr></thead>
-        <tbody>
-          <tr><td class="mono b">F</td><td class="mono">2026</td><td>OpenFrequency: Teder in service, Toran on a waitlist, one accounts service for both. Manhattan's core rewritten from C to Rust with byte-identical output. nyrf OS passes POC 1. Vaelmoor, Last Ember and Pixel Fight Night.</td></tr>
-          <tr><td class="mono b">E</td><td class="mono">2025</td><td>Founded BlackZ Ecommerce, a registered business: hashofet.com, clutchstore.net, brickdealil.com and tiyulplus.com.</td></tr>
-          <tr><td class="mono b">D</td><td class="mono">2024</td><td>Started academic courses at Bar-Ilan University alongside high school: Statistics, Orientalism, Biotechnology. Linear Algebra is next.</td></tr>
-          <tr><td class="mono b">C</td><td class="mono">Ongoing</td><td>Magshimim national cyber program, third year: C and C++, computer networks, network security and operating systems, ending in a self-built OS. High school with 5-unit Computer Science, Physics, Mathematics and English.</td></tr>
-          <tr><td class="mono b">B</td><td class="mono">2022–23</td><td>Python scripts for the games I played: Counter-Strike stats, then Discord Rich Presence.</td></tr>
-          <tr><td class="mono b">A</td><td class="mono">2021</td><td>Initial release. First public repository: a web browser in C# Windows Forms.</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
-
-  <aside class="notice" aria-labelledby="notice-h">
-    <h2 id="notice-h">Important notice</h2>
-    <p>This data sheet describes a person, not a part. Its figures come from public repositories, live sites and exam results, and every project links to its source. The page is one HTML file with no framework and no build step; the test in Figure 1 and the die in Figure 4 run in your browser.</p>
-  </aside>
-  <footer>
-    <span>If it can be automated, it will be.</span>
-    <span>© <span id="year">2026</span> Netanel Yanchevsky · DS-NY2026 Rev F</span>
-  </footer>
 </main>
+
+<footer>
+  <span>If it can be automated, it will be.</span>
+  <span>© <span id="year">2026</span> Netanel Yanchevsky</span>
+</footer>
 
 <script>
 (() => {
@@ -922,117 +326,53 @@ footer { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10
     return n;
   };
 
-  /* ---------- Device family ---------- */
+  /* ---------- Everything else lives in the terminal ---------- */
   const GROUPS = [
-    { id: "sys", label: "Systems" },
-    { id: "prod", label: "Products and platforms" },
-    { id: "auto", label: "Automation" },
-    { id: "games", label: "Games" },
-    { id: "tools", label: "Tools" },
-    { id: "course", label: "Coursework, Magshimim", more: true },
-    { id: "old", label: "Early work", more: true },
+    { id: "sys", label: "systems" },
+    { id: "ai", label: "ai products" },
+    { id: "web", label: "web and apps" },
+    { id: "auto", label: "automation" },
+    { id: "games", label: "games" },
+    { id: "tools", label: "tools" },
+    { id: "course", label: "magshimim", more: true },
+    { id: "old", label: "early work", more: true },
   ];
-  const STATUS = { active: "Active", preview: "Preview", released: "Released", obsolete: "Obsolete" };
-
   const PROJECTS = [
-    { repo: "manhattan", name: "Manhattan", group: "sys", status: "active", pushed: "2026-10-08", sec: "s7-1", live: "https://netanelyan.github.io/manhattan/",
-      desc: "Opens a whole chip layout in a browser tab, from the full die down to the rectangles inside one cell. Tested at 3.5 billion placements. The repo is a showcase; the source is private.",
-      stack: ["Rust → WebAssembly", "WebGL2", "JavaScript"] },
-    { repo: "nyrf-os", name: "nyrf OS", group: "sys", status: "preview", pushed: "2026-11-05", sec: "s7-2",
-      desc: "An x86-64 operating system from the bootloader up, organised around timing consistency rather than raw compute. POC 1 boots through its own UEFI loader and passes 8 of 8 criteria, 10 runs of 10.",
-      stack: ["C", "x86-64 assembly", "UEFI", "QEMU"] },
-    { repo: "magshimim-trivia", name: "Trivia server", group: "sys", status: "released", pushed: "2026-07-19",
-      desc: "Multi-threaded C++ game server, one thread per client, with a C# WPF client. A binary TCP protocol of my own (1-byte code, 4-byte length, JSON payload) and SQLite storage with a swappable MongoDB backend.",
-      stack: ["C++", "C#", "TCP", "SQLite"] },
-
-    { repo: "openfrequency-teder", name: "Teder", he: "תדר", group: "prod", status: "active", pushed: "2026-11-07", sec: "s7-3", live: "https://openfrequency.co.il",
-      desc: "One engine that runs several Hebrew social accounts. It reads approved sources, proves every fact against a quote it stored, renders slideshows and posts them to TikTok and Instagram once the owner approves.",
-      stack: ["Node.js", "SQLite", "Playwright"] },
-    { repo: "openfrequency-toran", name: "Toran", he: "תורן", group: "prod", status: "preview", pushed: "2026-11-05", sec: "s7-3",
-      desc: "A Hebrew-first agent that answers, sells and follows up on an Israeli online store's own WhatsApp number. Phase 1 builds each store a pitch page with a working demo of the agent answering as that store.",
-      stack: ["TypeScript", "Postgres", "WhatsApp", "Claude"] },
-    { repo: "openfrequency-accounts", name: "OpenFrequency accounts", group: "prod", status: "active", pushed: "2026-11-06",
-      desc: "One login for every OpenFrequency product: Google or a single-use emailed link, password plus TOTP for the admin, workspaces, invites and invoices, one session across subdomains.",
-      stack: ["Node.js", "OAuth", "TOTP"] },
-    { repo: "openfrequency-web", name: "OpenFrequency web", group: "prod", status: "active", pushed: "2026-11-06", live: "https://openfrequency.co.il",
-      desc: "The company site, in Hebrew. Static pages built by one Node script with no dependencies, served by Caddy, with one switch that takes a product from coming soon to on sale.",
-      stack: ["Node.js", "Caddy"] },
-    { repo: "tiyul-plus", name: "Tiyul+", group: "prod", status: "active", pushed: "2026-10-13", sec: "s7-4", live: "https://www.tiyulplus.com",
-      desc: "A Hebrew AI travel agent that plans mapped day-by-day trips. A validated tool layer over a curated catalog of 166 destinations means it can't invent a place, a price or a kashrut status.",
-      stack: ["TypeScript", "Next.js", "Supabase", "Claude API"] },
-    { repo: "remind", name: "Remind", group: "prod", status: "released", pushed: "2026-10-13",
-      desc: "A reminders app for iPhone with a fast quick-add bar and an interactive Home Screen widget, built and signed entirely on Linux, without Xcode or a Mac.",
-      stack: ["Swift", "iOS", "xtool"] },
-    { repo: "stash", name: "Stash", group: "prod", status: "released", pushed: "2026-09-22",
-      desc: "A desktop editor for LLM prompts: tabs, a file tree, {{variable}} placeholders, tags, fuzzy search and autosave, with every prompt kept as a plain Markdown file.",
-      stack: ["Electron", "React", "CodeMirror"] },
-    { repo: "brickdeal-website", name: "BrickDeal", group: "prod", status: "active", pushed: "2026-10-06", live: "https://brickdealil.com",
-      desc: "The web app behind brickdealil.com, an affiliate deals platform for brick sets.",
-      stack: ["JavaScript"] },
-    { repo: "blackz-web", name: "BlackZ web", group: "prod", status: "active", pushed: "2026-10-12", live: "https://blackz-web.vercel.app",
-      desc: "Front end for BlackZ Ecommerce: the live brands, and a service gateway for new e-commerce clients.",
-      stack: ["HTML", "CSS", "JavaScript"] },
-    { repo: "clutch-archive", name: "Clutch archive", group: "prod", status: "released", pushed: "2026-09-10",
-      desc: "An offline preservation of the clutchstore.net storefront: 111 product pages and 2,782 images served from disk, with every buy button and checkout request disabled.",
-      stack: ["HTML", "Shopify theme"] },
-
-    { repo: "brickdeal-automation", name: "BrickDeal bot", group: "auto", status: "active", pushed: "2026-10-06",
-      desc: "A Telegram deal pipeline running 24/7: ingestion, dedupe, an HMAC-signed AliExpress affiliate API, AI title polishing and a human approval gate. One VPS, pm2, one JSON file for storage.",
-      stack: ["Node.js", "Telegram", "VPS"] },
-    { repo: "brickdeal-social", name: "BrickDeal social", group: "auto", status: "active", pushed: "2026-10-15",
-      desc: "Turns the deal feed into Hebrew TikTok slideshows: picks eight sets, prices them against retail, renders and scores the slides, then posts or drops them on its own. Telegram gets one line per post, and /pause stops everything.",
-      stack: ["Node.js", "TikTok", "Telegram"] },
-    { repo: "tiyul-social", name: "Tiyul Social", group: "auto", status: "active", pushed: "2026-10-25",
-      desc: "Ranks primary sources, drafts a Hebrew travel post, renders the cards and publishes to Instagram only after I approve it on Telegram. Every claim is backed by a source fetched at generation time.",
-      stack: ["Node.js", "Telegram", "Instagram"] },
-    { repo: "shopify-order-automation", name: "Order automation", group: "auto", status: "released", pushed: "2026-07-21",
-      desc: "Turns a Shopify order export into a formatted .docx order sheet for the manufacturer, so fulfillment runs on a script.",
-      stack: ["Python", "Shopify"] },
-    { repo: "leantv", name: "LeanTV", group: "auto", status: "released", pushed: "2026-10-23",
-      desc: "Debloats an Android TV box over Wi-Fi ADB, reversibly, and swaps its ad-filled home screen for a minimal launcher of my own. It disables and never uninstalls, so one script restores everything.",
-      stack: ["PowerShell", "Java", "ADB"] },
-
-    { repo: "vaelmoor", name: "Vaelmoor", group: "games", status: "preview", pushed: "2026-10-18",
-      desc: "A first-person fantasy RPG for the browser. Ten skills that rise as you use them, lockpicking, merchants, and an underworld with its own look that crossfades in like a dream. No build step.",
-      stack: ["three.js", "ES modules"] },
-    { repo: "lastember", name: "Last Ember", group: "games", status: "active", pushed: "2026-10-05", live: "https://netanelyan.github.io/lastember/",
-      desc: "Top-down pixel-art survival. Gather and hunt by day, keep the fire burning, and hold out against more predators every night. Plays on keyboard, mouse or touch.",
-      stack: ["JavaScript", "Canvas"] },
-    { repo: "ufc-game", name: "Pixel Fight Night", group: "games", status: "active", pushed: "2026-10-27", live: "https://netanelyan.github.io/ufc-game/",
-      desc: "A pixel-art MMA game with strikes, takedowns, a ground game and a career mode. One HTML file, with thumb pads for phones.",
-      stack: ["JavaScript", "Canvas"] },
-    { repo: "outbound", name: "Outbound", group: "games", status: "active", pushed: "2026-09-13", live: "https://netanelyan.github.io/outbound/",
-      desc: "An endless procedural road and a manual gearbox you can stall, over-rev and money-shift. three.js in a single HTML file.",
-      stack: ["three.js", "JavaScript"] },
-
-    { repo: "humanizer", name: "humanizer", group: "tools", status: "active", pushed: "2026-10-01", live: "https://netanelyan.github.io/humanizer/",
-      desc: "Rewrites English and Hebrew text, and edits .docx files in place without touching their formatting. The Python and in-browser engines are held identical by a 126-case parity test.",
-      stack: ["Python", "JavaScript"] },
-    { repo: "hebrew-voice", name: "hebrew-voice", group: "tools", status: "released", pushed: "2026-10-22",
-      desc: "A Claude skill that makes Hebrew copy sound like a person: registers, banned AI and ad-copy patterns, and a rewrite pass before anything is returned.",
-      stack: ["Claude skill", "Markdown"] },
-
-    { repo: "cpp-gallery", name: "cpp-gallery", group: "course", status: "released", pushed: "2026-04-18",
-      desc: "A persistent, SQLite-backed photo album manager with deep Windows API integration.", stack: ["C++", "WinAPI", "SQLite"] },
-    { repo: "cpp-chess", name: "Chess", group: "course", status: "released", pushed: "2025-12-11",
-      desc: "Object-oriented chess with per-piece move validation.", stack: ["C++"] },
-    { repo: "DebugWorkshop", name: "Debug workshop", group: "course", status: "released", pushed: "2025-12-01",
-      desc: "C++ debugging exercises and troubleshooting challenges.", stack: ["C++"] },
-    { repo: "gifMaker", name: "gifMaker", group: "course", status: "released", pushed: "2025-07-08",
-      desc: "A GIF creation tool built with raylib.", stack: ["C", "raylib"] },
-    { repo: "simple-gui-chat", name: "GUI chat", group: "course", status: "released", pushed: "2026-04-18",
-      desc: "A small chat app with a desktop GUI.", stack: ["Python"] },
-    { repo: "discord-rpc", name: "discord-rpc", group: "old", status: "obsolete", pushed: "2023-09-05",
-      desc: "A custom Discord Rich Presence script.", stack: ["Python"] },
-    { repo: "csgo-stattrak", name: "csgo-stattrak", group: "old", status: "obsolete", pushed: "2022-04-09",
-      desc: "Checks your Counter-Strike stats.", stack: ["Python"] },
-    { repo: "simple-browser", name: "Simple browser", group: "old", status: "obsolete", pushed: "2021-12-21",
-      desc: "A web browser built with C# Windows Forms. The first public repo.", stack: ["C#", "Windows Forms"] },
+    { repo: "manhattan", name: "Manhattan", group: "sys", status: "active", live: "https://netanelyan.github.io/manhattan/", line: "Opens a whole chip in a browser tab, down to single cells. Tested at 3.5B placements.", stack: "Rust → WASM · WebGL2" },
+    { repo: "nyrf-os", name: "nyrf OS", group: "sys", status: "preview", line: "An x86-64 OS from the bootloader up, built for timing consistency. POC 1 passes 10 of 10 runs.", stack: "C · x86-64 asm · UEFI" },
+    { repo: "magshimim-trivia", name: "Trivia server", group: "sys", status: "released", line: "Multi-threaded C++ game server with a C# client, on a binary TCP protocol of my own.", stack: "C++ · C# · TCP · SQLite" },
+    { repo: "openfrequency-teder", name: "Teder", group: "ai", status: "active", live: "https://openfrequency.co.il", line: "Runs several Hebrew social accounts. Every fact on a slide must match a stored quote.", stack: "Node.js · SQLite · Playwright" },
+    { repo: "openfrequency-toran", name: "Toran", group: "ai", status: "preview", line: "A Hebrew WhatsApp agent that answers, sells and follows up for online stores.", stack: "TypeScript · Postgres · Claude" },
+    { repo: "openfrequency-accounts", name: "OpenFrequency accounts", group: "ai", status: "active", line: "One login for every OpenFrequency product. Google, email link or TOTP.", stack: "Node.js" },
+    { repo: "openfrequency-web", name: "OpenFrequency web", group: "ai", status: "active", live: "https://openfrequency.co.il", line: "The company site. One build script, no dependencies.", stack: "Node.js · Caddy" },
+    { repo: "tiyul-plus", name: "Tiyul+", group: "ai", status: "active", live: "https://www.tiyulplus.com", line: "A Hebrew AI travel agent. Can't invent a place, a price or a kashrut status.", stack: "Next.js · Supabase · Claude API" },
+    { repo: "remind", name: "Remind", group: "web", status: "released", line: "An iPhone reminders app with a live widget, built without a Mac.", stack: "Swift · xtool" },
+    { repo: "stash", name: "Stash", group: "web", status: "released", line: "A desktop editor for LLM prompts.", stack: "Electron · React" },
+    { repo: "brickdeal-website", name: "BrickDeal", group: "web", status: "active", live: "https://brickdealil.com", line: "An affiliate deals site for brick sets.", stack: "JavaScript" },
+    { repo: "blackz-web", name: "BlackZ web", group: "web", status: "active", live: "https://blackz-web.vercel.app", line: "Front end for my e-commerce brands.", stack: "HTML · JS" },
+    { repo: "clutch-archive", name: "Clutch archive", group: "web", status: "released", line: "An offline copy of a closed storefront, 111 product pages, buying disabled.", stack: "HTML" },
+    { repo: "brickdeal-automation", name: "BrickDeal bot", group: "auto", status: "active", line: "A Telegram deal pipeline running 24/7, with a human approval gate.", stack: "Node.js · Telegram" },
+    { repo: "brickdeal-social", name: "BrickDeal social", group: "auto", status: "active", line: "Turns deals into Hebrew TikTok slideshows and posts them on its own.", stack: "Node.js · TikTok" },
+    { repo: "tiyul-social", name: "Tiyul Social", group: "auto", status: "active", line: "Sourced Hebrew travel posts for Instagram, published after one tap.", stack: "Node.js · Instagram" },
+    { repo: "shopify-order-automation", name: "Order automation", group: "auto", status: "released", line: "Shopify orders in, a manufacturer's order sheet out.", stack: "Python" },
+    { repo: "leantv", name: "LeanTV", group: "auto", status: "released", line: "Debloats an Android TV box over Wi-Fi, reversibly, with a launcher of my own.", stack: "PowerShell · Java · ADB" },
+    { repo: "vaelmoor", name: "Vaelmoor", group: "games", status: "preview", line: "A first-person fantasy RPG in the browser.", stack: "three.js" },
+    { repo: "lastember", name: "Last Ember", group: "games", status: "active", live: "https://netanelyan.github.io/lastember/", line: "Pixel-art survival. Keep the fire burning till dawn.", stack: "JavaScript" },
+    { repo: "ufc-game", name: "Pixel Fight Night", group: "games", status: "active", live: "https://netanelyan.github.io/ufc-game/", line: "Pixel-art MMA in one HTML file.", stack: "JavaScript" },
+    { repo: "outbound", name: "Outbound", group: "games", status: "active", live: "https://netanelyan.github.io/outbound/", line: "An endless road and a manual gearbox you can stall.", stack: "three.js" },
+    { repo: "humanizer", name: "humanizer", group: "tools", status: "active", live: "https://netanelyan.github.io/humanizer/", line: "Rewrites English and Hebrew text, keeps .docx formatting intact.", stack: "Python · JS" },
+    { repo: "hebrew-voice", name: "hebrew-voice", group: "tools", status: "released", line: "A Claude skill for Hebrew copy that sounds like a person.", stack: "Markdown" },
+    { repo: "cpp-gallery", name: "cpp-gallery", group: "course", status: "released", line: "A photo album manager on SQLite and WinAPI.", stack: "C++" },
+    { repo: "cpp-chess", name: "Chess", group: "course", status: "released", line: "Object-oriented chess.", stack: "C++" },
+    { repo: "DebugWorkshop", name: "Debug workshop", group: "course", status: "released", line: "C++ debugging exercises.", stack: "C++" },
+    { repo: "gifMaker", name: "gifMaker", group: "course", status: "released", line: "A GIF maker built with raylib.", stack: "C" },
+    { repo: "simple-gui-chat", name: "GUI chat", group: "course", status: "released", line: "A small desktop chat app.", stack: "Python" },
+    { repo: "discord-rpc", name: "discord-rpc", group: "old", status: "old", line: "Custom Discord Rich Presence.", stack: "Python" },
+    { repo: "csgo-stattrak", name: "csgo-stattrak", group: "old", status: "old", line: "Counter-Strike stats checker.", stack: "Python" },
+    { repo: "simple-browser", name: "Simple browser", group: "old", status: "old", line: "A web browser in C# Windows Forms. The first repo, 2021.", stack: "C#" },
   ];
-
-  const ALIASES = { teder: "openfrequency-teder", toran: "openfrequency-toran", accounts: "openfrequency-accounts", openfrequency: "openfrequency-web",
-    tiyul: "tiyul-plus", trivia: "magshimim-trivia", nyrf: "nyrf-os", os: "nyrf-os", fight: "ufc-game", fightnight: "ufc-game",
-    brickdeal: "brickdeal-website", chess: "cpp-chess", gallery: "cpp-gallery", ember: "lastember", browser: "simple-browser" };
+  const ALIASES = { teder: "openfrequency-teder", toran: "openfrequency-toran", openfrequency: "openfrequency-web", tiyul: "tiyul-plus",
+    trivia: "magshimim-trivia", nyrf: "nyrf-os", os: "nyrf-os", fight: "ufc-game", brickdeal: "brickdeal-website", chess: "cpp-chess" };
   const norm = (s) => s.toLowerCase().replace(/[^a-z0-9]/g, "");
   const repoUrl = (p) => `https://github.com/${GH}/${p.repo}`;
   const find = (q) => {
@@ -1044,6 +384,7 @@ footer { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10
     const pre = PROJECTS.filter(p => norm(p.repo).startsWith(n) || norm(p.name).startsWith(n));
     return pre.length === 1 ? pre[0] : null;
   };
+  $("#moreNote").textContent = `${PROJECTS.length - 9} more`;
 
   const ago = (iso) => {
     const d = (Date.now() - Date.parse(iso)) / 864e5;
@@ -1051,116 +392,24 @@ footer { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10
     if (d < 1) { const h = Math.floor(d * 24); return h === 1 ? "an hour ago" : `${h} hours ago`; }
     if (d < 2) return "yesterday";
     if (d < 30) return `${Math.floor(d)} days ago`;
-    if (d < 365) { const m = Math.floor(d / 30); return m === 1 ? "a month ago" : `${m} months ago`; }
-    const y = Math.floor(d / 365); return y === 1 ? "a year ago" : `${y} years ago`;
+    const m = Math.floor(d / 30); return m === 1 ? "a month ago" : `${m} months ago`;
   };
-  const month = (s) => new Date(s + "T12:00:00Z").toLocaleDateString("en", { month: "short", year: "numeric" });
-
-  const rows = new Map();
-  for (const g of GROUPS) {
-    const items = PROJECTS.filter(p => p.group === g.id);
-    const into = $(g.more ? "#famMore" : "#famMain");
-    into.append(el("tr", { class: "grp" }, el("th", { colspan: "5", scope: "colgroup" }, [g.label, el("span", { class: "c", text: String(items.length) })])));
-    for (const p of items) {
-      const code = el("a", { href: repoUrl(p), text: "code" });
-      const rev = el("td", { class: "rev", text: month(p.pushed) });
-      into.append(el("tr", {}, [
-        el("td", { class: "dev" }, [
-          el("a", { class: "nm", href: p.live || repoUrl(p), text: p.name }),
-          p.he && el("span", { class: "he", lang: "he", dir: "rtl", text: p.he }),
-          el("span", { class: "lk" }, [
-            code,
-            p.live && el("a", { href: p.live, text: "live ↗" }),
-            p.sec && el("a", { href: "#" + p.sec, text: "§" + p.sec.slice(1).replace("-", ".") }),
-          ]),
-        ]),
-        el("td", { class: "desc", text: p.desc }),
-        el("td", { class: "proc", text: p.stack.join(" · ") }),
-        el("td", { class: "stat" }, el("span", { class: "st " + p.status, text: STATUS[p.status] })),
-        rev,
-      ]));
-      rows.set(p.repo.toLowerCase(), { code, rev });
-    }
-  }
-  $("#moreCount").textContent = `${PROJECTS.filter(p => GROUPS.find(g => g.id === p.group).more).length} devices`;
-
-  /* Live data from GitHub, fails quietly */
-  const GH_DATA = fetch(`https://api.github.com/users/${GH}/repos?per_page=100&sort=pushed`)
+  // Live from GitHub, fails quietly
+  const GH_SUM = fetch(`https://api.github.com/users/${GH}/repos?per_page=100&sort=pushed`)
     .then(r => r.ok ? r.json() : null)
-    .then(d => Array.isArray(d) ? d : null)
+    .then(list => Array.isArray(list) ? {
+      count: list.filter(r => !r.fork).length,
+      last: ago(list.reduce((a, r) => r.pushed_at > a ? r.pushed_at : a, "")),
+    } : null)
     .catch(() => null);
-  const GH_SUM = GH_DATA.then(list => list && {
-    count: list.filter(r => !r.fork).length,
-    last: ago(list.reduce((a, r) => r.pushed_at > a ? r.pushed_at : a, "")),
-  });
-  GH_DATA.then(list => {
-    if (!list) return;
-    const seen = new Set();
-    for (const r of list) {
-      const key = r.name.toLowerCase();
-      seen.add(key);
-      const hit = rows.get(key);
-      if (hit) { hit.rev.textContent = ago(r.pushed_at); hit.rev.title = new Date(r.pushed_at).toLocaleString("en"); }
-    }
-    for (const [key, hit] of rows) if (!seen.has(key)) hit.code.remove();
-    $("#revHead").classList.add("live");
-    $("#revHead").title = "Read live from GitHub";
-    const extra = list.filter(r => !r.fork && !rows.has(r.name.toLowerCase()) && r.name.toLowerCase() !== GH);
-    if (extra.length) {
-      const ul = $("#alsoList");
-      for (const r of extra.slice(0, 16)) ul.append(el("li", {}, el("a", { href: r.html_url, text: r.name, title: r.description || "" })));
-      $("#also").hidden = false;
-    }
-  });
 
-  document.getElementById("year").textContent = new Date().getFullYear();
+  $("#year").textContent = new Date().getFullYear();
 
-  /* ---------- Pinout, drawn from the pin table ---------- */
-  (() => {
-    const svg = $("#pinSvg"), NS = "http://www.w3.org/2000/svg";
-    const s = (tag, attrs = {}, kids = []) => {
-      const n = document.createElementNS(NS, tag);
-      for (const [k, v] of Object.entries(attrs)) n.setAttribute(k, v);
-      for (const k of [].concat(kids)) if (k) n.append(k);
-      return n;
-    };
-    const X0 = 180, X1 = 340, Y0 = 20, Y1 = 320, pitch = 50;
-    svg.append(
-      s("rect", { class: "pkg", x: X0, y: Y0, width: X1 - X0, height: Y1 - Y0, rx: 4 }),
-      s("path", { class: "notch", d: `M${(X0 + X1) / 2 - 13} ${Y0} a13 13 0 0 0 26 0` }),
-      s("circle", { class: "dot1", cx: X0 + 30, cy: Y0 + 25, r: 4.5 }),
-      s("text", { class: "pkg-name", x: 0, y: 0, "text-anchor": "middle", transform: `translate(${(X0 + X1) / 2 + 4} ${(Y0 + Y1) / 2}) rotate(-90)` }, "NY-2026"),
-      s("text", { class: "pkg-sub", x: 0, y: 0, "text-anchor": "middle", transform: `translate(${(X0 + X1) / 2 + 30} ${(Y0 + Y1) / 2}) rotate(-90)` }, "DIP-12 · REV F"),
-    );
-    const pins = new Map();
-    for (const tr of $$("#pinTable tr[data-pin]")) {
-      const n = +tr.dataset.pin, left = n <= 6;
-      const y = left ? Y0 + 25 + (n - 1) * pitch : Y1 - 25 - (n - 7) * pitch;
-      const kids = [
-        s("rect", { x: left ? X0 - 30 : X1, y: y - 7, width: 30, height: 14 }),
-        s("text", { class: "lb", x: left ? X0 - 40 : X1 + 40, y, "dominant-baseline": "central", "text-anchor": left ? "end" : "start" }, tr.dataset.name),
-        s("text", { class: "no", x: left ? X0 + 9 : X1 - 9, y, "dominant-baseline": "central", "text-anchor": left ? "start" : "end" }, String(n)),
-      ];
-      const href = tr.dataset.href;
-      const g = href
-        ? s("a", { class: "pin", href, tabindex: "-1", ...(href.startsWith("http") ? { target: "_blank", rel: "noopener" } : {}) }, kids)
-        : s("g", { class: "pin" }, kids);
-      svg.append(g);
-      pins.set(n, { g, tr });
-      const on = (v) => { g.classList.toggle("on", v); tr.classList.toggle("on", v); };
-      for (const node of [g, tr]) {
-        node.addEventListener("mouseenter", () => on(true));
-        node.addEventListener("mouseleave", () => on(false));
-      }
-    }
-  })();
-
-  /* ---------- Figure 4: the die ---------- */
+  /* ---------- The die behind the hero ---------- */
   const die = (() => {
     const canvas = $("#die");
     if (!canvas || !canvas.getContext) return { refresh() {} };
     const ctx = canvas.getContext("2d");
-    const zoomReadout = $("#zoomReadout"), readout = $("#readout");
 
     let seed = 20261010;
     const rnd = () => { seed |= 0; seed = seed + 0x6D2B79F5 | 0; let t = Math.imul(seed ^ seed >>> 15, 1 | seed); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; };
@@ -1215,11 +464,13 @@ footer { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10
 
     // View: world x,y at the top-left of the canvas, s = px per world unit
     const view = { x: 0, y: 0, s: 1 };
-    let cwPx = 0, chPx = 0, dpr = 1, fitS = 1, colors = {};
+    let cwPx = 0, chPx = 0, dpr = 1, fitS = 1, containS = 1, colors = {};
     const readColors = () => { colors = { bg: css("--paper"), panel: css("--sheet"), ink: css("--ink"), rule: css("--rule"), m1: css("--m1"), m2: css("--m2"), via: css("--via"), diff: css("--diff") }; };
 
+    // The die covers the hero
     const fitView = () => {
-      fitS = Math.min(cwPx / (W * 1.05), chPx / (H * 1.05)) || 1;
+      fitS = Math.max(cwPx / W, chPx / H) || 1;
+      containS = Math.min(cwPx / W, chPx / H) || 1;
       view.s = fitS;
       view.x = W / 2 - cwPx / 2 / fitS;
       view.y = H / 2 - chPx / 2 / fitS;
@@ -1281,7 +532,6 @@ footer { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10
       } else {
         scene(ctx, s, 1 / s, x0, y0, x1, y1);
       }
-      zoomReadout.textContent = (view.s / fitS).toFixed(view.s / fitS < 10 ? 1 : 0) + "×";
     }
 
     // Draws the die in world units. lod picks the level of detail, px is one screen pixel in world units.
@@ -1370,7 +620,7 @@ footer { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10
       }
     }
 
-    const clampS = (s) => Math.min(Math.max(s, fitS * 0.6), fitS * 160);
+    const clampS = (s) => Math.min(Math.max(s, containS * 0.9), fitS * 160);
     const zoomAt = (px, py, factor) => {
       const wx = view.x + px / view.s, wy = view.y + py / view.s;
       view.s = clampS(view.s * factor);
@@ -1378,15 +628,15 @@ footer { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10
       draw();
     };
 
-    // Intro: waits deep inside the logic, pulls back to the whole die once the figure scrolls into view
-    let intro = 0, touched = false;
+    // Intro: start deep inside the logic and pull back until the die fills the hero
+    let intro = 0;
     const focus = { x: W * 0.43, y: H * 0.56 };
     const pivotAt = (s) => {
       const endX = W / 2 - cwPx / 2 / fitS, endY = H / 2 - chPx / 2 / fitS;
       const px = (focus.x - endX) * fitS, py = (focus.y - endY) * fitS;
       view.s = s; view.x = focus.x - px / s; view.y = focus.y - py / s;
     };
-    const stopIntro = () => { touched = true; if (intro) { cancelAnimationFrame(intro); intro = 0; } };
+    const stopIntro = () => { if (intro) { cancelAnimationFrame(intro); intro = 0; } };
     const playIntro = () => {
       const from = view.s / fitS, t0 = performance.now(), dur = 2400;
       const ease = (t) => t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
@@ -1429,26 +679,6 @@ footer { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10
     const up = (e) => { pts.delete(e.pointerId); pinch = null; if (!pts.size) canvas.classList.remove("dragging"); };
     canvas.addEventListener("pointerup", up);
     canvas.addEventListener("pointercancel", up);
-
-    // Hover probe: what's under the cursor, in die coordinates
-    const probe = (x, y) => {
-      if (x < 0 || y < 0 || x > W || y > H) return "";
-      for (const m of macros) if (x >= m.x && x < m.x + m.w && y >= m.y && y < m.y + m.h) return "memory macro";
-      const r = Math.floor((y - core.y) / ROWH);
-      if (x >= core.x && x < core.x + core.w && r >= 0 && r < rowY.length) {
-        let lo = rowStart[r], hi = rowStart[r + 1];
-        while (lo < hi) { const m = (lo + hi) >> 1; if (CX[m] + CW[m] <= x) lo = m + 1; else hi = m; }
-        return lo < rowStart[r + 1] && CX[lo] <= x ? `cell ${(lo + 1).toLocaleString("en")}, row ${r + 1}` : `row ${r + 1}`;
-      }
-      return x < PAD - 30 || y < PAD - 30 || x > W - PAD + 30 || y > H - PAD + 30 ? "IO ring" : "core margin";
-    };
-    canvas.addEventListener("pointermove", (e) => {
-      if (e.pointerType !== "mouse") return;
-      const p = local(e), wx = view.x + p.x / view.s, wy = view.y + p.y / view.s, what = probe(wx, wy);
-      readout.textContent = `x ${wx.toFixed(1)}  y ${wy.toFixed(1)}` + (what ? `  ·  ${what}` : "");
-      readout.hidden = false;
-    });
-    canvas.addEventListener("pointerleave", () => { readout.hidden = true; });
     canvas.addEventListener("dblclick", (e) => { stopIntro(); const p = local(e); zoomAt(p.x, p.y, e.shiftKey ? 0.5 : 2.2); });
     canvas.addEventListener("wheel", (e) => {
       if (!(e.ctrlKey || e.metaKey)) return;
@@ -1457,23 +687,13 @@ footer { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10
       zoomAt(p.x, p.y, Math.exp(-e.deltaY * (e.deltaMode === 1 ? 0.05 : 0.0022)));
     }, { passive: false });
 
-    $("#zoomIn").addEventListener("click", () => { stopIntro(); zoomAt(cwPx / 2, chPx / 2, 1.8); });
-    $("#zoomOut").addEventListener("click", () => { stopIntro(); zoomAt(cwPx / 2, chPx / 2, 1 / 1.8); });
-    $("#zoomFit").addEventListener("click", () => { stopIntro(); fitView(); draw(); });
-
     const refresh = () => { readColors(); bmpDirty = true; draw(); };
     matchMedia("(prefers-color-scheme: dark)").addEventListener("change", refresh);
 
     readColors();
     resize();
-    if (!reduce) { pivotAt(fitS * 40); draw(); }
     new ResizeObserver(() => resize()).observe(canvas);
-    if (!reduce) {
-      if ("IntersectionObserver" in window) {
-        const io = new IntersectionObserver(([e]) => { if (e.isIntersecting) { io.disconnect(); if (!touched) playIntro(); } }, { threshold: 0.45 });
-        io.observe(canvas);
-      } else playIntro();
-    }
+    if (!reduce) { pivotAt(fitS * 40); playIntro(); }
 
     return { refresh };
   })();
@@ -1493,25 +713,22 @@ footer { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10
   darkMQ.addEventListener("change", labelTheme);
   labelTheme();
 
-  /* ---------- Figure 1: the production test ---------- */
+  /* ---------- The terminal ---------- */
   const TESTS = [
     { id: "01", name: "renders at scale", ev: "manhattan · 3.5B placements", res: "pass" },
     { id: "02", name: "boots on bare metal", ev: "nyrf-os · own UEFI loader", res: "pass" },
     { id: "03", name: "won't invent facts", ev: "teder · fact = stored quote", res: "pass" },
     { id: "04", name: "ships to production", ev: "tiyulplus.com · live", res: "pass" },
-    { id: "05", name: "designs protocols", ev: "trivia · binary TCP", res: "pass" },
-    { id: "06", name: "runs unattended", ev: "brickdeal · 24/7 pipelines", res: "pass" },
-    { id: "07", name: "owns the outcome", ev: "blackz · registered business", res: "pass" },
-    { id: "08", name: "plays well", ev: "4 browser games, 3 live", res: "pass" },
-    { id: "09", name: "bagrut, 5 units", ev: "cs 99 · physics 97 · math 96", res: "pass" },
-    { id: "10", name: "dapar", ev: "90 of 90", res: "pass" },
-    { id: "11", name: "tolerates manual work", ev: "3 times, then a script", res: "warn" },
+    { id: "05", name: "runs unattended", ev: "brickdeal · 24/7", res: "pass" },
+    { id: "06", name: "owns the outcome", ev: "runs a registered business", res: "pass" },
+    { id: "07", name: "exams", ev: "cs 99 · math 96 · dapar 90", res: "pass" },
+    { id: "08", name: "tolerates manual work", ev: "3 times, then a script", res: "warn" },
   ];
 
-  const term = (() => {
-    const box = $("#term"), body = $("#termBody"), form = $("#termForm"), input = $("#termIn"), lamp = $("#lamp"), meta = $("#termMeta");
+  (() => {
+    const body = $("#termBody"), form = $("#termForm"), input = $("#termIn"), lamp = $("#lamp"), meta = $("#termMeta");
     const PS = "ny@ate0:~$";
-    let run = 0, busy = false, skipping = false, started = false;
+    let run = 0, busy = false, skipping = false, queued = null;
     const wakers = new Set();
     const sleep = (ms) => skipping ? Promise.resolve() : new Promise(res => {
       const w = () => { clearTimeout(t); wakers.delete(w); res(); };
@@ -1521,23 +738,23 @@ footer { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10
     const fast = () => { if (!busy) return; skipping = true; [...wakers].forEach(w => w()); };
 
     const add = (node, hide) => {
-      const stick = body.scrollHeight - body.scrollTop - body.clientHeight < 60;
       if (hide) node.setAttribute("aria-hidden", "true");
       body.append(node);
-      if (stick) body.scrollTop = body.scrollHeight;
+      body.scrollTop = body.scrollHeight;
       return node;
     };
     const line = (kids, cls = "", hide = false) => add(el("div", { class: ("l " + cls).trim() }, kids), hide);
     const kv = (k, v, cls = "") => line([el("span", { class: "k" }, k), el("span", { class: "v" }, v)], ("kv " + cls).trim());
     const cmd = (c, label) => el("button", { type: "button", class: "cmd", "data-cmd": c, text: label || c });
+    const link = (href, text) => el("a", Object.assign({ href, text }, href.startsWith("http") ? { target: "_blank", rel: "noopener" } : {}));
     const prompt = (text) => line([el("span", { class: "ps", text: PS + " " }), text]);
+    const more = (...cmds) => line(["more: ", ...cmds.flatMap((c, i) => i ? [" · ", cmd(c)] : [cmd(c)])], "dim");
 
     const verdict = (animate) => {
-      line([el("span", { class: "bin", text: "BIN 1" }), el("span", { class: "dim", text: " · top grade · ship it" })]);
+      line([el("span", { class: "bin", text: "BIN 1" }), el("span", { class: "dim", text: " · top grade" })]);
       kv("verdict", el("span", { class: "hire", text: "HIRE" }));
       const bar = el("i");
       kv("confidence", ["HIGH", el("span", { class: "meter", "aria-hidden": "true" }, bar), "0.97"]);
-      kv("available", "now, until IDF enlistment in 2027");
       kv("next step", el("a", { href: "mailto:" + EMAIL, text: EMAIL }));
       if (animate && !skipping) requestAnimationFrame(() => requestAnimationFrame(() => { bar.style.width = "97%"; }));
       else { bar.style.transition = "none"; bar.style.width = "97%"; }
@@ -1545,99 +762,121 @@ footer { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10
 
     const start = async () => {
       const id = ++run, alive = () => id === run;
-      started = true; busy = true; skipping = reduce;
+      busy = true; skipping = reduce;
       body.textContent = "";
-      lamp.className = "lamp run"; meta.textContent = "site 0 · running";
-      input.disabled = true; input.placeholder = "running · click to skip";
+      lamp.className = "lamp run"; meta.textContent = "running";
+      input.disabled = true; input.placeholder = "running · tap to skip";
       const t0 = performance.now();
 
       const typed = el("span");
       line([el("span", { class: "ps", text: PS + " " }), typed], "", true);
-      for (const ch of "ate run hire.tp --dut NY-2026") {
+      for (const ch of "ate run hire.tp") {
         typed.textContent += ch;
-        await sleep(24 + Math.random() * 36);
+        await sleep(30 + Math.random() * 40);
         if (!alive()) return;
       }
-      await sleep(280); if (!alive()) return;
-      line("ate 4.2 · program hire.tp rev F · 11 tests", "dim", true);
-      const probe = line([`probing github.com/${GH} `, el("span", { class: "wait", text: "..." })], "dim", true);
-      const gh = await Promise.race([GH_SUM, sleep(1600).then(() => null)]);
+      await sleep(260); if (!alive()) return;
+      const probe = line([`checking github.com/${GH} `, el("span", { class: "wait", text: "..." })], "dim", true);
+      const gh = await Promise.race([GH_SUM, sleep(1500).then(() => null)]);
       if (!alive()) return;
-      probe.textContent = `probing github.com/${GH} · ` + (gh ? `${gh.count} repos · pushed ${gh.last}` : "no answer yet, skipped");
-      add(el("div", { class: "t th" }, [el("span", { class: "id", text: "#" }), el("span", { class: "name" }, el("span", { text: "test" })), el("span", { class: "ev", text: "evidence" }), el("span", { class: "res", text: "res" })]), true);
+      probe.textContent = `checking github.com/${GH} · ` + (gh ? `${gh.count} repos · pushed ${gh.last}` : "skipped");
 
       for (const t of TESTS) {
         const res = el("span", { class: "res run", text: "RUN" });
-        add(el("div", { class: "t", "data-t": t.id }, [el("span", { class: "id", text: t.id }), el("span", { class: "name" }, el("span", { text: t.name })), el("span", { class: "ev", text: t.ev }), res]), true);
-        await sleep(110 + Math.random() * 200);
+        add(el("div", { class: "t" }, [el("span", { class: "id", text: t.id }), el("span", { class: "name" }, el("span", { text: t.name })), el("span", { class: "ev", text: t.ev }), res]), true);
+        await sleep(120 + Math.random() * 200);
         if (!alive()) return;
         res.className = "res " + t.res;
         res.textContent = t.res.toUpperCase();
       }
       const passed = TESTS.filter(t => t.res === "pass").length, warned = TESTS.length - passed;
-      const secs = ((performance.now() - t0) / 1000).toFixed(2);
-      line(`${passed} passed · ${warned} warning · 0 failed · ${secs} s`, "dim", true);
+      line(`${passed} passed · ${warned} warning · 0 failed · ${((performance.now() - t0) / 1000).toFixed(2)} s`, "dim", true);
       add(el("div", { class: "sr", text: `Test run complete: ${passed} passed, ${warned} warning, 0 failed.` }));
       await sleep(380); if (!alive()) return;
       line("");
       verdict(true);
       line("");
-      line(["try ", cmd("help"), " · ", cmd("ls"), " · ", cmd("open manhattan"), " · ", cmd("email")], "dim");
+      line(["tap a command below, or type ", cmd("help")], "dim");
 
       busy = false; skipping = false;
-      lamp.className = "lamp done"; meta.textContent = "site 0 · bin 1";
+      lamp.className = "lamp done"; meta.textContent = "bin 1 · pass";
       input.disabled = false; input.placeholder = "type help";
+      if (queued) { const q = queued; queued = null; exec(q); }
     };
 
-    const notFound = (c, arg) => line([`${c}: no device called "${arg}". try `, cmd("ls")], "warn");
-    const openUrl = (url) => {
-      line(["opening ", el("a", { href: url, target: "_blank", rel: "noopener", text: url })]);
-      window.open(url, "_blank", "noopener");
-    };
+    const notFound = (c, arg) => line([`${c}: nothing called "${arg}". try `, cmd("projects")], "warn");
+    const openUrl = (url) => { line(["opening ", link(url, url)]); window.open(url, "_blank", "noopener"); };
     const mail = (subject) => {
       const href = "mailto:" + EMAIL + (subject ? "?subject=" + encodeURIComponent(subject) : "");
       line(["mail ", el("a", { href, text: EMAIL })]);
       location.href = href;
     };
-    const LINKS = { github: `https://github.com/${GH}`, gh: `https://github.com/${GH}`, linkedin: "https://www.linkedin.com/in/netanelyan", li: "https://www.linkedin.com/in/netanelyan",
-      instagram: "https://www.instagram.com/netanel.yan/", ig: "https://www.instagram.com/netanel.yan/" };
+    const LINKS = { github: `https://github.com/${GH}`, linkedin: "https://www.linkedin.com/in/netanelyan", instagram: "https://www.instagram.com/netanel.yan/" };
 
     const COMMANDS = {
       help() {
-        for (const [c, d] of [["ls", "list the device family"], ["cat <name>", "what one device is"], ["open <name>", "open it, live if it's live"], ["verdict", "print the verdict again"], ["rerun", "run the test program again"], ["email", "write to me"], ["whoami", "who's on each end"], ["theme", "switch light and dark"], ["clear", "clear the screen"]])
+        for (const [c, d] of [["about", "who I am"], ["projects", "everything I've built"], ["cat <name>", "one project, up close"], ["open <name>", "open it"], ["skills", "languages and tools"], ["scores", "exams and grades"], ["contact", "how to reach me"], ["verdict", "the verdict again"], ["rerun", "run the test again"], ["clear", "clear the screen"]])
           kv(c.includes("<") ? c : cmd(c), d, "wide");
       },
-      ls(arg) {
+      about() {
+        line([el("b", { text: "Netanel Yanchevsky" }), el("span", { class: "dim", text: " · Ashdod, Israel" })]);
+        line("3rd year of Magshimim, Israel's national cyber program.");
+        line("I build low-level systems, Hebrew AI products and automation.");
+        line("I also run a registered business with live e-commerce brands.");
+        line("Open to internships and part-time roles until IDF enlistment, 2027.");
+        more("projects", "skills", "contact");
+      },
+      projects(arg) {
         const all = /(^|\s)-\w*a/.test(arg);
         for (const g of GROUPS) {
           if (g.more && !all) continue;
-          line(g.label.toLowerCase() + "/", "dim");
-          for (const p of PROJECTS.filter(p => p.group === g.id))
-            line([el("span", {}, cmd("cat " + p.repo, p.repo)), el("span", { class: "s-" + p.status, text: p.status })], "kv wide");
+          line(g.label + "/", "dim");
+          for (const p of PROJECTS.filter(p => p.group === g.id)) kv(cmd("cat " + p.repo, p.repo), p.line, "wide");
         }
-        if (!all) line([`${PROJECTS.filter(p => GROUPS.find(g => g.id === p.group).more).length} more in coursework and early work: `, cmd("ls -a")], "dim");
+        const hidden = PROJECTS.filter(p => GROUPS.find(g => g.id === p.group).more).length;
+        if (!all) line([`+ ${hidden} from magshimim and early work: `, cmd("projects -a")], "dim");
+        else line("tap a name for details", "dim");
       },
       cat(arg) {
-        if (!arg) return line("usage: cat <name>", "dim");
+        if (!arg) return line(["usage: cat <name>. names are in ", cmd("projects")], "dim");
         const p = find(arg);
         if (!p) return notFound("cat", arg);
-        line([el("b", { text: p.name }), p.he ? " " + p.he : "", el("span", { class: "dim", text: `  ${p.repo} · ${p.status}` })]);
-        line(p.desc);
-        line(p.stack.join(" · "), "dim");
-        line([cmd("open " + p.repo, p.live ? "open it, it's live" : "open the code")]);
+        line([el("b", { text: p.name }), el("span", { class: "dim", text: `  ${p.status}` })]);
+        line(p.line);
+        line(p.stack, "dim");
+        line([p.live ? link(p.live, p.live.replace(/^https?:\/\/(www\.)?/, "").replace(/\/$/, "") + " ↗") : "", p.live ? "   " : "", link(repoUrl(p), "code ↗")]);
       },
       open(arg) {
-        if (!arg) return line(["usage: open <name>. names are in ", cmd("ls")], "dim");
+        if (!arg) return line(["usage: open <name>. names are in ", cmd("projects")], "dim");
         const special = LINKS[norm(arg)];
         if (special) return openUrl(special);
         const p = find(arg);
         if (!p) return notFound("open", arg);
         openUrl(p.live || repoUrl(p));
       },
+      skills() {
+        kv("languages", "C · C++ · Rust · x86-64 asm · TypeScript · Python · C# · Java · Swift");
+        kv("systems", "UEFI · Linux · TCP · threads · WebAssembly · WebGL2");
+        kv("web", "Next.js · React · Node.js · three.js · Supabase · Postgres");
+        kv("ai", "Claude API · tool layers · evals graded in code");
+        kv("spoken", "Hebrew · Russian · English");
+      },
+      scores() {
+        kv("bagrut", "CS 99 · physics 97 · math 96 · english 100 (5 units)");
+        kv("psychometric", "682");
+        kv("dapar", "90 of 90");
+        kv("bar-ilan", "84.33 avg, alongside high school");
+      },
+      contact() {
+        kv("email", el("a", { href: "mailto:" + EMAIL, text: EMAIL }));
+        kv("github", link(LINKS.github, "github.com/" + GH));
+        kv("linkedin", link(LINKS.linkedin, "in/netanelyan"));
+        kv("instagram", link(LINKS.instagram, "@netanel.yan"));
+      },
       verdict() { verdict(false); },
       rerun() { start(); },
       email() { mail(); },
-      whoami() { line("you: probably deciding who to hire. this end: Netanel Yanchevsky, Ashdod, IL."); },
+      whoami() { line("you: probably hiring. me: Netanel, Ashdod, IL."); },
       theme() { toggleTheme(); line(`theme: ${isDark() ? "dark" : "light"}`, "dim"); },
       clear() { body.textContent = ""; },
       hire() { line(["hire: permission denied. try ", cmd("sudo hire")], "warn"); },
@@ -1649,29 +888,28 @@ footer { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10
       },
       exit() { line("there is no exit. there is only email.", "dim"); },
       rm() { line("rm: not on my machine.", "warn"); },
-      pwd() { line("/home/ny/datasheet"); },
-      echo(arg) { line(arg); },
-      date() { line(new Date().toString()); },
     };
-    Object.assign(COMMANDS, { run: COMMANDS.rerun, test: COMMANDS.rerun, contact: COMMANDS.email, mail: COMMANDS.email, cls: COMMANDS.clear, quit: COMMANDS.exit, man: COMMANDS.cat,
+    Object.assign(COMMANDS, { ls: COMMANDS.projects, run: COMMANDS.rerun, mail: COMMANDS.email, cls: COMMANDS.clear, quit: COMMANDS.exit, man: COMMANDS.cat,
       github: () => openUrl(LINKS.github), linkedin: () => openUrl(LINKS.linkedin) });
-    const VISIBLE = ["help", "ls", "cat", "open", "verdict", "rerun", "email", "whoami", "theme", "clear", "github", "linkedin", "sudo"];
+    const VISIBLE = ["help", "about", "projects", "cat", "open", "skills", "scores", "contact", "verdict", "rerun", "clear", "email", "sudo"];
 
     const hist = [];
     let hi = 0;
-    const exec = (raw) => {
+    function exec(raw) {
       const text = raw.trim();
-      prompt(text);
+      if (busy) { queued = text; fast(); return; }
+      const p = prompt(text);
       if (!text) return;
       hist.push(text); hi = hist.length;
       const [c, ...rest] = text.split(/\s+/);
       const fn = COMMANDS[c.toLowerCase()];
       if (fn) fn(rest.join(" "));
       else line([`${c}: command not found. try `, cmd("help")], "warn");
-      body.scrollTop = body.scrollHeight;
-    };
+      // Long output: show it from the top, starting at the command
+      if (p.isConnected) body.scrollTop += p.getBoundingClientRect().top - body.getBoundingClientRect().top - 8;
+    }
 
-    form.addEventListener("submit", (e) => { e.preventDefault(); if (busy) return; const v = input.value; input.value = ""; exec(v); });
+    form.addEventListener("submit", (e) => { e.preventDefault(); const v = input.value; input.value = ""; exec(v); });
     input.addEventListener("keydown", (e) => {
       if (e.key === "ArrowUp" && hist.length) { e.preventDefault(); hi = Math.max(0, hi - 1); input.value = hist[hi]; }
       else if (e.key === "ArrowDown" && hist.length) { e.preventDefault(); hi = Math.min(hist.length, hi + 1); input.value = hist[hi] || ""; }
@@ -1687,50 +925,16 @@ footer { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10
     });
     body.addEventListener("click", (e) => {
       const b = e.target.closest(".cmd");
-      if (b) { if (!busy) { exec(b.dataset.cmd); } return; }
+      if (b) { exec(b.dataset.cmd); return; }
       if (busy) { fast(); return; }
       if (e.target.closest("a")) return;
       if (String(getSelection())) return;
       input.focus({ preventScroll: true });
     });
+    for (const b of $$(".chip")) b.addEventListener("click", () => exec(b.dataset.cmd));
 
-    // Highlight the test behind a feature
-    for (const li of $$(".feat li[data-t]")) {
-      const rowsFor = () => $$(`.t[data-t="${li.dataset.t}"]`, body);
-      li.addEventListener("mouseenter", () => rowsFor().forEach(r => r.classList.add("hl")));
-      li.addEventListener("mouseleave", () => rowsFor().forEach(r => r.classList.remove("hl")));
-    }
-
-    if ("IntersectionObserver" in window) {
-      const io = new IntersectionObserver(([e]) => { if (e.isIntersecting) { io.disconnect(); start(); } }, { threshold: 0.25 });
-      io.observe(box);
-    } else start();
-
-    return { fast, started: () => started, start };
+    start();
   })();
-
-  /* ---------- Running header: current section and progress ---------- */
-  const secs = $$("[data-sec]"), rhSec = $("#rhSec"), progress = $("#progress");
-  let ticking = false;
-  const track = () => {
-    ticking = false;
-    let cur = "";
-    for (const s of secs) if (s.getBoundingClientRect().top < 120) cur = s.dataset.sec;
-    if (rhSec.textContent !== cur) rhSec.textContent = cur;
-    const max = document.documentElement.scrollHeight - innerHeight;
-    progress.style.setProperty("--p", max > 0 ? Math.min(1, scrollY / max).toFixed(4) : 0);
-  };
-  addEventListener("scroll", () => { if (!ticking) { ticking = true; requestAnimationFrame(track); } }, { passive: true });
-  addEventListener("resize", track);
-  track();
-
-  /* ---------- Print: the page is already a data sheet ---------- */
-  for (const b of $$("[data-print]")) b.addEventListener("click", () => window.print());
-  addEventListener("beforeprint", () => {
-    if (!term.started()) term.start();
-    term.fast();
-    for (const d of $$("details")) d.open = true;
-  });
 })();
 </script>
 </body>
