@@ -16,10 +16,9 @@ $ ate run hire.tp --dut netanelyan
   06  low-level systems ........ own OS · chip viewer · C++    PASS
   07  ships to production ...... 3 live sites                  PASS
   08  runs a business .......... founder · BlackZ Ecommerce    PASS
-  09  national champion ........ kyokushin karate · israel     PASS
-  10  tolerates manual work .... 3 times, then a script        WARN
+  09  tolerates manual work .... 3 times, then a script        WARN
 
-  9 passed · 1 warning · 0 failed
+  8 passed · 1 warning · 0 failed
 
   VERDICT      HIRE
   CONFIDENCE   HIGH  ███████████████████░  0.97

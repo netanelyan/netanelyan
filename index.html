@@ -7,10 +7,10 @@
 <meta name="description" content="Netanel Yanchevsky (Netanel Yan), developer from Ashdod, Israel. Low-level systems, Hebrew AI and automation. Builds tiyulplus.com, openfrequency.co.il and brickdealil.com.">
 <meta property="og:title" content="Netanel Yanchevsky · verdict: hire">
 <meta property="og:description" content="Developer from Israel. Systems, AI and automation. Run the test and see the verdict.">
-<meta property="og:image" content="https://github.com/netanelyan.png?size=400">
+<meta property="og:image" content="https://netanelyan.github.io/netanelyan/img/me.jpg">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cg fill='%23141413'%3E%3Crect x='8' y='3' width='16' height='26' rx='1.5'/%3E%3Crect x='3' y='7' width='5' height='2.5'/%3E%3Crect x='3' y='12.5' width='5' height='2.5'/%3E%3Crect x='3' y='18' width='5' height='2.5'/%3E%3Crect x='3' y='23.5' width='5' height='2.5'/%3E%3Crect x='24' y='7' width='5' height='2.5'/%3E%3Crect x='24' y='12.5' width='5' height='2.5'/%3E%3Crect x='24' y='18' width='5' height='2.5'/%3E%3Crect x='24' y='23.5' width='5' height='2.5'/%3E%3C/g%3E%3Ccircle cx='12.5' cy='8' r='2' fill='%23F0480F'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23141413'/%3E%3Cpath d='M8 10l6 6-6 6' fill='none' stroke='%23F0480F' stroke-width='3'/%3E%3Cpath d='M17 23h8' stroke='%23F0480F' stroke-width='3'/%3E%3C/svg%3E">
 <link rel="apple-touch-icon" href="https://github.com/netanelyan.png?size=180">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -91,9 +91,7 @@ kbd { font: 500 0.92em var(--mono); padding: 1px 5px; border: 1px solid var(--ru
 /* Top bar */
 .top { position: absolute; inset: 0 0 auto; z-index: 3; }
 .top .wrap { display: flex; align-items: center; gap: 16px; height: 72px; }
-.mark { display: inline-flex; align-items: center; gap: 10px; font: 600 13px/1 var(--mono); letter-spacing: 0.08em; text-decoration: none; }
-.mark svg { display: block; }
-.mark .pin1 { fill: var(--accent); }
+.mark { font: 600 13px/1 var(--mono); letter-spacing: 0.02em; text-decoration: none; }
 .nav { margin-left: auto; display: flex; align-items: center; gap: 2px; }
 .nav a { padding: 8px 10px; font: 500 13px/1 var(--mono); color: var(--ink-2); text-decoration: none; }
 .nav a:hover { color: var(--accent-ink); }
@@ -142,7 +140,7 @@ h1 span:last-child { color: var(--accent); }
 .lamp.run { background: var(--term-acc); }
 .lamp.done { background: var(--term-ok); }
 .term-meta { margin-left: auto; white-space: nowrap; }
-.term-body { height: 446px; overflow-y: auto; padding: 12px 16px 4px; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: #3A3B36 transparent; cursor: text; }
+.term-body { height: 424px; overflow-y: auto; padding: 12px 16px 4px; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: #3A3B36 transparent; cursor: text; }
 .term-body .l { white-space: pre-wrap; overflow-wrap: anywhere; min-height: 1.62em; }
 .term .dim { color: var(--term-dim); }
 .term .warn { color: var(--term-warn); }
@@ -197,12 +195,25 @@ h1 span:last-child { color: var(--accent); }
 .chip:hover { background: var(--ink); color: var(--paper); }
 .chip:hover::before { color: var(--accent); }
 
-/* Sections */
-.sec { padding-top: 96px; scroll-margin-top: 8px; }
-.sec-h { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 6px 20px; margin-bottom: 26px; padding-top: 14px; border-top: 2px solid var(--ink); }
-.sec-h h2 { display: flex; align-items: center; gap: 12px; margin: 0; font-stretch: 70%; font-weight: 780; font-size: clamp(32px, 3.6vw, 46px); line-height: 1; }
-.sec-h h2::before { content: ""; flex: none; width: 12px; height: 12px; background: var(--accent); }
-.sec-h p { margin: 0; font: 13px var(--mono); color: var(--muted); }
+/* The block under the hero: what the terminal knows, by click */
+.explore { padding-top: 80px; }
+.tabs { position: sticky; top: 0; z-index: 5; display: none; align-items: flex-end; padding-top: 12px; background: var(--paper); border-bottom: 2px solid var(--ink); overflow-x: auto; scrollbar-width: none; }
+.tabs::-webkit-scrollbar { display: none; }
+.js .tabs { display: flex; }
+.tab { appearance: none; flex: none; height: 46px; padding: 0 20px; margin-right: -1px; border: 1px solid var(--ink); border-bottom: 0; background: var(--sheet); color: var(--ink); font: 500 14px/1 var(--mono); cursor: pointer; transition: background-color .15s ease, color .15s ease; }
+.tab::before { content: "$ "; color: var(--accent-ink); }
+.tab:hover { background: var(--paper); }
+.tab[aria-selected="true"] { background: var(--ink); color: var(--paper); }
+.tab[aria-selected="true"]::before { color: var(--accent); }
+.tabs-note { margin-left: auto; padding: 0 0 13px 20px; font: 12.5px/1 var(--mono); color: var(--muted); white-space: nowrap; }
+.panel { padding-top: 34px; }
+.panel:focus-visible { outline-offset: 8px; }
+html:not(.js) .panel + .panel { padding-top: 72px; }
+@media (prefers-reduced-motion: no-preference) { .js .panel:not([hidden]) { animation: rise .3s ease both; } }
+@keyframes rise { from { opacity: 0; transform: translateY(6px); } }
+.ph { margin: 0 0 8px; font-stretch: 70%; font-weight: 780; font-size: clamp(30px, 3.4vw, 42px); line-height: 1; }
+.js .ph { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.meta { margin: 0 0 24px; font: 13px/1.4 var(--mono); color: var(--muted); }
 
 /* Live sites */
 .sites { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; margin: 0; padding: 0; list-style: none; }
@@ -240,8 +251,7 @@ h1 span:last-child { color: var(--accent); }
 .about { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr); gap: 28px 56px; align-items: start; }
 .bio p { margin: 0 0 14px; max-width: 60ch; font-size: 18px; line-height: 1.55; }
 .bio p:last-child { margin-bottom: 0; }
-.face { float: left; width: 112px; height: 112px; margin: 4px 22px 10px 0; object-fit: cover; border: 1px solid var(--ink); filter: grayscale(1) contrast(1.05); transition: filter .3s ease; }
-.face:hover { filter: none; }
+.face { float: left; width: 172px; height: auto; aspect-ratio: 4 / 5; margin: 5px 26px 12px 0; object-fit: cover; border: 1px solid var(--ink); background: var(--rule); }
 .path { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--ink); }
 .path li { display: grid; grid-template-columns: 6.5ch minmax(0, 1fr); gap: 2px 16px; padding: 13px 0; border-bottom: 1px solid var(--rule); }
 .path .yr { grid-row: span 2; font: 500 12.5px/1.9 var(--mono); color: var(--accent-ink); }
@@ -256,12 +266,26 @@ h1 span:last-child { color: var(--accent); }
 .stats .hl dt { color: var(--accent-ink); }
 .about-fn { margin: 10px 0 0; font: 12.5px var(--mono); color: var(--muted); }
 
+/* Projects, grouped */
+.pgroup + .pgroup { margin-top: 34px; }
+.pg-h { margin: 0 0 10px; font: 500 12px/1 var(--mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent-ink); }
+.more-btn { margin-top: 30px; }
+.pmore { margin-top: 34px; }
+
+/* Skills */
+.skills { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 30px 36px; }
+.sk { padding-top: 12px; border-top: 1px solid var(--ink); }
+.sk h3 { margin: 0 0 12px; font: 500 12px/1 var(--mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent-ink); }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; margin: 0; padding: 0; list-style: none; }
+.tags li { padding: 6px 10px; border: 1px solid var(--rule); background: var(--sheet); font: 13px/1.2 var(--mono); }
+
 /* Contact */
 .mail { display: inline-flex; align-items: baseline; gap: 0.25em; font-stretch: 64%; font-weight: 820; font-size: clamp(40px, 7.4vw, 104px); line-height: 1; letter-spacing: -0.01em; text-decoration: none; overflow-wrap: anywhere; }
 .mail .arr { color: var(--accent); transition: transform .2s ease; }
 .mail:hover { color: var(--accent-ink); }
 .mail:hover .arr { transform: translateX(8px); }
-.contact .cta { margin-top: 26px; }
+.contact-line { margin: 18px 0 0; color: var(--ink-2); }
+.contact .cta { margin-top: 24px; }
 
 footer { margin-top: 96px; border-top: 1px solid var(--ink); }
 footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px 24px; padding-top: 22px; padding-bottom: 36px; font: 12px/1.4 var(--mono); letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); }
@@ -279,6 +303,7 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
   .die-hint { display: none; }
   .about { grid-template-columns: 1fr; }
   .stats { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .skills { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (max-width: 680px) {
   body { font-size: 16px; }
@@ -289,7 +314,11 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
   .status { margin-bottom: 18px; }
   .term-body { height: 420px; padding: 10px 12px 4px; }
   .term-input { padding: 4px 12px 10px; }
-  .sec { padding-top: 72px; }
+  .explore { padding-top: 56px; }
+  .tab { flex: 1 1 auto; height: 42px; padding: 0 6px; font-size: 13px; }
+  .tab::before { content: none; }
+  .tabs-note { display: none; }
+  .skills { grid-template-columns: 1fr; }
   .sites { grid-template-columns: 1fr; }
   .row { grid-template-columns: 3.4ch minmax(0, 1fr) auto; gap: 2px 12px; padding: 16px 4px; }
   .row .ln, .row .stk { grid-column: 2 / -1; }
@@ -298,11 +327,12 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
   .btn { padding: 0 13px; font-size: 13px; }
   footer { margin-top: 72px; }
   .bio p { font-size: 16.5px; }
-  .face { width: 88px; height: 88px; margin-right: 16px; }
+  .face { width: 116px; margin-right: 16px; }
+  .mark { display: none; }
   .stats > div { padding: 14px 12px 12px; }
 }
 @media (max-width: 420px) {
-  .nav a[href="#work"] { display: none; }
+  .nav a[href="#projects"] { display: none; }
   .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 </style>
@@ -313,11 +343,11 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
   <canvas id="die" aria-hidden="true"></canvas>
   <div class="top">
     <div class="wrap">
-      <a class="mark" href="#top" aria-label="Netanel Yanchevsky, top of page"><svg viewBox="0 0 32 32" width="22" height="22" aria-hidden="true"><g fill="currentColor"><rect x="8" y="3" width="16" height="26" rx="1.5"/><rect x="3" y="7" width="5" height="2.5"/><rect x="3" y="12.5" width="5" height="2.5"/><rect x="3" y="18" width="5" height="2.5"/><rect x="3" y="23.5" width="5" height="2.5"/><rect x="24" y="7" width="5" height="2.5"/><rect x="24" y="12.5" width="5" height="2.5"/><rect x="24" y="18" width="5" height="2.5"/><rect x="24" y="23.5" width="5" height="2.5"/></g><circle class="pin1" cx="12.5" cy="8" r="2"/></svg>NY</a>
+      <a class="mark" href="#top">Netanel Yanchevsky</a>
       <nav class="nav" aria-label="Sections">
         <a href="#about">about</a>
         <a href="#sites">sites</a>
-        <a href="#work">work</a>
+        <a href="#projects">projects</a>
         <a href="#contact">contact</a>
         <button type="button" class="btn theme" id="theme" aria-label="Switch theme"><svg viewBox="0 0 16 16" width="15" height="15" aria-hidden="true"><circle cx="8" cy="8" r="6.25" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M8 1.75a6.25 6.25 0 0 1 0 12.5z" fill="currentColor"/></svg></button>
       </nav>
@@ -347,14 +377,14 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
         </div>
         <div class="term-body" id="termBody" role="log" aria-label="Terminal">
           <div class="term-static">
-            <div class="l"><span class="ps">ny@ate0:~$</span> ate run hire.tp</div>
-            <div class="l dim">10 tests · 9 passed · 1 warning · 0 failed</div>
+            <div class="l"><span class="ps">netanel@ate0:~$</span> ate run hire.tp</div>
+            <div class="l dim">9 tests · 8 passed · 1 warning · 0 failed</div>
             <div class="l kv"><span class="k">verdict</span><span class="v"><span class="hire">HIRE</span></span></div>
             <div class="l kv"><span class="k">confidence</span><span class="v">HIGH · 0.97</span></div>
           </div>
         </div>
         <form class="term-input" id="termForm" autocomplete="off">
-          <label for="termIn">ny@ate0:~$</label>
+          <label for="termIn">netanel@ate0:~$</label>
           <input id="termIn" type="text" spellcheck="false" autocapitalize="off" autocorrect="off" enterkeyhint="send" placeholder="type help">
         </form>
       </div>
@@ -372,75 +402,88 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
 </header>
 
 <main class="wrap">
-  <section class="sec" id="about" aria-labelledby="about-h">
-    <div class="sec-h"><h2 id="about-h">About</h2><p>Ashdod, Israel · Hebrew, Russian, English</p></div>
-    <div class="about">
-      <div class="bio">
-        <img class="face" src="https://github.com/netanelyan.png?size=240" alt="Netanel Yanchevsky" width="112" height="112" loading="lazy" onerror="this.remove()">
-        <p>I'm Netanel, in my third year of <a href="https://www.magshimim.cyber.org.il/">Magshimim</a>, Israel's national cyber and programming excellence program. I like low-level work: an OS from the bootloader up, a chip-layout viewer in Rust and WebGL2, multi-threaded C++ servers on protocols I design myself.</p>
-        <p>I also ship real products. I founded BlackZ Ecommerce, a registered business, and I build Hebrew AI products under OpenFrequency. I own each one end to end, from the code to the deploy to the ad account.</p>
-        <p>Off the keyboard, I fight. I'm a former Israel national champion in Kyokushin karate, and I've trained Muay Thai and Brazilian jiu-jitsu, which is also why I built a <a href="https://netanelyan.github.io/ufc-game/">pixel-art MMA game</a>.</p>
-      </div>
-      <ol class="path" aria-label="Path">
-        <li><span class="yr">2027</span><b>IDF enlistment</b><span>Dapar 90 · software and cyber roles</span></li>
-        <li><span class="yr">Now</span><b>Magshimim, 3rd year</b><span>C, C++, networks, security, operating systems</span></li>
-        <li><span class="yr">2025</span><b>Founder, BlackZ Ecommerce</b><span>Storefronts, automation and paid ads</span></li>
-        <li><span class="yr">2024</span><b>Bar-Ilan University courses</b><span>Alongside high school · 84.33 average</span></li>
-      </ol>
+  <section class="explore" id="explore" aria-label="About, sites, projects, skills and contact">
+    <div class="tabs" id="tabs" role="tablist" aria-label="Sections">
+      <button type="button" class="tab" role="tab" id="tab-about" aria-controls="about" aria-selected="true" data-tab="about">about</button>
+      <button type="button" class="tab" role="tab" id="tab-sites" aria-controls="sites" aria-selected="false" data-tab="sites">sites</button>
+      <button type="button" class="tab" role="tab" id="tab-projects" aria-controls="projects" aria-selected="false" data-tab="projects">projects</button>
+      <button type="button" class="tab" role="tab" id="tab-skills" aria-controls="skills" aria-selected="false" data-tab="skills">skills</button>
+      <button type="button" class="tab" role="tab" id="tab-contact" aria-controls="contact" aria-selected="false" data-tab="contact">contact</button>
+      <span class="tabs-note">same as the terminal, no typing</span>
     </div>
-    <dl class="stats">
-      <div class="hl"><dt>Psychometric</dt><dd>682</dd></div>
-      <div><dt>Dapar</dt><dd>90<small>/90</small></dd></div>
-      <div><dt>Computer Science</dt><dd>99</dd></div>
-      <div><dt>Physics</dt><dd>97</dd></div>
-      <div><dt>Mathematics</dt><dd>96</dd></div>
-      <div><dt>English</dt><dd>100</dd></div>
-    </dl>
-    <p class="about-fn">Computer Science, Physics, Mathematics and English are bagrut scores, all at 5 units.</p>
-  </section>
 
-  <section class="sec" id="sites" aria-labelledby="sites-h">
-    <div class="sec-h"><h2 id="sites-h">Live sites</h2><p>3 in production, all mine end to end</p></div>
-    <ul class="sites">
-      <li><a class="site" href="https://www.tiyulplus.com">
-        <span class="bar">tiyulplus.com<span class="go">↗</span></span>
-        <span class="shot"><img src="img/tiyulplus.webp" alt="The Tiyul+ home page, a Hebrew trip planner" width="800" height="500" loading="lazy"></span>
-        <span class="cap"><b>Tiyul+</b><span>An AI travel agent in Hebrew. Plans real, mapped trips.</span></span>
-      </a></li>
-      <li><a class="site" href="https://openfrequency.co.il">
-        <span class="bar">openfrequency.co.il<span class="go">↗</span></span>
-        <span class="shot"><img src="img/openfrequency.webp" alt="The OpenFrequency home page, showing Teder and Toran" width="800" height="500" loading="lazy"></span>
-        <span class="cap"><b>OpenFrequency</b><span>Hebrew AI for online stores: TikTok slideshows and a WhatsApp agent.</span></span>
-      </a></li>
-      <li><a class="site" href="https://brickdealil.com">
-        <span class="bar">brickdealil.com<span class="go">↗</span></span>
-        <span class="shot"><img src="img/brickdeal.webp" alt="The BrickDeal home page, a grid of brick-set deals" width="800" height="500" loading="lazy"></span>
-        <span class="cap"><b>BrickDeal</b><span>Brick-set deals, found, priced and posted by bots.</span></span>
-      </a></li>
-    </ul>
-  </section>
+    <div class="panel" id="about" role="tabpanel" aria-labelledby="tab-about" tabindex="0">
+      <h2 class="ph">About</h2>
+      <p class="meta">Ashdod, Israel · Hebrew, Russian, English</p>
+      <div class="about">
+        <div class="bio">
+          <img class="face" src="img/me.jpg" alt="Netanel Yanchevsky" width="640" height="800" loading="lazy">
+          <p>I'm Netanel, in my third year of <a href="https://www.magshimim.cyber.org.il/">Magshimim</a>, Israel's national cyber and programming excellence program. I like low-level work: an OS from the bootloader up, a chip-layout viewer in Rust and WebGL2, multi-threaded C++ servers on protocols I design myself.</p>
+          <p>I also ship real products. I founded BlackZ Ecommerce, a registered business, and I build Hebrew AI products under OpenFrequency. I own each one end to end, from the code to the deploy to the ad account.</p>
+          <p>Off the keyboard, I fight. I'm a former Israel national champion in Kyokushin, and I've trained Muay Thai and Brazilian jiu-jitsu, which is also why I built a <a href="https://netanelyan.github.io/ufc-game/">pixel-art MMA game</a>.</p>
+        </div>
+        <ol class="path" aria-label="Path">
+          <li><span class="yr">2027</span><b>IDF enlistment</b><span>Dapar 90 · software and cyber roles</span></li>
+          <li><span class="yr">Now</span><b>Magshimim, 3rd year</b><span>C, C++, networks, security, operating systems</span></li>
+          <li><span class="yr">2025</span><b>Founder, BlackZ Ecommerce</b><span>Storefronts, automation and paid ads</span></li>
+          <li><span class="yr">2024</span><b>Bar-Ilan University courses</b><span>Alongside high school · 84.33 average</span></li>
+        </ol>
+      </div>
+      <dl class="stats">
+        <div class="hl"><dt>Psychometric</dt><dd>682</dd></div>
+        <div><dt>Dapar</dt><dd>90<small>/90</small></dd></div>
+        <div><dt>Computer Science</dt><dd>99</dd></div>
+        <div><dt>Physics</dt><dd>97</dd></div>
+        <div><dt>Mathematics</dt><dd>96</dd></div>
+        <div><dt>English</dt><dd>100</dd></div>
+      </dl>
+      <p class="about-fn">Computer Science, Physics, Mathematics and English are bagrut scores, all at 5 units.</p>
+    </div>
 
-  <section class="sec" id="work" aria-labelledby="work-h">
-    <div class="sec-h"><h2 id="work-h">Selected work</h2><p><span id="moreNote">+24 more</span> in the terminal: <kbd>projects</kbd></p></div>
-    <ol class="rows">
-      <li><a class="row" href="https://netanelyan.github.io/manhattan/"><span class="n">01</span><span class="nm">Manhattan</span><span class="ln">Opens a whole chip in a browser tab. Tested at 3.5 billion placements.</span><span class="stk">Rust → WASM · WebGL2</span><span class="go">live ↗</span></a></li>
-      <li><a class="row" href="https://github.com/netanelyan/nyrf-os"><span class="n">02</span><span class="nm">nyrf OS</span><span class="ln">An operating system from the bootloader up.</span><span class="stk">C · x86-64 asm · UEFI</span><span class="go">code ↗</span></a></li>
-      <li><a class="row" href="https://openfrequency.co.il"><span class="n">03</span><span class="nm">Teder</span><span class="ln">Runs Hebrew social accounts: daily slideshows for TikTok and Instagram.</span><span class="stk">Node.js · SQLite · Playwright</span><span class="go">live ↗</span></a></li>
-      <li><a class="row" href="https://github.com/netanelyan/openfrequency-toran"><span class="n">04</span><span class="nm">Toran</span><span class="ln">A WhatsApp sales agent for Israeli online stores.</span><span class="stk">TypeScript · Postgres · Claude</span><span class="go">code ↗</span></a></li>
-      <li><a class="row" href="https://github.com/netanelyan/brickdeal-social"><span class="n">05</span><span class="nm">BrickDeal bots</span><span class="ln">Deal pipelines that find, write and post on their own, 24/7.</span><span class="stk">Node.js · Telegram · TikTok</span><span class="go">code ↗</span></a></li>
-      <li><a class="row" href="https://netanelyan.github.io/lastember/"><span class="n">06</span><span class="nm">Last Ember</span><span class="ln">Pixel-art survival. Keep the fire burning till dawn.</span><span class="stk">JavaScript · Canvas</span><span class="go">play ↗</span></a></li>
-      <li><a class="row" href="https://netanelyan.github.io/ufc-game/"><span class="n">07</span><span class="nm">Pixel Fight Night</span><span class="ln">Pixel-art MMA in one HTML file.</span><span class="stk">JavaScript · Canvas</span><span class="go">play ↗</span></a></li>
-      <li><a class="row" href="https://github.com/netanelyan/vaelmoor"><span class="n">08</span><span class="nm">Vaelmoor</span><span class="ln">A first-person fantasy RPG in the browser.</span><span class="stk">three.js · no build step</span><span class="go">code ↗</span></a></li>
-    </ol>
-  </section>
+    <div class="panel" id="sites" role="tabpanel" aria-labelledby="tab-sites" tabindex="0">
+      <h2 class="ph">Live sites</h2>
+      <p class="meta">3 in production, all mine end to end</p>
+      <ul class="sites">
+        <li><a class="site" href="https://www.tiyulplus.com">
+          <span class="bar">tiyulplus.com<span class="go">↗</span></span>
+          <span class="shot"><img src="img/tiyulplus.webp" alt="The Tiyul+ home page, a Hebrew trip planner" width="800" height="500" loading="lazy"></span>
+          <span class="cap"><b>Tiyul+</b><span>An AI travel agent in Hebrew. Plans real, mapped trips.</span></span>
+        </a></li>
+        <li><a class="site" href="https://openfrequency.co.il">
+          <span class="bar">openfrequency.co.il<span class="go">↗</span></span>
+          <span class="shot"><img src="img/openfrequency.webp" alt="The OpenFrequency home page, showing Teder and Toran" width="800" height="500" loading="lazy"></span>
+          <span class="cap"><b>OpenFrequency</b><span>Hebrew AI for online stores: TikTok slideshows and a WhatsApp agent.</span></span>
+        </a></li>
+        <li><a class="site" href="https://brickdealil.com">
+          <span class="bar">brickdealil.com<span class="go">↗</span></span>
+          <span class="shot"><img src="img/brickdeal.webp" alt="The BrickDeal home page, a grid of brick-set deals" width="800" height="500" loading="lazy"></span>
+          <span class="cap"><b>BrickDeal</b><span>Brick-set deals, found, priced and posted by bots.</span></span>
+        </a></li>
+      </ul>
+    </div>
 
-  <section class="sec contact" id="contact" aria-labelledby="contact-h">
-    <div class="sec-h"><h2 id="contact-h">Say hi</h2><p>Internships and part-time · Israel, remote or hybrid</p></div>
-    <a class="mail" href="mailto:natikyan153@gmail.com">natikyan153@gmail.com<span class="arr" aria-hidden="true">→</span></a>
-    <div class="cta">
-      <a class="btn" href="https://github.com/netanelyan">GitHub ↗</a>
-      <a class="btn" href="https://www.linkedin.com/in/netanelyan">LinkedIn ↗</a>
-      <a class="btn" href="https://www.instagram.com/netanel.yan/">Instagram ↗</a>
+    <div class="panel" id="projects" role="tabpanel" aria-labelledby="tab-projects" tabindex="0">
+      <h2 class="ph">Projects</h2>
+      <p class="meta">Everything I've built, grouped by kind. Tap a row to open it.</p>
+      <div id="projList"><noscript><p>The list needs JavaScript. Everything is on <a href="https://github.com/netanelyan">GitHub</a>.</p></noscript></div>
+    </div>
+
+    <div class="panel" id="skills" role="tabpanel" aria-labelledby="tab-skills" tabindex="0">
+      <h2 class="ph">Skills</h2>
+      <p class="meta">What I build with</p>
+      <div class="skills" id="skillList"></div>
+    </div>
+
+    <div class="panel contact" id="contact" role="tabpanel" aria-labelledby="tab-contact" tabindex="0">
+      <h2 class="ph">Contact</h2>
+      <p class="meta">Internships and part-time · Israel, remote or hybrid</p>
+      <a class="mail" href="mailto:natikyan153@gmail.com">natikyan153@gmail.com<span class="arr" aria-hidden="true">→</span></a>
+      <p class="contact-line">Available until IDF enlistment in 2027. Email is the fastest way to reach me.</p>
+      <div class="cta">
+        <a class="btn" href="https://github.com/netanelyan">GitHub ↗</a>
+        <a class="btn" href="https://www.linkedin.com/in/netanelyan">LinkedIn ↗</a>
+        <a class="btn" href="https://www.instagram.com/netanel.yan/">Instagram ↗</a>
+      </div>
     </div>
   </section>
 </main>
@@ -476,6 +519,14 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
     { domain: "tiyulplus.com", url: "https://www.tiyulplus.com", name: "Tiyul+", line: "AI travel agent in Hebrew" },
     { domain: "openfrequency.co.il", url: "https://openfrequency.co.il", name: "OpenFrequency", line: "Hebrew AI for online stores" },
     { domain: "brickdealil.com", url: "https://brickdealil.com", name: "BrickDeal", line: "brick-set deals, run by bots" },
+  ];
+  const SKILLS = [
+    { k: "languages", v: ["C", "C++", "Rust", "x86-64 assembly", "TypeScript", "JavaScript", "Python", "C#", "Java", "Swift", "SQL", "Bash"] },
+    { k: "systems", v: ["UEFI", "Linux", "TCP protocols", "multi-threading", "memory mapping", "WinAPI", "WebAssembly", "WebGL2"] },
+    { k: "web and data", v: ["Next.js", "React", "Node.js", "three.js", "Electron", "Supabase", "Postgres", "SQLite", "Playwright", "Shopify"] },
+    { k: "ai", v: ["Claude API", "tool layers", "evals graded in code", "Claude Code"] },
+    { k: "growth", v: ["Meta Ads", "Pixel and Conversions API", "TikTok Ads", "Telegram and WhatsApp APIs"] },
+    { k: "spoken", v: ["Hebrew, native", "Russian, fluent", "English, professional"] },
   ];
   const GROUPS = [
     { id: "sys", label: "systems" },
@@ -535,7 +586,6 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
     return pre.length === 1 ? pre[0] : null;
   };
   const findSite = (q) => SITES.find(s => norm(s.domain) === norm(q || "") || norm("www" + s.domain) === norm(q || ""));
-  $("#moreNote").textContent = `+${PROJECTS.length - 8} more`;
 
   const ago = (iso) => {
     const d = (Date.now() - Date.parse(iso)) / 864e5;
@@ -864,6 +914,79 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
   darkMQ.addEventListener("change", labelTheme);
   labelTheme();
 
+  /* ---------- The block under the hero: projects and skills from the same data ---------- */
+  (() => {
+    const list = $("#projList"), more = el("div", { class: "pmore", hidden: "" });
+    let n = 0;
+    const row = (p) => {
+      const go = p.live ? (p.group === "games" ? "play" : "live") : "code";
+      n++;
+      return el("li", {}, el("a", { class: "row", href: p.live || repoUrl(p) }, [
+        el("span", { class: "n", text: String(n).padStart(2, "0") }),
+        el("span", { class: "nm", text: p.name }),
+        el("span", { class: "ln", text: p.line }),
+        el("span", { class: "stk", text: p.stack }),
+        el("span", { class: "go", text: go + " ↗" }),
+      ]));
+    };
+    for (const g of GROUPS) {
+      const items = PROJECTS.filter(p => p.group === g.id);
+      (g.more ? more : list).append(el("div", { class: "pgroup" }, [el("h3", { class: "pg-h", text: g.label }), el("ol", { class: "rows" }, items.map(row))]));
+    }
+    const hidden = PROJECTS.filter(p => GROUPS.find(g => g.id === p.group).more).length;
+    const label = (open) => open ? "Hide coursework and early work" : `Show coursework and early work (${hidden})`;
+    const btn = el("button", { type: "button", class: "btn more-btn", "aria-expanded": "false", text: label(false) });
+    btn.addEventListener("click", () => {
+      const open = more.hidden;
+      more.hidden = !open;
+      btn.setAttribute("aria-expanded", String(open));
+      btn.textContent = label(open);
+    });
+    list.append(btn, more);
+
+    const sk = $("#skillList");
+    for (const g of SKILLS) sk.append(el("div", { class: "sk" }, [el("h3", { text: g.k }), el("ul", { class: "tags" }, g.v.map(t => el("li", { text: t })))]));
+  })();
+
+  const TABS = ["about", "sites", "projects", "skills", "contact"];
+  const tabs = (() => {
+    const bar = $("#tabs"), btns = $$('[role="tab"]', bar), block = $("#explore");
+    const select = (name, focus) => {
+      if (!TABS.includes(name)) return false;
+      for (const b of btns) {
+        const on = b.dataset.tab === name;
+        b.setAttribute("aria-selected", String(on));
+        b.tabIndex = on ? 0 : -1;
+        $("#" + b.getAttribute("aria-controls")).hidden = !on;
+        if (on && focus) b.focus();
+      }
+      return true;
+    };
+    for (const b of btns) b.addEventListener("click", () => { select(b.dataset.tab); history.replaceState(null, "", "#" + b.dataset.tab); });
+    bar.addEventListener("keydown", (e) => {
+      const i = btns.findIndex(b => b.getAttribute("aria-selected") === "true");
+      const j = { ArrowRight: i + 1, ArrowLeft: i - 1, Home: 0, End: btns.length - 1 }[e.key];
+      if (j === undefined) return;
+      e.preventDefault();
+      select(btns[(j + btns.length) % btns.length].dataset.tab, true);
+    });
+    // Links to #about, #sites… open that tab and bring the block into view
+    for (const a of $$('a[href^="#"]')) {
+      const name = a.getAttribute("href").slice(1);
+      if (!TABS.includes(name)) continue;
+      a.addEventListener("click", (e) => {
+        e.preventDefault();
+        select(name);
+        history.replaceState(null, "", "#" + name);
+        block.scrollIntoView({ behavior: reduce ? "auto" : "smooth" });
+      });
+    }
+    const first = location.hash.slice(1);
+    select(TABS.includes(first) ? first : "about");
+    if (TABS.includes(first)) requestAnimationFrame(() => block.scrollIntoView());
+    return { select };
+  })();
+
   /* ---------- The terminal ---------- */
   const TESTS = [
     { id: "01", name: "cyber program", ev: "magshimim · 3rd year", res: "pass" },
@@ -874,13 +997,12 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
     { id: "06", name: "low-level systems", ev: "own OS · chip viewer · C++", res: "pass" },
     { id: "07", name: "ships to production", ev: "3 live sites", res: "pass" },
     { id: "08", name: "runs a business", ev: "founder · BlackZ Ecommerce", res: "pass" },
-    { id: "09", name: "national champion", ev: "kyokushin karate · israel", res: "pass" },
-    { id: "10", name: "tolerates manual work", ev: "3 times, then a script", res: "warn" },
+    { id: "09", name: "tolerates manual work", ev: "3 times, then a script", res: "warn" },
   ];
 
   (() => {
     const body = $("#termBody"), form = $("#termForm"), input = $("#termIn"), lamp = $("#lamp"), meta = $("#termMeta");
-    const PS = "ny@ate0:~$";
+    const PS = "netanel@ate0:~$";
     let run = 0, busy = false, skipping = false, queued = null;
     const wakers = new Set();
     const sleep = (ms) => skipping ? Promise.resolve() : new Promise(res => {
@@ -977,7 +1099,7 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
         line("Founder of BlackZ Ecommerce, a registered business.");
         line("I build low-level systems, Hebrew AI products and automation.");
         line("Psychometric 682 · Dapar 90 · CS bagrut 99.");
-        line("Former Israel national champion, Kyokushin karate. Muay Thai and BJJ.");
+        line("Former Israel national champion in Kyokushin. Muay Thai and BJJ.");
         line("Open to internships and part-time roles until IDF enlistment, 2027.");
         more("scores", "sites", "projects", "skills");
       },
@@ -1012,13 +1134,7 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
         if (!p) return notFound("open", arg);
         openUrl(p.live || repoUrl(p));
       },
-      skills() {
-        kv("languages", "C · C++ · Rust · x86-64 asm · TypeScript · Python · C# · Java · Swift");
-        kv("systems", "UEFI · Linux · TCP · threads · WebAssembly · WebGL2");
-        kv("web", "Next.js · React · Node.js · three.js · Supabase · Postgres");
-        kv("ai", "Claude API · tool layers · evals graded in code");
-        kv("spoken", "Hebrew · Russian · English");
-      },
+      skills() { for (const g of SKILLS) kv(g.k, g.v.join(" · ")); },
       scores() {
         kv("bagrut", "CS 99 · physics 97 · math 96 · english 100 (5 units)");
         kv("psychometric", "682");
@@ -1063,6 +1179,9 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
       const fn = COMMANDS[c.toLowerCase()];
       if (fn) fn(rest.join(" "));
       else line([`${c}: command not found. try `, cmd("help")], "warn");
+      // The block below follows along
+      const tab = { about: "about", scores: "about", sites: "sites", projects: "projects", ls: "projects", skills: "skills", contact: "contact" }[c.toLowerCase()];
+      if (tab) tabs.select(tab);
       // Long output: show it from the top, starting at the command
       if (p.isConnected) body.scrollTop += p.getBoundingClientRect().top - body.getBoundingClientRect().top - 8;
     }
